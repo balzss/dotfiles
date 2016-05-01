@@ -72,14 +72,6 @@ inoremap <backspace> <nop>
 nnoremap , ;
 nnoremap ; ,
 
-"automatch brackets
-inoremap { {<CR><CR>}<Up>a<Esc>==xa
-inoremap " ""<left>
-inoremap ' ''<left>
-inoremap ( ()<left>
-inoremap [ []<left>
-inoremap < <><left>
-
 "plugin keybindings
 map <silent> <C-n> :NERDTreeToggle<CR>
 
