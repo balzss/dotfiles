@@ -71,7 +71,8 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
-alias refresh="urxvt ; exit"
+alias dots="vcsh dotfiles add -u && vcsh dotfiles commit -m "
+alias pots="vcsh dotfiles push"
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
