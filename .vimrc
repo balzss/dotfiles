@@ -14,6 +14,7 @@ Plugin 'morhetz/gruvbox'
 Plugin 'Yggdroot/indentLine'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
+Plugin 'tpope/vim-commentary'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -45,11 +46,12 @@ set ttyfast
 set ttyscroll=3
 set synmaxcol=128
 
-"new, self-definied keybindings
+" new, self-definied keybindings
 let mapleader = "\<Space>"
 nnoremap <leader>q <esc>:wq<CR>
 nnoremap <leader>w <esc>:w<CR>
 nnoremap <leader>p "0p
+nnoremap <C-p> "+p
 autocmd! FileType vim nnoremap <leader>r <esc>:w<CR>:so $MYVIMRC<CR>
 
 "insert mode keybindings with ALT
@@ -57,11 +59,16 @@ inoremap <A-h> <left>
 inoremap <A-j> <down>
 inoremap <A-k> <up>
 inoremap <A-l> <right>
+inoremap <C-p> <C-o>"+p
+
 
 "deleted default keybindings
 nnoremap <space> <nop>
 nnoremap $ <nop>
 nnoremap ^ <nop>
+nnoremap E <nop>
+nnoremap B <nop>
+nnoremap <C-p> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 nnoremap <up> <nop>
@@ -71,6 +78,8 @@ inoremap <backspace> <nop>
 "modified default keybindings
 nnoremap , ;
 nnoremap ; ,
+nnoremap B ^
+nnoremap E $
 
 "plugin keybindings
 map <silent> <C-n> :NERDTreeToggle<CR>
