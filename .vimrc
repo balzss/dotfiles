@@ -51,7 +51,7 @@ let mapleader = "\<Space>"
 nnoremap <leader>q <esc>:wq<CR>
 nnoremap <leader>w <esc>:w<CR>
 nnoremap <leader>p "0p
-nnoremap <C-p> "+p
+nnoremap p "+p
 autocmd! FileType vim nnoremap <leader>r <esc>:w<CR>:so $MYVIMRC<CR>
 command! -nargs=1 Silent execute ':silent !'.<q-args> | execute ':redraw!'
 
