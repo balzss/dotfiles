@@ -70,7 +70,8 @@ export DOTFILES=$HOME/dotfiles
 # Example aliases
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
-alias pdots="sh ~/dotfiles/push_dots.sh "
+alias dotpush="sh ~/dotfiles/push_dots.sh "
+alias dotpull="sh ~/dotfiles/pull_dots.sh "
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then

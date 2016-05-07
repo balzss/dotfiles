@@ -6,5 +6,5 @@ cp ~/.Xresources ~/dotfiles/.Xresources
 cp ~/.tmux.conf ~/dotfiles/.tmux.conf
 cd ~/dotfiles
 git add --all 
-git commit -m "changed from $HOST" 
+git commit -m "changed from '$HOST' " 
 git push 
