@@ -18,8 +18,8 @@ URxvt.internalBorder:  0
 !URxvt.keysym.Shift-Control-V: perl:clipboard:paste
 
 ! Font
-URxvt.font:     xft:DejaVu Sans Mono for Powerline-13,xft:FontAwesome-13
-URxvt.boldFont: xft:Hack-13,xft:FontAwesome-13
+URxvt.font:     xft:DejaVu Sans Mono for Powerline-13
+URxvt.boldFont: xft:DejaVu Sans Mono for Powerline-13
 URxvt.letterSpace: -1 
 
 ! Gruvbox theme
