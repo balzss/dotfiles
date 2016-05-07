@@ -6,5 +6,5 @@ cp ~/.zshrc ~/dotfiles/.zshrc
 cp ~/.Xresources ~/dotfiles/.Xresources
 cp ~/.tmux.conf ~/dotfiles/.tmux.conf
 git add --all
-git commit -m '$home'
+git commit -m "changed from $home"
 git push
