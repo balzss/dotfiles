@@ -42,6 +42,7 @@ plugins=(git)
 # User configuration
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
+export DOTFILES=$HOME/dotfiles
 # export MANPATH="/usr/local/man:$MANPATH"
 
 
@@ -67,13 +68,9 @@ export PATH=$HOME/bin:/usr/local/bin:$PATH
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
-# alias zshconfig="mate ~/.zshrc"
-# alias ohmyzsh="mate ~/.oh-my-zsh"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
-alias dots="vcsh dotfiles add -u && vcsh dotfiles commit -m "
-alias pots="vcsh dotfiles push"
-alias tsplit="tmux split-window"
+alias pdots="sh ~/dotfiles/push_dots.sh "
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
