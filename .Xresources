@@ -22,8 +22,6 @@ URxvt.font:     xft:DejaVu Sans Mono for Powerline-13,xft:FontAwesome-13
 URxvt.boldFont: xft:Hack-13,xft:FontAwesome-13
 URxvt.letterSpace: -1 
 
-URxvt.transparent: true
-URxvt.shading: 30
 ! Gruvbox theme
 URxvt.background: #282828
 URxvt.foreground: #ebdbb2

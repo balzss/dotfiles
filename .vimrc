@@ -53,6 +53,7 @@ nnoremap <leader>w <esc>:w<CR>
 nnoremap <leader>p "0p
 nnoremap <C-p> "+p
 autocmd! FileType vim nnoremap <leader>r <esc>:w<CR>:so $MYVIMRC<CR>
+command! -nargs=1 Silent execute ':silent !'.<q-args> | execute ':redraw!'
 
 "insert mode keybindings with ALT
 inoremap <A-h> <left>
@@ -73,7 +74,7 @@ nnoremap <left> <nop>
 nnoremap <right> <nop>
 nnoremap <up> <nop>
 nnoremap <down> <nop>
-inoremap <backspace> <nop>
+nnoremap <backspace> <nop>
 
 "modified default keybindings
 nnoremap , ;
@@ -104,7 +105,6 @@ colorscheme gruvbox
 let g:airline#extensions#tabline#enabled = 1
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
-
 
 set hidden  " ???
 nmap <leader>t :enew<cr> " new empty buffer

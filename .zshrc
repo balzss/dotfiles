@@ -73,6 +73,7 @@ alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias dots="vcsh dotfiles add -u && vcsh dotfiles commit -m "
 alias pots="vcsh dotfiles push"
+alias tsplit="tmux split-window"
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
