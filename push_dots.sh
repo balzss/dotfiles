@@ -6,6 +6,7 @@ cp ~/.zshrc ~/dotfiles/.zshrc
 cp ~/.Xresources ~/dotfiles/.Xresources
 cp ~/.tmux.conf ~/dotfiles/.tmux.conf
 cp ~/.vim ~/dotfiles/.vim
+cp ~/.gitconfig ~/dotfiles/.gitconfig
 cd ~/dotfiles
 git add --all 
 git commit -m "changed from $host" 

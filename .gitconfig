@@ -1,0 +1,10 @@
+[user]
+    name = balzss
+    email = sarosbazsi@gmail.com
+
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore
+
+[github]
+    user = balzss
