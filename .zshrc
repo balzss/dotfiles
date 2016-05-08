@@ -43,6 +43,7 @@ plugins=(git)
 
 export PATH=$HOME/bin:/usr/local/bin:$PATH
 export DOTFILES=$HOME/dotfiles
+export TERM="xterm-256color"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 
