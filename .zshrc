@@ -71,6 +71,8 @@ export TERM="xterm-256color"
 # Example aliases
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
+alias xres="vim ~/.Xresources"
+alias tconf="vim ~/.tmux.conf"
 alias dotpush="sh ~/dotfiles/push_dots.sh "
 alias dotpull="sh ~/dotfiles/pull_dots.sh "
 

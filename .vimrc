@@ -15,6 +15,7 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'vim-airline/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 Plugin 'tpope/vim-commentary'
+Plugin 'tpope/vim-surround'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -45,6 +46,7 @@ set ttimeoutlen=30
 set ttyfast
 set ttyscroll=3
 set synmaxcol=128
+set breakindent
 
 " new, self-definied keybindings
 let mapleader = "\<Space>"
