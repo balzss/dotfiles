@@ -9,5 +9,5 @@ cp ~/.vim ~/dotfiles/.vim
 cp ~/.gitconfig ~/dotfiles/.gitconfig
 cd ~/dotfiles
 git add --all 
-git commit -m "changed from $host" 
+git commit -m "$(curl -s http://whatthecommit.com/index.txt)"
 git push 

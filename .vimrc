@@ -47,13 +47,14 @@ set ttyfast
 set ttyscroll=3
 set synmaxcol=128
 set breakindent
+set cryptmethod=blowfish2
 
 " new, self-definied keybindings
 let mapleader = "\<Space>"
 nnoremap <leader>q <esc>:wq<CR>
 nnoremap <leader>w <esc>:w<CR>
-nnoremap <leader>p "0p
-nnoremap p "+p
+nnoremap <leader>p "+p
+nnoremap p "0p 
 autocmd! FileType vim nnoremap <leader>r <esc>:w<CR>:so $MYVIMRC<CR>
 command! -nargs=1 Silent execute ':silent !'.<q-args> | execute ':redraw!'
 
@@ -62,10 +63,9 @@ inoremap <A-h> <left>
 inoremap <A-j> <down>
 inoremap <A-k> <up>
 inoremap <A-l> <right>
-inoremap <C-p> <C-o>"+p
 
 
-"deleted default keybindings
+"deleted default deleted
 nnoremap <space> <nop>
 nnoremap $ <nop>
 nnoremap ^ <nop>
