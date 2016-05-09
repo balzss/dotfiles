@@ -5,7 +5,7 @@ cp ~/.vimrc ~/dotfiles/.vimrc
 cp ~/.zshrc ~/dotfiles/.zshrc
 cp ~/.Xresources ~/dotfiles/.Xresources
 cp ~/.tmux.conf ~/dotfiles/.tmux.conf
-cp ~/.vim ~/dotfiles/.vim
+cp -r ~/.vim ~/dotfiles/.vim
 cp ~/.gitconfig ~/dotfiles/.gitconfig
 cd ~/dotfiles
 git add --all 
