@@ -3,10 +3,10 @@ DISABLE_AUTO_UPDATE="true"
 ZSH=/usr/share/oh-my-zsh
 
 # Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="norm" 
+ZSH_THEME="norm"
 
 # case-sensitive completion
-CASE_SENSITIVE="false" 
+CASE_SENSITIVE="false"
 
 # _ and - will be interchangeable.
 HYPHEN_INSENSITIVE="true"
@@ -75,10 +75,11 @@ alias xres="vim ~/.Xresources"
 alias tconf="vim ~/.tmux.conf"
 alias dotpush="sh ~/dotfiles/push_dots.sh "
 alias dotpull="sh ~/dotfiles/pull_dots.sh "
+alias dotrc="vim ~/dotfiles/push_dots.sh"
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then
-  mkdir $ZSH_CACHE_DIR
+    mkdir $ZSH_CACHE_DIR
 fi
 
 source $ZSH/oh-my-zsh.sh
