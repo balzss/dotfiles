@@ -41,10 +41,11 @@ plugins=(git)
 
 # User configuration
 
-export PATH=$HOME/bin:/usr/local/bin:$PATH
-export DOTFILES=$HOME/dotfiles
+export PATH=$HOME/bin:/usr/local/bin:/usr/lib/gems/1.8/bin/:$PATH
+export PATH=$PATH:/home/balzss/.gem/ruby/2.3.0/bin
 export TERM="xterm-256color"
-# export MANPATH="/usr/local/man:$MANPATH"
+export VISUAL=vim
+export EDITOR="$VISUAL"
 
 
 # You may need to manually set your language environment
@@ -69,6 +70,7 @@ export TERM="xterm-256color"
 # For a full list of active aliases, run `alias`.
 #
 # Example aliases
+
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias xres="vim ~/.Xresources"
@@ -76,6 +78,12 @@ alias tconf="vim ~/.tmux.conf"
 alias dotpush="sh ~/dotfiles/push_dots.sh "
 alias dotpull="sh ~/dotfiles/pull_dots.sh "
 alias dotrc="vim ~/dotfiles/push_dots.sh"
+alias rm="rm -i"
+alias la="ls -a"
+
+lcd() { cd $1 ; la }
+s() { pwd > ~/.save_dir ; }
+i() { cd "$(cat ~/.save_dir)" ; }
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then

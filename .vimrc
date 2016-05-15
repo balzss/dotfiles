@@ -7,25 +7,41 @@ Plug 'morhetz/gruvbox'
 Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'bronson/vim-trailing-whitespace'
+Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'vim-airline/vim-airline'
+Plug 'godlygeek/tabular'
+Plug 'plasticboy/vim-markdown'
+Plug 'scrooloose/syntastic'
 
 call plug#end()
 
-if has('nvim')
-    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
-    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-    set background=dark
-
-    " u VimEnter * colorscheme gruvbox
-    colorscheme gruvbox
-endif
-
 " autorun commands
-" autocmd BufWritePre * :FixWhitespace
-" autocmd BufWritePre * :normal gg=G
-autocmd! FileType vim nnoremap <leader>r <esc>:w<CR>:so $MYVIMRC<CR>
-autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
+augroup format_code
+    autocmd!
+    autocmd BufWritePre * :FixWhitespace
+    " autocmd BufWritePre * :normal gg=G''
+augroup END
+
+augroup vim_souce
+    autocmd!
+    autocmd BufWritePost .vimrc so $MYVIMRC | AirlineRefresh
+augroup END
+
+augroup xres_source
+    autocmd!
+    autocmd BufWritePost .Xresources !xrdb ~/.Xresources
+augroup END
+
+augroup zshrc_source
+    autocmd!
+    autocmd BufWritePost .zshrc !source ~/.zshrc
+augroup END
+
+augroup color_hi
+    autocmd!
+    autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
+augroup END
+
 
 " code formatting
 filetype plugin indent on
@@ -68,8 +84,13 @@ set lazyredraw          " redraw only when we need to
 set scrolloff=6     "doesn't get close to the edge when scrolling
 set ttimeoutlen=30
 set ttyfast
-" set ttyscroll=3
-" set cryptmethod=blowfish2
+set ttyscroll=3
+set cryptmethod=blowfish2
+set splitbelow
+set splitright
+set foldenable
+set foldmethod=indent
+" let g:vim_markdown_math = 1
 
 " new, self-definied keybindings
 let mapleader = "\<Space>"
@@ -81,11 +102,10 @@ nnoremap <leader>p p
 nnoremap <leader>P P
 nnoremap p "0p
 nnoremap P "0P
-" nnoremap <leader>k :<c-u>execute 'move -1-'. v:count1<cr> " replaces the current line with the one below it
-" nnoremap <leader>j :<c-u>execute 'move +'. v:count1<cr> " same but with the one above it
-nnoremap <leader>O :<c-u>put! =repeat(nr2char(10), v:count1)<cr>'[ " pastes empty line above the current one and stay in normal mode
-nnoremap <leader>o :<c-u>put =repeat(nr2char(10), v:count1)<cr> " same but pastes below
+nnoremap <leader>k :<c-u>execute 'move -1-'. v:count1<cr> " replaces the current line with the one below it
+nnoremap <leader>j :<c-u>execute 'move +'. v:count1<cr> " same but with the one above it
 map <silent><C-n> :NERDTreeToggle<CR>
+let g:ctrlp_map = '<c-p>'
 
 "deleted default deleted
 nnoremap <space> <nop>
@@ -107,6 +127,6 @@ nnoremap B ^
 onoremap E $
 nnoremap E $
 
-" powerline symbols
+" plugin config
 let g:airline_powerline_fonts = 1
-
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
