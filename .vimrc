@@ -9,9 +9,11 @@ Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'vim-airline/vim-airline'
-Plug 'godlygeek/tabular'
-Plug 'plasticboy/vim-markdown'
 Plug 'scrooloose/syntastic'
+Plug 'majutsushi/tagbar'
+Plug 'davidhalter/jedi-vim'
+Plug 'ervandew/supertab'
+Plug 'Raimondi/delimitMate'
 
 call plug#end()
 
@@ -42,6 +44,11 @@ augroup color_hi
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
 augroup END
 
+augroup python_mapping
+    autocmd!
+    autocmd FileType python nnoremap <silent> <F5> :!clear;python %<CR>
+    autocmd FileType python setlocal completeopt-=preview
+augroup END
 
 " code formatting
 filetype plugin indent on
@@ -88,23 +95,19 @@ set ttyscroll=3
 set cryptmethod=blowfish2
 set splitbelow
 set splitright
-set foldenable
-set foldmethod=indent
+" set foldenable
+" set foldmethod=indent
 " let g:vim_markdown_math = 1
 
 " new, self-definied keybindings
 let mapleader = "\<Space>"
 nnoremap <leader><tab> <C-w>w
 nnoremap <leader><S-tab> <C-w>W
-nnoremap <leader>q <esc>:wq<CR>
-nnoremap <leader>w <esc>:w<CR>
-nnoremap <leader>p p
-nnoremap <leader>P P
-nnoremap p "0p
-nnoremap P "0P
+nnoremap <leader>w :update<CR>
 nnoremap <leader>k :<c-u>execute 'move -1-'. v:count1<cr> " replaces the current line with the one below it
 nnoremap <leader>j :<c-u>execute 'move +'. v:count1<cr> " same but with the one above it
 map <silent><C-n> :NERDTreeToggle<CR>
+nmap <F8> :TagbarToggle<CR>
 let g:ctrlp_map = '<c-p>'
 
 "deleted default deleted
@@ -130,3 +133,6 @@ nnoremap E $
 " plugin config
 let g:airline_powerline_fonts = 1
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
+let g:SuperTabDefaultCompletionType = "context"
+let g:jedi#popup_on_dot = 0

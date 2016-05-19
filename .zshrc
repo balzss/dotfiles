@@ -1,9 +1,13 @@
+bindkey -v
+export KEYTIMEOUT=1
+
+
 DISABLE_AUTO_UPDATE="true"
 # Path to your oh-my-zsh installation.
 ZSH=/usr/share/oh-my-zsh
 
 # Look in ~/.oh-my-zsh/themes/
-ZSH_THEME="norm"
+ZSH_THEME="gruvster"
 
 # case-sensitive completion
 CASE_SENSITIVE="false"
@@ -37,7 +41,7 @@ HYPHEN_INSENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git)
+plugins=(git vi-mode wd)
 
 # User configuration
 
@@ -79,7 +83,9 @@ alias dotpush="sh ~/dotfiles/push_dots.sh "
 alias dotpull="sh ~/dotfiles/pull_dots.sh "
 alias dotrc="vim ~/dotfiles/push_dots.sh"
 alias rm="rm -i"
-alias la="ls -a"
+alias ls="ls -a"
+alias unnes="pacman -Qdtq | pacman -Rcs -"
+alias uninstall="pacman -Rcs"
 
 lcd() { cd $1 ; la }
 s() { pwd > ~/.save_dir ; }
