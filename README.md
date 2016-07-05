@@ -4,10 +4,10 @@
 - If you decide to try it out, run these commands in your terminal:
 
     ```bash
-    !download the dotfiles
+    #download the dotfiles
     wget https://github.com/balzss/dotfiles/archive/master.zip ; unzip master.zip ; rm master.zip
 
-    !create the symlinks
+    #create the symlinks
     cd dotfiles-master
     ./install.sh
     ```
