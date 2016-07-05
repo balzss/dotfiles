@@ -10,44 +10,37 @@ Plug 'tpope/vim-surround'
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
-Plug 'majutsushi/tagbar'
-Plug 'davidhalter/jedi-vim'
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'ervandew/supertab'
 Plug 'Raimondi/delimitMate'
 
 call plug#end()
 
 " autorun commands
-augroup format_code
+augroup general
     autocmd!
     autocmd BufWritePre * :FixWhitespace
-    " autocmd BufWritePre * :normal gg=G''
+    autocmd BufNewFile * startinsert
+    autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
 augroup END
 
-augroup vim_souce
+augroup sourcing
     autocmd!
     autocmd BufWritePost .vimrc so $MYVIMRC | AirlineRefresh
-augroup END
-
-augroup xres_source
-    autocmd!
-    autocmd BufWritePost .Xresources !xrdb ~/.Xresources
-augroup END
-
-augroup zshrc_source
-    autocmd!
-    autocmd BufWritePost .zshrc !source ~/.zshrc
-augroup END
-
-augroup color_hi
-    autocmd!
-    autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
+    " autocmd BufWritePost .Xresources !xrdb ~/.Xresources
+    " autocmd BufWritePost .zshrc !source ~/.zshrc
 augroup END
 
 augroup python_mapping
     autocmd!
     autocmd FileType python nnoremap <silent> <F5> :!clear;python %<CR>
     autocmd FileType python setlocal completeopt-=preview
+    au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+augroup END
+
+augroup js_mapping
+    autocmd!
+    autocmd FileType javascript nnoremap <silent> <F5> :!clear;node %<CR>
 augroup END
 
 " code formatting
@@ -95,20 +88,19 @@ set ttyscroll=3
 set cryptmethod=blowfish2
 set splitbelow
 set splitright
-" set foldenable
-" set foldmethod=indent
-" let g:vim_markdown_math = 1
+set backupdir=~/.vim/backup_files//
+set directory=~/.vim/swap_files//
+set undodir=~/.vim/undo_files//
 
 " new, self-definied keybindings
 let mapleader = "\<Space>"
 nnoremap <leader><tab> <C-w>w
 nnoremap <leader><S-tab> <C-w>W
-nnoremap <leader>w :update<CR>
-nnoremap <leader>k :<c-u>execute 'move -1-'. v:count1<cr> " replaces the current line with the one below it
-nnoremap <leader>j :<c-u>execute 'move +'. v:count1<cr> " same but with the one above it
+nnoremap <F4> :w<cr>
+nnoremap <c-v> "+p
+inoremap <c-v> <c-o>"+p
 map <silent><C-n> :NERDTreeToggle<CR>
-nmap <F8> :TagbarToggle<CR>
-let g:ctrlp_map = '<c-p>'
+inoremap Ä <esc>la
 
 "deleted default deleted
 nnoremap <space> <nop>
@@ -126,13 +118,20 @@ nnoremap <backspace> <nop>
 nnoremap , ;
 nnoremap ; ,
 onoremap B ^
+vnoremap B ^
 nnoremap B ^
 onoremap E $
+vnoremap E $
 nnoremap E $
 
 " plugin config
 let g:airline_powerline_fonts = 1
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
 let g:SuperTabDefaultCompletionType = "context"
 let g:jedi#popup_on_dot = 0
+let NERDTreeQuitOnOpen=1
+let g:jedi#show_call_signatures = "2"
+" let g:airline#extensions#tabline#enabled = 1
+" let g:airline#extensions#tabline#fnamemod = ':t'
+
+let g:syntastic_javascript_checkers = ['standard']

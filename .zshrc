@@ -41,7 +41,7 @@ HYPHEN_INSENSITIVE="true"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git vi-mode wd)
+plugins=(git wd)
 
 # User configuration
 
@@ -50,7 +50,11 @@ export PATH=$PATH:/home/balzss/.gem/ruby/2.3.0/bin
 export TERM="xterm-256color"
 export VISUAL=vim
 export EDITOR="$VISUAL"
+export PAGER=vimpager
+alias less=$PAGER
+alias zless=$PAGER
 
+eval "$(thefuck --alias)"
 
 # You may need to manually set your language environment
 # export LANG=en_US.UTF-8
@@ -79,13 +83,8 @@ alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias xres="vim ~/.Xresources"
 alias tconf="vim ~/.tmux.conf"
-alias dotpush="sh ~/dotfiles/push_dots.sh "
-alias dotpull="sh ~/dotfiles/pull_dots.sh "
-alias dotrc="vim ~/dotfiles/push_dots.sh"
-alias rm="rm -i"
-alias ls="ls -a"
 alias unnes="pacman -Qdtq | pacman -Rcs -"
-alias uninstall="pacman -Rcs"
+alias del="trash-put"
 
 lcd() { cd $1 ; la }
 s() { pwd > ~/.save_dir ; }
