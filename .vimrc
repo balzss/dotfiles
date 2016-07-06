@@ -13,6 +13,7 @@ Plug 'scrooloose/syntastic'
 Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 Plug 'ervandew/supertab'
 Plug 'Raimondi/delimitMate'
+Plug 'digitaltoad/vim-pug', { 'for': 'jade' }
 
 call plug#end()
 
@@ -41,6 +42,7 @@ augroup END
 augroup js_mapping
     autocmd!
     autocmd FileType javascript nnoremap <silent> <F5> :!clear;node %<CR>
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
 augroup END
 
 " code formatting
@@ -135,3 +137,9 @@ let g:jedi#show_call_signatures = "2"
 " let g:airline#extensions#tabline#fnamemod = ':t'
 
 let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_python_checkers = ['flake8']
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
