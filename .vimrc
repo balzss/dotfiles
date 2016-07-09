@@ -10,10 +10,10 @@ Plug 'tpope/vim-surround'
 Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-Plug 'ervandew/supertab'
 Plug 'Raimondi/delimitMate'
 Plug 'digitaltoad/vim-pug', { 'for': 'jade' }
+Plug 'tpope/vim-fugitive'
+Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
@@ -98,11 +98,13 @@ set undodir=~/.vim/undo_files//
 let mapleader = "\<Space>"
 nnoremap <leader><tab> <C-w>w
 nnoremap <leader><S-tab> <C-w>W
-nnoremap <F4> :w<cr>
-nnoremap <c-v> "+p
-inoremap <c-v> <c-o>"+p
-map <silent><C-n> :NERDTreeToggle<CR>
-inoremap Ä <esc>la
+nnoremap <silent><F4> :w<cr>
+nnoremap <silent><F3> ZZ
+nnoremap <silent><F2> :NERDTreeToggle<CR>
+nnoremap <c-v> "+P
+inoremap <c-v> <c-o>"+P
+inoremap é <c-o>h
+inoremap á <c-o>a
 
 "deleted default deleted
 nnoremap <space> <nop>
@@ -110,6 +112,10 @@ nnoremap $ <nop>
 nnoremap ^ <nop>
 nnoremap E <nop>
 nnoremap B <nop>
+inoremap <left> <nop>
+inoremap <right> <nop>
+inoremap <up> <nop>
+inoremap <down> <nop>
 nnoremap <left> <nop>
 nnoremap <right> <nop>
 nnoremap <up> <nop>
@@ -133,7 +139,7 @@ let g:SuperTabDefaultCompletionType = "context"
 let g:jedi#popup_on_dot = 0
 let NERDTreeQuitOnOpen=1
 let g:jedi#show_call_signatures = "2"
-" let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#fnamemod = ':t'
 
 let g:syntastic_javascript_checkers = ['standard']

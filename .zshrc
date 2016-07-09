@@ -50,9 +50,6 @@ export PATH=$PATH:/home/balzss/.gem/ruby/2.3.0/bin
 export TERM="xterm-256color"
 export VISUAL=vim
 export EDITOR="$VISUAL"
-export PAGER=vimpager
-alias less=$PAGER
-alias zless=$PAGER
 
 eval "$(thefuck --alias)"
 
@@ -85,6 +82,7 @@ alias xres="vim ~/.Xresources"
 alias tconf="vim ~/.tmux.conf"
 alias unnes="pacman -Qdtq | pacman -Rcs -"
 alias del="trash-put"
+alias jcons="~/prog/j804/jconsole.sh"
 
 lcd() { cd $1 ; la }
 s() { pwd > ~/.save_dir ; }
