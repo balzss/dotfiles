@@ -13,7 +13,6 @@ Plug 'scrooloose/syntastic'
 Plug 'Raimondi/delimitMate'
 Plug 'digitaltoad/vim-pug', { 'for': 'jade' }
 Plug 'tpope/vim-fugitive'
-Plug 'Valloric/YouCompleteMe'
 
 call plug#end()
 
@@ -142,7 +141,7 @@ let g:jedi#show_call_signatures = "2"
 let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#fnamemod = ':t'
 
-let g:syntastic_javascript_checkers = ['standard']
+let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8']
 
 let g:syntastic_always_populate_loc_list = 1
