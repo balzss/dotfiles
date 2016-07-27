@@ -11,8 +11,12 @@ Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'Raimondi/delimitMate'
-Plug 'digitaltoad/vim-pug', { 'for': 'jade' }
 Plug 'tpope/vim-fugitive'
+Plug 'pangloss/vim-javascript'
+Plug 'SirVer/ultisnips'
+Plug 'Shougo/neocomplete.vim'
+Plug 'ervandew/supertab'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -20,7 +24,6 @@ call plug#end()
 augroup general
     autocmd!
     autocmd BufWritePre * :FixWhitespace
-    autocmd BufNewFile * startinsert
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
 augroup END
 
@@ -36,13 +39,18 @@ augroup python_mapping
     autocmd FileType python nnoremap <silent> <F5> :!clear;python %<CR>
     autocmd FileType python setlocal completeopt-=preview
     au FileType python map <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
+    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 augroup END
 
 augroup js_mapping
     autocmd!
     autocmd FileType javascript nnoremap <silent> <F5> :!clear;node %<CR>
-    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2
+    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 augroup END
+
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 
 " code formatting
 filetype plugin indent on
@@ -98,12 +106,12 @@ let mapleader = "\<Space>"
 nnoremap <leader><tab> <C-w>w
 nnoremap <leader><S-tab> <C-w>W
 nnoremap <silent><F4> :w<cr>
-nnoremap <silent><F3> ZZ
 nnoremap <silent><F2> :NERDTreeToggle<CR>
 nnoremap <c-v> "+P
 inoremap <c-v> <c-o>"+P
 inoremap é <c-o>h
 inoremap á <c-o>a
+inoremap {<CR> {<CR>}<esc>ko
 
 "deleted default deleted
 nnoremap <space> <nop>
@@ -143,8 +151,15 @@ let g:airline#extensions#tabline#enabled = 1
 
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_python_flake8_args='--ignore=E128,E302,E127'
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+let g:acp_enableAtStartup = 0
+let g:neocomplete#enable_at_startup = 1
+let g:neocomplete#enable_smart_case = 1
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
