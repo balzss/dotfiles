@@ -27,10 +27,22 @@ alias tconf="vim ~/.tmux.conf"
 alias del="trash-put"
 alias jcons="~/prog/j804/jconsole.sh"
 
-lcd() { cd $1 && clear && la }
 s() { pwd > ~/.save_dir ; }
 i() { cd "$(cat ~/.save_dir)" ; }
 nis() { npm install $1 -S }
+
+vimf() {
+    $args = "**/*.{"
+    for var
+    do
+        args+="$var,"
+    done
+    args=${args:0:-1}
+    args+="}"
+    echo $args
+}
+
+
 
 ZSH_CACHE_DIR=$HOME/.oh-my-zsh-cache
 if [[ ! -d $ZSH_CACHE_DIR ]]; then

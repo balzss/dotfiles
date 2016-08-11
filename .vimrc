@@ -1,4 +1,4 @@
-﻿" plugins sfdagfadsfda
+﻿" plugins
 call plug#begin()
 
 Plug 'mattn/emmet-vim', { 'for': 'html' }
@@ -18,6 +18,7 @@ Plug 'honza/vim-snippets'
 
 call plug#end()
 
+
 augroup general
     autocmd!
     autocmd BufWritePre * :FixWhitespace
@@ -26,17 +27,12 @@ augroup general
     autocmd FileType html nnoremap <silent><F5> :!chromium %<CR>
 augroup END
 
-augroup sourcing
-    autocmd!
-    autocmd BufWritePost .vimrc so $MYVIMRC | AirlineRefresh
-augroup END
 
 augroup python_mapping
     autocmd!
     autocmd FileType python nnoremap <F5> :!clear;python %<CR>
     autocmd FileType python nnoremap <S-F5> :!tmux new-window -d 'exec python %'<CR><CR>
     autocmd FileType python setlocal completeopt-=preview
-    autocmd FileType python inoremap <silent> <leader>b oimport ipdb; ipdb.set_trace()<esc>
     autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 augroup END
 
@@ -149,6 +145,7 @@ vnoremap E $
 nnoremap E $
 nnoremap p ]p
 
+
 " plugin config
 let g:airline_powerline_fonts = 0
 let g:airline#extensions#tabline#enabled = 1
@@ -170,11 +167,11 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-let g:acp_enableAtStartup = 0
+" let g:acp_enableAtStartup = 0
 
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#sources#syntax#min_keyword_length = 2
 let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 
 let g:UltiSnipsExpandTrigger="<c-j>"
