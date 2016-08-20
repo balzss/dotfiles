@@ -1,21 +1,13 @@
-! URxvt
+URxvt.scrollBar:           false
+URxvt.saveLines:           8192
+URxvt.geometry:             256x96
+URxvt.highlightSelection:  true
+URxvt.loginShell:          true
+URxvt.termName:            xterm-256color
+URxvt.letterSpace:         -1
+URxvt.font:                xft:DejaVu Sans Mono-13:antialias=true:autohint=true
+URxvt.boldFont:            xft:DejaVu Sans Mono-13:antialias=true:autohint=true
 
-! General settings
-URxvt.iso14755 : false
-URxvt.saveLines: 2000
-URxvt.scrollBar: False
-URxvt.scrollstyle: rxvt
-URxvt.termName: xterm-256color
-URxvt.urgentOnBell: False
-URxvt.cursorBlink: True
-URxvt.internalBorder:  5
-
-! Font
-URxvt.font:     xft:Menlo-13
-URxvt.boldfont:     xft:Menlo-13
-URxvt.letterSpace: -1
-
-! Gruvbox theme
 URxvt.background: #282828
 URxvt.foreground: #ebdbb2
 
@@ -42,7 +34,7 @@ URxvt.color6:  #689d6a
 URxvt.color14: #8ec07c
 ! LightGrey + White
 URxvt.color7:  #a89984
-URxvt.color15: #ebdbb2
+!URxvt.color15: #ebdbb2
 
 
 ! Layout

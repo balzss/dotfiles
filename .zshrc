@@ -26,6 +26,7 @@ alias xres="vim ~/.Xresources"
 alias tconf="vim ~/.tmux.conf"
 alias del="trash-put"
 alias jcons="~/prog/j804/jconsole.sh"
+alias fuck="sudo !!"
 
 s() { pwd > ~/.save_dir ; }
 i() { cd "$(cat ~/.save_dir)" ; }

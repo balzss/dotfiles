@@ -15,6 +15,8 @@ Plug 'SirVer/ultisnips'
 Plug 'Shougo/neocomplete.vim'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
+Plug 'easymotion/vim-easymotion'
+Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -83,7 +85,7 @@ set smartcase
 set history=100 " keep 100 lines of command line history
 set incsearch " do incremental searching
 set lazyredraw          " redraw only when we need to
-set scrolloff=6     "doesn't get close to the edge when scrolling
+set scrolloff=30     "doesn't get close to the edge when scrolling
 set ttimeoutlen=30
 set ttyfast
 set ttyscroll=3
@@ -106,6 +108,7 @@ nnoremap s :w<cr>
 nnoremap <silent><F2> :NERDTreeToggle<CR>
 nnoremap <c-v> "+P
 nnoremap <c-V> "+p
+let mapleader=" "
 
 
 nnoremap gn :bnext<CR>
@@ -159,7 +162,7 @@ let g:SuperTabDefaultCompletionType = "context"
 
 let NERDTreeQuitOnOpen=1
 
-let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_python_checkers = ['flake8']
 let g:syntastic_python_flake8_args='--ignore=E128,E302,E127,E201,E231,E202,E251,E126,F401'
 let g:syntastic_always_populate_loc_list = 1
@@ -179,3 +182,23 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let delimitMate_expand_cr = 1
 
 inoremap <expr> <c-l> delimitMate#JumpAny()
+
+
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap <Leader>f <Plug>(easymotion-overwin-f)
+" s{char}{char} to move to {char}{char}
+nmap <leader><leader> <Plug>(easymotion-overwin-f2)
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_keys = 'sdfjkl'
