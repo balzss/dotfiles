@@ -16,7 +16,6 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/goyo.vim'
 
 call plug#end()
 
@@ -121,7 +120,7 @@ nnoremap g3 :b 3<CR>
 nnoremap g4 :b 4<CR>
 nnoremap g5 :b 5<CR>
 
-" insert mode mappingsssss
+" insert mode mckenduappingsssss
 inoremap <c-v> <c-o>"+P
 inoremap <c-w> <c-o>w
 

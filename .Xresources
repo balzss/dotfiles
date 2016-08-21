@@ -7,6 +7,7 @@ URxvt.termName:            xterm-256color
 URxvt.letterSpace:         -1
 URxvt.font:                xft:DejaVu Sans Mono-13:antialias=true:autohint=true
 URxvt.boldFont:            xft:DejaVu Sans Mono-13:antialias=true:autohint=true
+URxvt.iso14755: false
 
 URxvt.background: #282828
 URxvt.foreground: #ebdbb2
