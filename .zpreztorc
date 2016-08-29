@@ -35,9 +35,7 @@ zstyle ':prezto:load' pmodule \
   'prompt' \
   'git' \
   'tmux' \
-  'history-substring-search' \
-
-zstyle ':prezto:module:editor' key-bindings 'vi'
+  'history-substring-search'
 
 #
 # Autosuggestions
