@@ -43,6 +43,17 @@ augroup js_mapping
     autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 augroup END
 
+augroup c_mapping
+    autocmd!
+    autocmd FileType c map <silent><F5> :w <CR> :!clear; gcc % -o %< && ./%< <CR>
+    autocmd FileType cpp map <silent><F5> :w <CR> :!clear; g++ % -o %< && ./%< <CR>
+augroup END
+
+augroup haskell
+    autocmd!
+    autocmd FileType haskell map <silent><F5> :w <CR> :!clear; ghc % -o %< && ./%< <CR>
+augroup END
+
 
 " code formatting
 filetype plugin indent on
@@ -60,7 +71,7 @@ set textwidth=80
 " layout
 set ruler "show the cursor position all the time
 set showcmd " display incomplete commands
-set rnu
+set nornu
 set number
 set wildmenu
 set cursorline
@@ -124,8 +135,7 @@ nnoremap g5 :b 5<CR>
 inoremap <c-v> <c-o>"+P
 inoremap <c-w> <c-o>w
 
-"deleted default deleted
-nnoremap <space> <nop>
+" deleted default deleted
 inoremap <left> <nop>
 inoremap <right> <nop>
 inoremap <up> <nop>
@@ -136,7 +146,7 @@ nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <backspace> <nop>
 
-"modified default keybindings
+" modified default keybindings
 nnoremap , ;
 nnoremap ; ,
 onoremap B ^
@@ -193,8 +203,8 @@ map t <Plug>(easymotion-tl)
 nmap T <Plug>(easymotion-Tl)
 map T <Plug>(easymotion-Tl)
 
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
+map j <Plug>(easymotion-j)
+map k <Plug>(easymotion-k)
 let g:EasyMotion_keys = 'sdfjkl'
 let g:EasyMotion_use_smartsign_us = 1
 let g:EasyMotion_smartcase = 1

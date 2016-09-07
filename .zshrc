@@ -1,3 +1,5 @@
+
+
 if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
   source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
 fi
@@ -20,17 +22,10 @@ s() { pwd > ~/.save_dir ; }
 i() { cd "$(cat ~/.save_dir)" ; }
 nis() { npm install $1 -S }
 
-vf() {
-  IFS='
-'
-  local declare files=($(fzf-tmux --query="$1" --select-1 --exit-0))
-  [[ -n "$files" ]] && ${EDITOR:-vim} "${files[@]}"
-  unset IFS
-}
-
 cf() {
-  local dir
-  dir=$(find ${1:-.} -type d 2> /dev/null | fzf +m) && cd "$dir"
+    cd $(find ~ -type d | fzf)
+    clear
+    zle reset-prompt
 }
 
 x-paste() {
@@ -40,13 +35,39 @@ x-paste() {
     CURSOR=$(($CURSOR + $#PASTE + 1))
 }
 
+cdUndoKey() {
+  popd      > /dev/null
+  zle       reset-prompt
+  echo
+  ls
+  echo
+}
+
+cdParentKey() {
+    cd ..
+    clear
+    zle reset-prompt
+}
+
+goHome() {
+    cd ~
+    clear
+    zle reset-prompt
+}
+
+zle -N goHome
+zle -N cdParentKey
+zle -N cdUndoKey
 zle -N x-paste
 zle -N vf
+zle -N cf
 
+bindkey "^h" goHome
+bindkey '^k'      cdParentKey
+bindkey '^z'      cdUndoKey
 bindkey "^v" x-paste
 bindkey "^s" prepend-sudo
-bindkey "^[o" vf
-bindkey "^[j" fzf-cd-widget
+bindkey "^j" cf
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
