@@ -1,73 +1,66 @@
+# Lines configured by zsh-newuser-install
+HISTFILE=~/.histfile
+HISTSIZE=1000
+SAVEHIST=1000
+bindkey -e
+# End of lines configured by zsh-newuser-install
+# The following lines were added by compinstall
+zstyle :compinstall filename '/home/balzss/.zshrc'
 
+export PROMPT="
+%d
+> "
 
-if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
-  source "${ZDOTDIR:-$HOME}/.zprezto/init.zsh"
-fi
+if [ "$TMUX" = "" ]; then tmux; fi
 
-# aliases
+# aliases for modifying defaults
+alias ..="cd .."
+alias ls="ls --color=auto"
+alias la="ls -lha --color=auto"
+alias grep='grep --color=auto'
+alias mkdir="mkdir -p"
+alias mv='mv -i'
+alias cp='cp -i'
+alias ln='ln -i'
+alias syu="yaourt -Syu"
+alias y="yaourt"
+alias rm="rm -i"
 
+# aliased for opening configs
+alias i3.conf="vim $HOME/.i3/config"
+alias i3b.conf="vim $HOME/.config/i3blocks/config"
 alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias xres="vim ~/.Xresources"
 alias tconf="vim ~/.tmux.conf"
-alias del="trash-put"
-alias jcons="~/prog/j804/jconsole.sh"
+
+# aliases for sourcing
 alias soz="source ~/.zshrc"
 alias sox="xrdb ~/.Xresources"
+
+# handy little things
 alias pls='print -z sudo $(fc -ln -1)'
-alias fix-pac="rm /var/lib/pacman/db.lck"
-alias rofi="rofi -modi 'run' -show run"
+alias xc="xclip -selection c"
+alias del="trash-put"
+alias lass="ls -lah --color=auto | less"
 
-s() { pwd > ~/.save_dir ; }
-i() { cd "$(cat ~/.save_dir)" ; }
-nis() { npm install $1 -S }
+alias jcons="~/prog/j804/jconsole.sh"
 
-cf() {
-    cd $(find ~ -type d | fzf)
+
+# functions
+
+mcd () {
+    mkdir -p $1
+    cd $1
+}
+
+lcd () {
+    cd $1
     clear
-    zle reset-prompt
+    la
 }
 
-x-paste() {
-    PASTE=$(pbpaste)
-    LBUFFER="$LBUFFER${RBUFFER:0:1}"
-    RBUFFER="$PASTE${RBUFFER:1:${#RBUFFER}}"
-    CURSOR=$(($CURSOR + $#PASTE + 1))
-}
 
-cdUndoKey() {
-  popd      > /dev/null
-  zle       reset-prompt
-  echo
-  ls
-  echo
-}
-
-cdParentKey() {
-    cd ..
-    clear
-    zle reset-prompt
-}
-
-goHome() {
-    cd ~
-    clear
-    zle reset-prompt
-}
-
-zle -N goHome
-zle -N cdParentKey
-zle -N cdUndoKey
-zle -N x-paste
-zle -N vf
-zle -N cf
-
-bindkey "^h" goHome
-bindkey '^k'      cdParentKey
-bindkey '^z'      cdUndoKey
-bindkey "^v" x-paste
-bindkey "^s" prepend-sudo
-bindkey "^j" cf
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+autoload -Uz compinit
+compinit
+# End of lines added by compinstall

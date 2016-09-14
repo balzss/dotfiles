@@ -16,6 +16,7 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
+Plug 'vitalk/vim-simple-todo'
 
 call plug#end()
 
@@ -54,6 +55,10 @@ augroup haskell
     autocmd FileType haskell map <silent><F5> :w <CR> :!clear; ghc % -o %< && ./%< <CR>
 augroup END
 
+augroup haskell
+    autocmd!
+    autocmd FileType haskell map <silent><F5> :w <CR> :!clear; ghc % -o %< && ./%< <CR>
+augroup END
 
 " code formatting
 filetype plugin indent on
@@ -88,6 +93,7 @@ syntax on
 set t_Co=256
 set synmaxcol=120
 colorscheme gruvbox
+set background=dark
 
 " behavior settings
 set ignorecase
@@ -102,7 +108,7 @@ set ttyscroll=3
 set cryptmethod=blowfish2
 set splitbelow
 set splitright
-set backupdir=~/.vim/backup_files//
+" set backupdir=~/.vim/backup_files//
 set undodir=~/.vim/undo_files//
 set undofile
 set undodir=$HOME/.vim/undo
@@ -203,8 +209,11 @@ map t <Plug>(easymotion-tl)
 nmap T <Plug>(easymotion-Tl)
 map T <Plug>(easymotion-Tl)
 
-map j <Plug>(easymotion-j)
-map k <Plug>(easymotion-k)
+map <leader>j <Plug>(easymotion-j)
+map <leader>k <Plug>(easymotion-k)
 let g:EasyMotion_keys = 'sdfjkl'
 let g:EasyMotion_use_smartsign_us = 1
 let g:EasyMotion_smartcase = 1
+
+let g:simple_todo_map_insert_mode_keys = 0
+let g:simple_todo_map_visual_mode_keys = 0
