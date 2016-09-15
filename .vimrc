@@ -16,7 +16,7 @@ Plug 'Shougo/neocomplete.vim'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
-Plug 'vitalk/vim-simple-todo'
+Plug 'vitalk/vim-simple-todo', { 'for': 'txt'}
 
 call plug#end()
 
@@ -55,9 +55,9 @@ augroup haskell
     autocmd FileType haskell map <silent><F5> :w <CR> :!clear; ghc % -o %< && ./%< <CR>
 augroup END
 
-augroup haskell
+augroup bash
     autocmd!
-    autocmd FileType haskell map <silent><F5> :w <CR> :!clear; ghc % -o %< && ./%< <CR>
+    autocmd FileType sh map <silent><F5> :w <CR> :!clear; %<CR>
 augroup END
 
 " code formatting

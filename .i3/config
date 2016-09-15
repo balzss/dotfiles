@@ -73,8 +73,8 @@ mode "$mode_resize" {
     bindsym Escape mode "default"
 }
 
-set $mode_power power
-bindsym Mod1+Control+p mode "$mode_power"
+set $mode_power POWER
+bindsym $mod+p mode "$mode_power"
 mode "$mode_power" {
     bindsym l mode "default", exec --no-startup-id $HOME/.i3/i3exit logout
     bindsym h mode "default", exec --no-startup-id $HOME/.i3/i3exit hibernate
@@ -101,14 +101,14 @@ for_window [class="(?i)qemu-system"] floating enable
 for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
 for_window [class="(?i)blueman"] floating enable
 
-#for_window [instance="sun-awt-X11-XFramePeer"] floating enable
 for_window [instance="nmtui-connect"] floating enable
 for_window [instance="float"] floating enable
 
-assign [class="(?i)chromium"]                     $ws2
+assign [class="chromium"] $ws2
+for_window [class="chromium"] focus
+
 assign [class="(?i)idea" window_type="splash"] $ws3
 assign [class="(?i)eclipse" window_type="normal"] $ws3
-assign [class="(?i)thunderbird"]                  $ws9
 
 bar {
 #    verbose yes
