@@ -7,9 +7,6 @@ bindkey -e
 # The following lines were added by compinstall
 zstyle :compinstall filename '/home/balzss/.zshrc'
 
-export PROMPT="
-%d
-> "
 
 if [ "$TMUX" = "" ]; then tmux; fi
 
@@ -64,3 +61,30 @@ lcd () {
 autoload -Uz compinit
 compinit
 # End of lines added by compinstall
+
+### Shows state of the Versioning Control System (e.g. Git, Subversion, Mercurial
+autoload -Uz vcs_info
+
+zstyle ':vcs_info:*' stagedstr '%F{green}●%f'
+zstyle ':vcs_info:*' unstagedstr '%F{yellow}●%f'
+zstyle ':vcs_info:*' check-for-changes true
+zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{red}:%f%F{yellow}%r%f'
+zstyle ':vcs_info:*' enable git svn
+precmd () {
+    if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
+        zstyle ':vcs_info:*' formats '%b%c%u'
+    } else {
+        zstyle ':vcs_info:*' formats '%b%c%u●'
+    }
+
+    vcs_info
+}
+
+### Needed for a pretty prompt
+setopt prompt_subst # Enables additional prompt extentions
+autoload -U colors && colors    # Enables colours
+
+### My default prompt
+PROMPT='
+[%d] ${vcs_info_msg_0_}
+ ✞ '
