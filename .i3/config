@@ -6,8 +6,10 @@ set $editor urxvt
 set $black       #282828
 set $darkblack   #1d2021
 set $white	 #ebdbb2
-set $grey	#665c54
+set $darkgrey	#665c54
+set $grey	#a89984
 set $white #ebdbb2
+set $red #fb4934
 
 set $ws1  "1:URXVT"
 set $ws2  "2:CHROME"
@@ -27,6 +29,8 @@ floating_modifier $mod
 bindsym $mod+Return exec --no-startup-id  $editor
 bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id rofi -show run
+
+bindsym $mod+o exec --no-startup-id $HOME/scripts/sendkey 'urxvt' a
 
 bindsym $mod+l focus left
 bindsym $mod+h focus right
@@ -133,7 +137,7 @@ bar {
         inactive_workspace $black 	$black 		$grey
         active_workspace   $black 	$black		$darkwhite
         urgent_workspace   $darkred     $darkred     $transparent
-        binding_mode       $darkblack     $darkred     $black
+        binding_mode       $red     $red     $black
     }
 }
 

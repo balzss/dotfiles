@@ -27,6 +27,8 @@ augroup general
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html nnoremap <silent><F5> :!chromium %<CR>
+    au VimLeave * :!clear
+    " autocmd BufReadPost,FileReadPost,BufNewFile * :!tmux rename-window %<cr>
 augroup END
 
 
@@ -77,7 +79,7 @@ set textwidth=80
 set ruler "show the cursor position all the time
 set showcmd " display incomplete commands
 set nornu
-set number
+set relativenumber
 set wildmenu
 set cursorline
 set laststatus=2
