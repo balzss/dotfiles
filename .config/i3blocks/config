@@ -26,10 +26,17 @@ interval=10
 [battery]
 label=pow:
 command=$HOME/scripts/battery
-interval=120
+interval=10
 
 [separator]
 
 [time]
-command=date '+%a %d %b - %H:%M '
+command=date '+%a %d %b - %H:%M'
 interval=10
+
+[separator]
+
+[mouse]
+command=$HOME/scripts/mouse-toggle -i
+interval=once
+signal=4

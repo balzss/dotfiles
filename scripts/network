@@ -1,0 +1,9 @@
+#!/bin/sh
+
+net="$(iwgetid -r)"
+if [ -n "$net" ]
+then
+    echo $net
+else
+    echo off
+fi

@@ -1,0 +1,15 @@
+#!/bin/sh
+
+bl="$(xbacklight)"
+bl=${bl/.*}
+xbacklight "$@"
+
+f_name=".dunst_backlight"
+ID=$(cat $HOME/.i3/$f_name)
+if [ $ID -gt "0" ]
+then
+    dunstify -p -r $ID "Backlight: $bl%" >$HOME/.i3/$f_name
+else
+    dunstify -p "Backlight: $bl%" >$HOME/.i3/$f_name
+fi
+

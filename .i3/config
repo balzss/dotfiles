@@ -30,7 +30,7 @@ bindsym $mod+Return exec --no-startup-id  $editor
 bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id rofi -show run
 
-bindsym $mod+o exec --no-startup-id $HOME/scripts/sendkey 'urxvt' a
+bindsym $mod+XF86Launch1 exec --no-startup-id $HOME/scripts/mouse-toggle -t
 
 bindsym $mod+l focus left
 bindsym $mod+h focus right
