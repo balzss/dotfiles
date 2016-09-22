@@ -26,6 +26,8 @@ then
     exec tmux
 fi
 
+source $HOME/scripts/gruvbox_256palette.sh
+
 # aliases for modifying defaults
 alias ..="cd .."
 alias ls="ls --color=auto"
@@ -154,5 +156,5 @@ precmd () {
 setopt prompt_subst # Enables additional prompt extentions
 autoload -U colors && colors    # Enables colours
 
-PROMPT='%F{167}[%d]%f%F{175} [${vcs_info_msg_0_}] %f
+PROMPT='%F{167}[%d]%f%F{175} ${vcs_info_msg_0_} %f
  %F{246}✞%f '

@@ -33,7 +33,6 @@ rofi.bw: 0
 rofi.location: 2
 rofi.padding: 300
 rofi.fuzzy: true
-rofi.terminal: urxvt
 
 ! === gruvbox color scheme ===
 *background: #282828

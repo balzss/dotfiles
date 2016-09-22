@@ -20,7 +20,6 @@ Plug 'vitalk/vim-simple-todo', { 'for': 'txt'}
 
 call plug#end()
 
-
 augroup general
     autocmd!
     autocmd BufWritePre * :FixWhitespace
