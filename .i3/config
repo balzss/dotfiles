@@ -2,14 +2,13 @@
 set $mod Mod4
 set $editor urxvt
 
-# Use custom colors for black
-set $black       #282828
-set $darkblack   #1d2021
-set $white	 #ebdbb2
-set $darkgrey	#665c54
-set $grey	#a89984
-set $white #ebdbb2
-set $red #fb4934
+# gruvbox colors
+set $black      #282828
+set $darkblack  #1d2021
+set $white	    #ebdbb2
+set $grey       #a89984
+set $white      #ebdbb2
+set $red        #cc241d
 
 set $ws1  "1:URXVT"
 set $ws2  "2:CHROME"
@@ -29,6 +28,7 @@ floating_modifier $mod
 bindsym $mod+Return exec --no-startup-id  $editor
 bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id rofi -show run
+bindsym $mod+b exec --no-startup-id chromium
 
 bindsym $mod+XF86Launch1 exec --no-startup-id $HOME/scripts/mouse-toggle -t
 
@@ -109,7 +109,6 @@ for_window [instance="nmtui-connect"] floating enable
 for_window [instance="float"] floating enable
 
 assign [class="chromium"] $ws2
-for_window [class="chromium"] focus
 
 assign [class="(?i)idea" window_type="splash"] $ws3
 assign [class="(?i)eclipse" window_type="normal"] $ws3
@@ -129,15 +128,15 @@ bar {
     tray_padding 0
     height 30
     colors {
-        statusline         $282828
-        background         $282828
+        statusline          $black
+        background          $black
 
-#                          BORDER       BACKGROUND   TEXT
-        focused_workspace  $black       $black       #ebdbb2
-        inactive_workspace $black 	$black 		$grey
-        active_workspace   $black 	$black		$darkwhite
-        urgent_workspace   $darkred     $darkred     $transparent
-        binding_mode       $red     $red     $black
+#                           BORDER      BACKGROUND  TEXT
+        focused_workspace   $black      $black      $white
+        active_workspace    $black 	    $black		$white
+        inactive_workspace  $black 	    $black 		$grey
+        urgent_workspace    $black      $black      $grey
+        binding_mode        $red        $red        $black
     }
 }
 

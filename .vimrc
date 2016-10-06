@@ -10,13 +10,13 @@ Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/syntastic'
 Plug 'Raimondi/delimitMate'
-Plug 'pangloss/vim-javascript'
 Plug 'SirVer/ultisnips'
 Plug 'Shougo/neocomplete.vim'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
 Plug 'easymotion/vim-easymotion'
-Plug 'vitalk/vim-simple-todo', { 'for': 'txt'}
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -26,7 +26,6 @@ augroup general
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
     autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
     autocmd FileType html nnoremap <silent><F5> :!chromium %<CR>
-    au VimLeave * :!clear
     " autocmd BufReadPost,FileReadPost,BufNewFile * :!tmux rename-window %<cr>
 augroup END
 
@@ -109,7 +108,7 @@ set ttyscroll=3
 set cryptmethod=blowfish2
 set splitbelow
 set splitright
-" set backupdir=~/.vim/backup_files//
+set backupdir=~/.vim/backup_files//
 set undodir=~/.vim/undo_files//
 set undofile
 set undodir=$HOME/.vim/undo
@@ -122,11 +121,19 @@ set shiftround
 nnoremap gs <C-w>w
 nnoremap gS <C-w>W
 nnoremap s :w<cr>
-nnoremap <silent><F2> :NERDTreeToggle<CR>
-nnoremap <c-v> "+P
-nnoremap <c-V> "+p
+nnoremap <c-n> :NERDTreeToggle<CR>
+nnoremap <c-v> "+p
 let mapleader=" "
+" find and replace
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
+" jump to next/prev error
+nnoremap <leader>n :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>lfirst<bar>endtry<cr>
+nnoremap <leader>p :try<bar>lprevious<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>llast<bar>endtry<cr>
 
+nnoremap J <c-d>
+nnoremap K <c-u>
+nnoremap M J
+nnoremap U <c-r>
 
 nnoremap gn :bnext<CR>
 nnoremap gp :bprevious<CR>
@@ -140,7 +147,6 @@ nnoremap g5 :b 5<CR>
 
 " insert mode mckenduappingsssss
 inoremap <c-v> <c-o>"+P
-inoremap <c-w> <c-o>w
 
 " deleted default deleted
 inoremap <left> <nop>
@@ -156,13 +162,12 @@ nnoremap <backspace> <nop>
 " modified default keybindings
 nnoremap , ;
 nnoremap ; ,
-onoremap B ^
-vnoremap B ^
-nnoremap B ^
-onoremap E $
-vnoremap E $
-nnoremap E $
-nnoremap p ]p
+onoremap H ^
+vnoremap H ^
+nnoremap H ^
+onoremap L $
+vnoremap L $
+nnoremap L $
 
 
 " plugin config
@@ -180,9 +185,9 @@ let NERDTreeQuitOnOpen=1
 
 let g:syntastic_javascript_checkers = ['jshint']
 let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_args='--ignore=E128,E302,E127,E201,E231,E202,E251,E126,F401'
+let g:syntastic_python_flake8_args='--ignore=E128,E302,E127,E201,E231,E202,E251,E126,E401,E225,E226,E228'
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
+let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
@@ -218,3 +223,4 @@ let g:EasyMotion_smartcase = 1
 
 let g:simple_todo_map_insert_mode_keys = 0
 let g:simple_todo_map_visual_mode_keys = 0
+

@@ -3,7 +3,7 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-# use emacs keybindings
+# use emacs/vi keybindings
 bindkey -e
 
 # custom autocomplete
@@ -31,13 +31,13 @@ source $HOME/scripts/gruvbox_256palette.sh
 # aliases for modifying defaults
 alias ..="cd .."
 alias ls="ls --color=auto"
-alias la="ls -lha --color=auto"
+alias la="ls -lhA --color=auto"
 alias grep='grep --color=auto'
 alias mkdir="mkdir -p"
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
-alias syu="yaourt -Syu"
+alias syu="yaourt -Syu --noconfirm"
 alias y="yaourt"
 alias rm="rm -i"
 
@@ -62,27 +62,26 @@ alias data="cd /run/media/balzss/Data"
 
 alias jcons="~/prog/j804/jconsole.sh"
 
+# variables :)
+GH='https://www.github.com'
+
 
 # functions
 mcd () {
     mkdir -p $1
     cd $1
 }
-lcd () {
-    cd $1
-    clear
-    la
-}
 new_line() {
     echo
 }
 cd_dir() {
     clear
-    ls -ah
+    ls -A
 }
 cf() {
+    cd
     cd $(find ~ -type d | fzf)
-    clear
+    echo "\n"
     zle reset-prompt
 }
 x-paste() {
@@ -105,6 +104,10 @@ prepend-sudo() {
     BUFFER="$prefix $BUFFER"
     CURSOR=$(($CURSOR + $#prefix + 1))
 }
+gc() {
+    addr="$GH/$1"
+    git clone $addr
+}
 
 
 # keybindings
@@ -120,6 +123,8 @@ bindkey '^k' cdParentKey
 bindkey "^v" x-paste
 bindkey "^s" prepend-sudo
 bindkey "^j" cf
+bindkey "^b" backward-word
+bindkey "^f" forward-word
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
