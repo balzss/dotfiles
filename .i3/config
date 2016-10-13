@@ -26,6 +26,7 @@ font DejaVu Sans Mono
 
 floating_modifier $mod
 bindsym $mod+Return exec --no-startup-id  $editor
+bindsym $mod+Shift+Return floating toggle
 bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id rofi -show run
 bindsym $mod+b exec --no-startup-id chromium
@@ -44,8 +45,8 @@ bindsym $mod+2 workspace $ws2
 bindsym $mod+3 workspace $ws3
 bindsym $mod+4 workspace $ws4
 
-bindsym $mod+Shift+j move container to workspace next
-bindsym $mod+Shift+k move container to workspace prev
+bindsym $mod+Shift+j move container to $ws4
+bindsym $mod+Shift+k move container to $ws3
 
 bindsym XF86AudioLowerVolume exec --no-startup-id ${HOME}/scripts/volume -l
 bindsym XF86AudioRaiseVolume exec --no-startup-id ${HOME}/scripts/volume -r
@@ -104,11 +105,13 @@ for_window [class="(?i)gsimplecal"] floating enable, move position mouse
 for_window [class="(?i)qemu-system"] floating enable
 for_window [class="(?i)VirtualBox" title="(?i)Manager"] floating enable
 for_window [class="(?i)blueman"] floating enable
+for_window [class="*record*"] floating enable
 
 for_window [instance="nmtui-connect"] floating enable
 for_window [instance="float"] floating enable
 
 assign [class="chromium"] $ws2
+assign [class="rofi"] $ws3
 
 assign [class="(?i)idea" window_type="splash"] $ws3
 assign [class="(?i)eclipse" window_type="normal"] $ws3
