@@ -26,7 +26,7 @@ font DejaVu Sans Mono
 
 floating_modifier $mod
 bindsym $mod+Return exec --no-startup-id  $editor
-bindsym $mod+Shift+Return floating toggle
+bindsym $mod+Shift+space floating toggle
 bindsym $mod+q kill
 bindsym $mod+space exec --no-startup-id rofi -show run
 bindsym $mod+b exec --no-startup-id chromium

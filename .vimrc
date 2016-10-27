@@ -14,9 +14,6 @@ Plug 'SirVer/ultisnips'
 Plug 'Shougo/neocomplete.vim'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
-Plug 'easymotion/vim-easymotion'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
 
 call plug#end()
 
@@ -24,18 +21,12 @@ augroup general
     autocmd!
     autocmd BufWritePre * :FixWhitespace
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
-    autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-    autocmd FileType html nnoremap <silent><F5> :!chromium %<CR>
-    " autocmd BufReadPost,FileReadPost,BufNewFile * :!tmux rename-window %<cr>
 augroup END
 
 
 augroup python_mapping
     autocmd!
     autocmd FileType python nnoremap <F5> :!clear;python %<CR>
-    autocmd FileType python nnoremap <S-F5> :!tmux new-window -d 'exec python %'<CR><CR>
-    autocmd FileType python setlocal completeopt-=preview
-    autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 augroup END
 
 augroup js_mapping
@@ -122,7 +113,6 @@ nnoremap gs <C-w>w
 nnoremap gS <C-w>W
 nnoremap s :w<cr>
 nnoremap <c-n> :NERDTreeToggle<CR>
-nnoremap <c-v> "+p
 let mapleader=" "
 " find and replace
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
@@ -146,7 +136,7 @@ nnoremap g4 :b 4<CR>
 nnoremap g5 :b 5<CR>
 
 " insert mode mckenduappingsssss
-inoremap <c-v> <c-o>"+P
+inoremap <c-v> <c-o>"+p
 
 " deleted default deleted
 inoremap <left> <nop>
@@ -158,6 +148,7 @@ nnoremap <right> <nop>
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 nnoremap <backspace> <nop>
+nnoremap <c-r> <nop>
 
 " modified default keybindings
 nnoremap , ;
@@ -165,8 +156,8 @@ nnoremap ; ,
 onoremap H ^
 vnoremap H ^
 nnoremap H ^
-onoremap L $
-vnoremap L $
+onoremap L $h
+vnoremap L $h
 nnoremap L $
 
 
@@ -191,8 +182,6 @@ let g:syntastic_auto_loc_list = 0
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
-" let g:acp_enableAtStartup = 0
-
 let g:neocomplete#enable_at_startup = 1
 let g:neocomplete#enable_smart_case = 1
 let g:neocomplete#sources#syntax#min_keyword_length = 2
@@ -201,26 +190,5 @@ let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
 let g:UltiSnipsExpandTrigger="<c-j>"
 
 let delimitMate_expand_cr = 1
-
 inoremap <expr> <c-l> delimitMate#JumpAny()
-
-
-nmap f <Plug>(easymotion-fl)
-map f <Plug>(easymotion-fl)
-nmap F <Plug>(easymotion-Fl)
-map F <Plug>(easymotion-Fl)
-
-nmap t <Plug>(easymotion-tl)
-map t <Plug>(easymotion-tl)
-nmap T <Plug>(easymotion-Tl)
-map T <Plug>(easymotion-Tl)
-
-map <leader>j <Plug>(easymotion-j)
-map <leader>k <Plug>(easymotion-k)
-let g:EasyMotion_keys = 'sdfjkl'
-let g:EasyMotion_use_smartsign_us = 1
-let g:EasyMotion_smartcase = 1
-
-let g:simple_todo_map_insert_mode_keys = 0
-let g:simple_todo_map_visual_mode_keys = 0
 

@@ -8,7 +8,7 @@ Xft.lcdfilter: lcddefault
 
 URxvt.scrollBar:           false
 URxvt.saveLines:           8192
-URxvt.geometry:             256x96
+URxvt.geometry:             80x30
 URxvt.highlightSelection:  true
 URxvt.loginShell:          true
 URxvt.termName:            xterm-256color
@@ -30,9 +30,12 @@ rofi.color-urgent: #282828, #ebdbb2, #282828, #ebdbb2, #282828
 rofi.color-active: #282828, #ebdbb2, #282828, #ebdbb2, #282828
 rofi.color-window: #282828, #458588, #458588
 rofi.bw: 3
+! location: 1 2 3 / 8 0 4 / 7 6 5
 rofi.location: 0
 rofi.padding: 10
 rofi.fuzzy: true
+rofi.separator-style: solid
+rofi.hide-scrollbar: true
 
 ! === gruvbox color scheme ===
 *background: #282828
