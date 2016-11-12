@@ -14,13 +14,19 @@ Plug 'SirVer/ultisnips'
 Plug 'Shougo/neocomplete.vim'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
+Plug 'hynek/vim-python-pep8-indent'
 
 call plug#end()
 
 augroup general
     autocmd!
     autocmd BufWritePre * :FixWhitespace
+    autocmd BufWritePre *.html :normal mXgg=G`X
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
+    autocmd FileType html nnoremap <F5> :!chromium %<CR>
+    autocmd FileType html setlocal tabstop=2
+    autocmd FileType html setlocal softtabstop=2
+    autocmd FileType html setlocal shiftwidth=2
 augroup END
 
 
@@ -100,7 +106,6 @@ set cryptmethod=blowfish2
 set splitbelow
 set splitright
 set backupdir=~/.vim/backup_files//
-set undodir=~/.vim/undo_files//
 set undofile
 set undodir=$HOME/.vim/undo
 set undolevels=1000

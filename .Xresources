@@ -6,6 +6,8 @@ Xft.autohint: false
 Xft.hintstyle: hintfull
 Xft.lcdfilter: lcddefault
 
+Xcursor.theme: adwaita
+
 URxvt.scrollBar:           false
 URxvt.saveLines:           8192
 URxvt.geometry:             80x30

@@ -28,6 +28,10 @@ fi
 
 source $HOME/scripts/gruvbox_256palette.sh
 
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/prog/python
+source /bin/virtualenvwrapper.sh
+
 # aliases for modifying defaults
 alias ..="cd .."
 alias ls="ls --color=auto"
@@ -80,7 +84,7 @@ cd_dir() {
 }
 cf() {
     cd
-    cd $(find ~ -type d | fzf)
+    cd $(find $HOME -type d | fzf)
     echo "\n"
     zle reset-prompt
 }
@@ -145,15 +149,9 @@ autoload -Uz vcs_info
 zstyle ':vcs_info:*' stagedstr ' ✓'
 zstyle ':vcs_info:*' unstagedstr ' ✕'
 zstyle ':vcs_info:*' check-for-changes true
-zstyle ':vcs_info:*' formats '%b%c%u'
-# zstyle ':vcs_info:(sv[nk]|bzr):*' branchformat '%b%F{red}:%f%F{yellow}%r%f'
+zstyle ':vcs_info:*' formats ' [%b%c%u]'
 zstyle ':vcs_info:*' enable git
 precmd () {
-    # if [[ -z $(git ls-files --other --exclude-standard 2> /dev/null) ]] {
-    # } else {
-    #     zstyle ':vcs_info:*' formats '%b%c%u●'
-    # }
-
     vcs_info
 }
 
@@ -161,5 +159,5 @@ precmd () {
 setopt prompt_subst # Enables additional prompt extentions
 autoload -U colors && colors    # Enables colours
 
-PROMPT='%F{167}[%d]%f%F{175} ${vcs_info_msg_0_} %f
+PROMPT='%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f %F{172}$VIRTUAL_ENV:t%f
  %F{246}✞%f '
