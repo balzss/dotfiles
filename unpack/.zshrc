@@ -28,10 +28,6 @@ fi
 
 source $HOME/scripts/gruvbox_256palette.sh
 
-export WORKON_HOME=$HOME/.virtualenvs
-export PROJECT_HOME=$HOME/prog/python
-source /bin/virtualenvwrapper.sh
-
 # aliases for modifying defaults
 alias ..="cd .."
 alias ls="ls --color=auto"
@@ -52,6 +48,8 @@ alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias xres="vim ~/.Xresources"
 alias tconf="vim ~/.tmux.conf"
+alias vimplug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 # aliases for sourcing
 alias soz="source ~/.zshrc"

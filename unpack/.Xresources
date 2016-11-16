@@ -15,8 +15,8 @@ URxvt.highlightSelection:  true
 URxvt.loginShell:          true
 URxvt.termName:            xterm-256color
 URxvt.letterSpace:         -1
-URxvt.font:                xft:DejaVu Sans Mono for Powerline-13
-URxvt.boldFont:                xft:DejaVu Sans Mono for Powerline-13
+URxvt.font:                xft:DejaVu Sans Mono-14
+URxvt.boldFont:                xft:DejaVu Sans Mono-14
 URxvt.iso14755: false
 
 

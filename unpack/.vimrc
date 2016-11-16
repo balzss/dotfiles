@@ -27,6 +27,12 @@ augroup general
     autocmd FileType html setlocal tabstop=2
     autocmd FileType html setlocal softtabstop=2
     autocmd FileType html setlocal shiftwidth=2
+    if !isdirectory($HOME."/.vim/backup")
+        call mkdir($HOME."/.vim/backup", "p")
+    endif
+    if !isdirectory($HOME."/.vim/undo")
+        call mkdir($HOME."/.vim/undo", "p")
+    endif
 augroup END
 
 
@@ -105,13 +111,14 @@ set ttyscroll=3
 set cryptmethod=blowfish2
 set splitbelow
 set splitright
-set backupdir=~/.vim/backup_files//
+set backupdir=$HOME/.vim/backup
 set undofile
 set undodir=$HOME/.vim/undo
 set undolevels=1000
 set undoreload=10000
 set hidden " allows switching between buffers without saving them
 set shiftround
+
 
 " new, self-definied keybindings
 nnoremap gs <C-w>w
