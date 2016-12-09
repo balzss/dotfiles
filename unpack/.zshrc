@@ -22,6 +22,9 @@ _comp_options+=(globdots)
 
 
 source $HOME/scripts/gruvbox_256palette.sh
+source scripts/zsh-history-substring-search.zsh
+source scripts/zsh-autosuggestions.zsh
+source scripts/almostontop.plugin.zsh
 
 # aliases for modifying defaults
 alias ..="cd .."
@@ -97,6 +100,8 @@ bindkey "^v" x-paste
 bindkey "^s" prepend-sudo
 bindkey "^b" backward-word
 bindkey "^f" forward-word
+bindkey "^p" history-substring-search-up
+bindkey "^n" history-substring-search-down
 
 # setup hooks
 autoload -Uz add-zsh-hook
