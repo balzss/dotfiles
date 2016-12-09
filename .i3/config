@@ -146,3 +146,4 @@ bar {
 # AUTOSTART
 exec --no-startup-id urxvt
 exec --no-startup-id nm-applet &
+exec --no-startup-id dual-screen

@@ -24,9 +24,9 @@ augroup general
     autocmd BufWritePre *.html :normal mXgg=G`X
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
     autocmd FileType html nnoremap <F5> :!chromium %<CR>
-    autocmd FileType html setlocal tabstop=2
-    autocmd FileType html setlocal softtabstop=2
-    autocmd FileType html setlocal shiftwidth=2
+    autocmd FileType html setlocal tabstop=4
+    autocmd FileType html setlocal softtabstop=4
+    autocmd FileType html setlocal shiftwidth=4
     if !isdirectory($HOME."/.vim/backup")
         call mkdir($HOME."/.vim/backup", "p")
     endif
