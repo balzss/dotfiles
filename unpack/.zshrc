@@ -21,10 +21,10 @@ compinit
 _comp_options+=(globdots)
 
 # autostart tmux
-if [ "$TMUX" = "" ]
-then
-    exec tmux
-fi
+# if [ "$TMUX" = "" ]
+# then
+#     exec tmux
+# fi
 
 source $HOME/scripts/gruvbox_256palette.sh
 
@@ -157,5 +157,11 @@ precmd () {
 setopt prompt_subst # Enables additional prompt extentions
 autoload -U colors && colors    # Enables colours
 
-PROMPT='%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f %F{172}$VIRTUAL_ENV:t%f
+if [[ -z "$SSH_CLIENT" ]]; then
+    prompt_host=""
+else
+    prompt_host="%F{172}[$(hostname -s)] %f"
+fi
+
+PROMPT='${prompt_host}%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f %F{172}$VIRTUAL_ENV:t%f
  %F{246}✞%f '
