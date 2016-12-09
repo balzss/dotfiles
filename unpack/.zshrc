@@ -67,6 +67,10 @@ alias jcons="~/prog/j804/jconsole.sh"
 # variables :)
 GH='https://www.github.com'
 
+gh-clone (){
+    git clone $GH/$1.git
+}
+
 
 # functions
 mcd () {
@@ -163,5 +167,5 @@ else
     prompt_host="%F{172}[$(hostname -s)] %f"
 fi
 
-PROMPT='${prompt_host}%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f %F{172}$VIRTUAL_ENV:t%f
+PROMPT='${prompt_host}%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f
  %F{246}✞%f '
