@@ -23,8 +23,6 @@ _comp_options+=(globdots)
 
 source $HOME/scripts/gruvbox_256palette.sh
 source scripts/zsh-history-substring-search.zsh
-source scripts/zsh-autosuggestions.zsh
-source scripts/almostontop.plugin.zsh
 
 # aliases for modifying defaults
 alias ..="cd .."
