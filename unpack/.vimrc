@@ -21,12 +21,8 @@ call plug#end()
 augroup general
     autocmd!
     autocmd BufWritePre * :FixWhitespace
-    autocmd BufWritePre *.html :normal mXgg=G`X
+    autocmd BufWritePre * :normal mXgg=G`X
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
-    autocmd FileType html nnoremap <F5> :!chromium %<CR>
-    autocmd FileType html setlocal tabstop=4
-    autocmd FileType html setlocal softtabstop=4
-    autocmd FileType html setlocal shiftwidth=4
     if !isdirectory($HOME."/.vim/backup")
         call mkdir($HOME."/.vim/backup", "p")
     endif
@@ -39,12 +35,6 @@ augroup END
 augroup python_mapping
     autocmd!
     autocmd FileType python nnoremap <F5> :!clear;python %<CR>
-augroup END
-
-augroup js_mapping
-    autocmd!
-    autocmd FileType javascript nnoremap <silent><leader> <F5> :!tmux new-window -d 'exec nodemon %'<CR><CR>
-    autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 augroup END
 
 augroup c_mapping

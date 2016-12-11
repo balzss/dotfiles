@@ -3,6 +3,8 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
+setopt HIST_FIND_NO_DUPS
+
 # use emacs/vi keybindings
 bindkey -e
 
@@ -42,7 +44,7 @@ alias vimrc="vim ~/.vimrc"
 alias xres="vim ~/.Xresources"
 alias tconf="vim ~/.tmux.conf"
 alias vimplug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
+    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 # aliases for sourcing
 alias soz="source ~/.zshrc"
@@ -78,15 +80,15 @@ new_line() {
     echo
 }
 x-paste() {
-    PASTE=$(xclip -selection clipboard -o)
-    LBUFFER="$LBUFFER${RBUFFER:0:1}"
-    RBUFFER="$PASTE${RBUFFER:1:${#RBUFFER}}"
-    CURSOR=$(($CURSOR + $#PASTE + 1))
+PASTE=$(xclip -selection clipboard -o)
+LBUFFER="$LBUFFER${RBUFFER:0:1}"
+RBUFFER="$PASTE${RBUFFER:1:${#RBUFFER}}"
+CURSOR=$(($CURSOR + $#PASTE + 1))
 }
 prepend-sudo() {
-    prefix="sudo"
-    BUFFER="$prefix $BUFFER"
-    CURSOR=$(($CURSOR + $#prefix + 1))
+prefix="sudo"
+BUFFER="$prefix $BUFFER"
+CURSOR=$(($CURSOR + $#prefix + 1))
 }
 
 
@@ -138,4 +140,4 @@ else
 fi
 
 PROMPT='${prompt_host}%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f
- %F{246}✞%f '
+%F{246}✞%f '
