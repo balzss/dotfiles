@@ -3,5 +3,5 @@
 UPDATES=$(checkupdates | wc -l)
 [[ "${UPDATES}" = "0" ]] && exit 0
 
-echo " updates: ${UPDATES} "
+echo "updates: ${UPDATES}"
 exit 0

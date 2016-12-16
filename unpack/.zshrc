@@ -24,7 +24,10 @@ _comp_options+=(globdots)
 
 
 source $HOME/scripts/gruvbox_256palette.sh
-source scripts/zsh-history-substring-search.zsh
+source $HOME/scripts/zsh-history-substring-search.zsh
+source $HOME/scripts/k.sh
+
+export VIRTUAL_ENV_DISABLE_PROMPT=1
 
 # aliases for modifying defaults
 alias ..="cd .."
@@ -36,7 +39,7 @@ alias cp='cp -i'
 alias ln='ln -i'
 alias syu="yaourt -Syu --noconfirm"
 alias y="yaourt"
-alias rm="rm -i"
+alias trm="trash-put"
 
 # aliased for opening configs
 alias zshrc="vim ~/.zshrc"
@@ -57,15 +60,19 @@ alias c="clear"
 alias xc="xclip -selection c"
 alias del="trash-put"
 
+# python virtual environment things
+
+alias venv="pyvenv venv && source venv/bin/activate"
+alias vact="source venv/bin/activate"
+alias voff="deactivate"
 
 # git life 8)
 
-alias gaa="git add -A"
-alias gcm="git commit -m"
+alias gac="git add -A && git commit -m"
 alias gpl="git pull"
 alias gph="git push"
 
-GH='https://www.github.com'
+GH='git://www.github.com'
 
 ghcl (){
     git clone $GH/$1.git
@@ -122,12 +129,14 @@ zstyle ':vcs_info:*' formats ' [%b%c%u]'
 zstyle ':vcs_info:*' enable git
 precmd () {
     vcs_info
+    virtualenv_info
 }
 
 ### Needed for a pretty prompt
 setopt prompt_subst # Enables additional prompt extentions
 autoload -U colors && colors    # Enables colours
 
+# display host if in an SSH session, executed when .zshrc is sourced (on login)
 if [[ -z "$SSH_CLIENT" ]]; then
     prompt_host=""
     # autostart tmux
@@ -139,5 +148,17 @@ else
     prompt_host="%F{172}[$(hostname -s)] %f"
 fi
 
-PROMPT='${prompt_host}%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f
+# modified python virtualenv prompt
+function virtualenv_info(){
+    # Get Virtual Env
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        # Strip out the path and just leave the env name
+        venv="%F{208}[${${VIRTUAL_ENV%/*}##*/}]%f"
+    else
+        # In case you don't have one activated
+        venv=""
+    fi
+}
+
+PROMPT='${prompt_host}%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f ${venv}
 %F{246}✞%f '

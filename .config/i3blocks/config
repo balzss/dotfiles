@@ -3,11 +3,6 @@ separator=false
 separator_block_width=6
 color=#ebdbb2
 
-[updates]
-command=$HOME/scripts/updates.sh
-interval=60
-signal=3
-
 [volume]
 label=vol:
 command=$HOME/scripts/volume -i
