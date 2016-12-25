@@ -14,14 +14,14 @@ Plug 'SirVer/ultisnips'
 Plug 'Shougo/neocomplete.vim'
 Plug 'ervandew/supertab'
 Plug 'honza/vim-snippets'
-Plug 'hynek/vim-python-pep8-indent'
+Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
+Plug 'majutsushi/tagbar'
 
 call plug#end()
 
 augroup general
     autocmd!
-    autocmd BufWritePre * :FixWhitespace
-    autocmd BufWritePre * :normal mXgg=G`X
+    " autocmd BufWritePre * :FixWhitespace
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
     if !isdirectory($HOME."/.vim/backup")
         call mkdir($HOME."/.vim/backup", "p")
@@ -139,6 +139,7 @@ nnoremap g5 :b 5<CR>
 
 " insert mode mckenduappingsssss
 inoremap <c-v> <c-o>"+p
+inoremap <c-V> <c-o>"+P
 
 " deleted default deleted
 inoremap <left> <nop>

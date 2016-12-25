@@ -39,6 +39,7 @@ alias cp='cp -i'
 alias ln='ln -i'
 alias syu="yaourt -Syu --noconfirm"
 alias y="yaourt"
+alias rm="echo na ne már..."
 alias trm="trash-put"
 
 # aliased for opening configs
@@ -136,13 +137,27 @@ precmd () {
 setopt prompt_subst # Enables additional prompt extentions
 autoload -U colors && colors    # Enables colours
 
+
+create_tmux_session() {
+    SESSIONNAME="zsh"
+    tmux has-session -t $SESSIONNAME &> /dev/null
+
+    if [ $? != 0 ] 
+    then
+        tmux new-session -s $SESSIONNAME -n zsh -d
+        # tmux send-keys -t $SESSIONNAME "~/scripts/tmux-script" C-m 
+    fi
+
+    tmux attach -t $SESSIONNAME
+}
+
 # display host if in an SSH session, executed when .zshrc is sourced (on login)
 if [[ -z "$SSH_CLIENT" ]]; then
     prompt_host=""
     # autostart tmux
     if [ "$TMUX" = "" ]
     then
-        exec tmux
+        create_tmux_session
     fi
 else
     prompt_host="%F{172}[$(hostname -s)] %f"
@@ -161,4 +176,4 @@ function virtualenv_info(){
 }
 
 PROMPT='${prompt_host}%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f ${venv}
-%F{246}✞%f '
+ %F{246}✞%f '
