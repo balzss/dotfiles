@@ -73,7 +73,7 @@ alias gac="git add -A && git commit -m"
 alias gpl="git pull"
 alias gph="git push"
 
-GH='git://www.github.com'
+GH='https://www.github.com'
 
 ghcl (){
     git clone $GH/$1.git
