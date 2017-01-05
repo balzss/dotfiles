@@ -1,27 +1,24 @@
 ﻿" plugins
 call plug#begin()
 
-Plug 'mattn/emmet-vim', { 'for': 'html' }
-Plug 'scrooloose/nerdtree', { 'on': 'NERDTreeToggle' }
-Plug 'morhetz/gruvbox'
+Plug 'chriskempson/base16-vim'
+Plug 'daviesjamie/vim-base16-lightline'
+Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'bronson/vim-trailing-whitespace', { 'on': 'FixWhitespace' }
-Plug 'vim-airline/vim-airline'
-Plug 'scrooloose/syntastic'
-Plug 'Raimondi/delimitMate'
-Plug 'SirVer/ultisnips'
-Plug 'Shougo/neocomplete.vim'
-Plug 'ervandew/supertab'
-Plug 'honza/vim-snippets'
-Plug 'hynek/vim-python-pep8-indent', { 'for': 'python' }
-Plug 'majutsushi/tagbar'
+Plug 'itchyny/lightline.vim'
+Plug 'ajh17/VimCompletesMe'
+Plug 'ConradIrwin/vim-bracketed-paste'
 
 call plug#end()
 
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 augroup general
     autocmd!
-    " autocmd BufWritePre * :FixWhitespace
     autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
     if !isdirectory($HOME."/.vim/backup")
         call mkdir($HOME."/.vim/backup", "p")
@@ -34,7 +31,7 @@ augroup END
 
 augroup python_mapping
     autocmd!
-    autocmd FileType python nnoremap <F5> :!clear;python %<CR>
+    autocmd FileType python nnoremap <c-r> :!clear;python %<CR>
 augroup END
 
 augroup c_mapping
@@ -67,31 +64,35 @@ set formatoptions=qj " allows writing long lines and reformat it manually
 set textwidth=80
 
 " layout
+set laststatus=2 " statusline always visible
+set showtabline=0 " tabline never visible
 set ruler "show the cursor position all the time
 set showcmd " display incomplete commands
-set nornu
-set relativenumber
+set relativenumber " relative numbering to the current line
+set number " hybrid mode with relative number: current is the actual and not 0
 set wildmenu
 set cursorline
-set laststatus=2
 set noshowmode
 set nolist
 set fillchars=vert:│
-set colorcolumn=80
+set colorcolumn=80 " displays a vertical line at column 80
 set foldcolumn=0
-let g:indentLine_char = '│'
 
 " syntax highlighting
 syntax on
 set t_Co=256
 set synmaxcol=120
-colorscheme gruvbox
+colorscheme base16-tomorrow-night
 set background=dark
+
+let g:lightline = {
+      \ 'colorscheme': 'base16',
+      \ }
 
 " behavior settings
 set ignorecase
 set smartcase
-set history=100 " keep 100 lines of command line history
+set history=1000 " keep 100 lines of command line history
 set incsearch " do incremental searching
 set lazyredraw          " redraw only when we need to
 set scrolloff=30     "doesn't get close to the edge when scrolling
@@ -106,21 +107,17 @@ set undofile
 set undodir=$HOME/.vim/undo
 set undolevels=1000
 set undoreload=10000
-set hidden " allows switching between buffers without saving them
+set nohidden " doesn't allow switching between buffers without saving them
 set shiftround
+set backspace=2     " otherwise backspace wont't work in macOS
 
 
 " new, self-definied keybindings
 nnoremap gs <C-w>w
 nnoremap gS <C-w>W
 nnoremap s :w<cr>
-nnoremap <c-n> :NERDTreeToggle<CR>
-let mapleader=" "
-" find and replace
-vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
-" jump to next/prev error
-nnoremap <leader>n :try<bar>lnext<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>lfirst<bar>endtry<cr>
-nnoremap <leader>p :try<bar>lprevious<bar>catch /^Vim\%((\a\+)\)\=:E\%(553\<bar>42\):/<bar>llast<bar>endtry<cr>
+vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left> " find and replace 
+inoremap <c-l> <c-o>a   " jump right one char in insert mode
 
 nnoremap J <c-d>
 nnoremap K <c-u>
@@ -131,15 +128,7 @@ nnoremap gn :bnext<CR>
 nnoremap gp :bprevious<CR>
 nnoremap gd :bdelete<CR>
 nnoremap gd :bdelete<CR>
-nnoremap g1 :b 1<CR>
-nnoremap g2 :b 2<CR>
-nnoremap g3 :b 3<CR>
-nnoremap g4 :b 4<CR>
-nnoremap g5 :b 5<CR>
 
-" insert mode mckenduappingsssss
-inoremap <c-v> <c-o>"+p
-inoremap <c-V> <c-o>"+P
 
 " deleted default deleted
 inoremap <left> <nop>
@@ -162,36 +151,16 @@ nnoremap H ^
 onoremap L $h
 vnoremap L $h
 nnoremap L $
+nnoremap D D"_dd " deletes the whole line, but doesn't put \n to register
 
+" leader based mappings
+let mapleader=" "
+nnoremap <leader>e :e **/*
+nnoremap <leader><leader> :b#<cr>
+nnoremap <leader>b :b */*<C-d>
 
-" plugin config
-let g:airline_powerline_fonts = 0
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#fnamemod = ':t'
-let g:airline_left_sep = ''
-let g:airline_right_sep = ''
-let g:airline#extensions#tabline#buffer_nr_show = 1
-
-let g:SuperTabContextDefaultCompletionType = "<c-x><c-o>"
-let g:SuperTabDefaultCompletionType = "context"
-
-let NERDTreeQuitOnOpen=1
-
-let g:syntastic_javascript_checkers = ['jshint']
-let g:syntastic_python_checkers = ['flake8']
-let g:syntastic_python_flake8_args='--ignore=E128,E302,E127,E201,E231,E202,E251,E126,E401,E225,E226,E228'
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 0
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-let g:neocomplete#enable_at_startup = 1
-let g:neocomplete#enable_smart_case = 1
-let g:neocomplete#sources#syntax#min_keyword_length = 2
-let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
-
-let g:UltiSnipsExpandTrigger="<c-j>"
-
-let delimitMate_expand_cr = 1
-inoremap <expr> <c-l> delimitMate#JumpAny()
-
+" line text-objects
+xnoremap il g_o0
+omap il :<C-u>normal vil<CR>
+xnoremap al $o0
+omap al :<C-u>normal val<CR>

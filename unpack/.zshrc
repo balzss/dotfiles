@@ -23,9 +23,9 @@ compinit
 _comp_options+=(globdots)
 
 
-source $HOME/scripts/gruvbox_256palette.sh
-source $HOME/scripts/zsh-history-substring-search.zsh
-source $HOME/scripts/k.sh
+# source $HOME/scripts/gruvbox_256palette.sh
+# source $HOME/scripts/zsh-history-substring-search.zsh
+# source $HOME/scripts/k.sh
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 
@@ -57,6 +57,7 @@ alias sox="xrdb ~/.Xresources"
 # handy little things
 alias pls='sudo $(fc -ln -1)'
 alias l="ls -lhA --color=auto"
+alias l="ls -lhA"
 alias c="clear"
 alias xc="xclip -selection c"
 alias del="trash-put"
