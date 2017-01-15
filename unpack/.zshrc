@@ -5,7 +5,7 @@ SAVEHIST=1000
 
 setopt HIST_FIND_NO_DUPS
 
-# use emacs/vi keybindings
+# use emacs keybindings
 bindkey -e
 
 # custom autocomplete
@@ -22,24 +22,26 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
-
 # source $HOME/scripts/gruvbox_256palette.sh
-# source $HOME/scripts/zsh-history-substring-search.zsh
-# source $HOME/scripts/k.sh
+source $HOME/scripts/zsh-history-substring-search.zsh
+source $HOME/scripts/autoenv.zsh
+
+BASE16_SHELL=$HOME/.config/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
 export VIRTUAL_ENV_DISABLE_PROMPT=1
+export CLICOLOR=1
 
 # aliases for modifying defaults
 alias ..="cd .."
-alias ls="ls --color=auto"
 alias grep='grep --color=auto'
 alias mkdir="mkdir -p"
 alias mv='mv -i'
 alias cp='cp -i'
 alias ln='ln -i'
+alias rm="rm -i"
 alias syu="yaourt -Syu --noconfirm"
 alias y="yaourt"
-alias rm="echo na ne már..."
 alias trm="trash-put"
 
 # aliased for opening configs
@@ -47,8 +49,6 @@ alias zshrc="vim ~/.zshrc"
 alias vimrc="vim ~/.vimrc"
 alias xres="vim ~/.Xresources"
 alias tconf="vim ~/.tmux.conf"
-alias vimplug="curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim"
 
 # aliases for sourcing
 alias soz="source ~/.zshrc"
@@ -56,16 +56,14 @@ alias sox="xrdb ~/.Xresources"
 
 # handy little things
 alias pls='sudo $(fc -ln -1)'
-alias l="ls -lhA --color=auto"
-alias l="ls -lhA"
+alias l="ls -lhApF"
 alias c="clear"
 alias xc="xclip -selection c"
-alias del="trash-put"
 
 # python virtual environment things
 
-alias venv="pyvenv venv && source venv/bin/activate"
-alias vact="source venv/bin/activate"
+alias venv="python3 -m venv .venv"
+alias vact="source .venv/bin/activate"
 alias voff="deactivate"
 
 # git life 8)
@@ -89,15 +87,16 @@ new_line() {
     echo
 }
 x-paste() {
-PASTE=$(xclip -selection clipboard -o)
-LBUFFER="$LBUFFER${RBUFFER:0:1}"
-RBUFFER="$PASTE${RBUFFER:1:${#RBUFFER}}"
-CURSOR=$(($CURSOR + $#PASTE + 1))
+    PASTE=$(xclip -selection clipboard -o)
+    LBUFFER="$LBUFFER${RBUFFER:0:1}"
+    RBUFFER="$PASTE${RBUFFER:1:${#RBUFFER}}"
+    CURSOR=$(($CURSOR + $#PASTE + 1))
 }
+
 prepend-sudo() {
-prefix="sudo"
-BUFFER="$prefix $BUFFER"
-CURSOR=$(($CURSOR + $#prefix + 1))
+    prefix="sudo"
+    BUFFER="$prefix $BUFFER"
+    CURSOR=$(($CURSOR + $#prefix + 1))
 }
 
 
@@ -105,7 +104,7 @@ CURSOR=$(($CURSOR + $#prefix + 1))
 zle -N x-paste
 zle -N prepend-sudo
 
-bindkey "^v" x-paste
+# bindkey "^v" x-paste
 bindkey "^s" prepend-sudo
 bindkey "^b" backward-word
 bindkey "^f" forward-word
@@ -132,6 +131,12 @@ zstyle ':vcs_info:*' enable git
 precmd () {
     vcs_info
     virtualenv_info
+}
+function chpwd() {
+    clear
+    if [[ $PWD != $HOME ]]; then
+        l
+    fi
 }
 
 ### Needed for a pretty prompt
@@ -169,12 +174,14 @@ function virtualenv_info(){
     # Get Virtual Env
     if [[ -n "$VIRTUAL_ENV" ]]; then
         # Strip out the path and just leave the env name
-        venv="%F{208}[${${VIRTUAL_ENV%/*}##*/}]%f"
+        venv="[${${VIRTUAL_ENV%/*}##*/}]"
     else
         # In case you don't have one activated
         venv=""
     fi
 }
 
-PROMPT='${prompt_host}%F{167}[%d]%f%F{175}${vcs_info_msg_0_}%f ${venv}
- %F{246}✞%f '
+PROMPT='${prompt_host}%F{magenta}[%d]%f%F{blue}${vcs_info_msg_0_}%f %F{yellow}${venv}%f
+ %F{A}✞%f '
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -1,12 +1,11 @@
-﻿" plugins
-call plug#begin()
+﻿call plug#begin()
 
 Plug 'chriskempson/base16-vim'
+Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'itchyny/lightline.vim'
 Plug 'ajh17/VimCompletesMe'
 Plug 'ConradIrwin/vim-bracketed-paste'
 
@@ -19,36 +18,19 @@ endif
 
 augroup general
     autocmd!
-    autocmd ColorScheme * highlight VertSplit cterm=NONE ctermbg=NONE
     if !isdirectory($HOME."/.vim/backup")
         call mkdir($HOME."/.vim/backup", "p")
     endif
     if !isdirectory($HOME."/.vim/undo")
         call mkdir($HOME."/.vim/undo", "p")
     endif
+    if !filereadable($HOME."/.vim/autoload/plug.vim")
+        call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
+                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
+    endif
+
 augroup END
 
-
-augroup python_mapping
-    autocmd!
-    autocmd FileType python nnoremap <c-r> :!clear;python %<CR>
-augroup END
-
-augroup c_mapping
-    autocmd!
-    autocmd FileType c map <silent><F5> :w <CR> :!clear; gcc % -o %< && ./%< <CR>
-    autocmd FileType cpp map <silent><F5> :w <CR> :!clear; g++ % -o %< && ./%< <CR>
-augroup END
-
-augroup haskell
-    autocmd!
-    autocmd FileType haskell map <silent><F5> :w <CR> :!clear; ghc % -o %< && ./%< <CR>
-augroup END
-
-augroup bash
-    autocmd!
-    autocmd FileType sh map <silent><F5> :w <CR> :!clear; %<CR>
-augroup END
 
 " code formatting
 filetype plugin indent on
@@ -105,7 +87,7 @@ set splitright
 set backupdir=$HOME/.vim/backup
 set undofile
 set undodir=$HOME/.vim/undo
-set undolevels=1000
+set undolevels=10000
 set undoreload=10000
 set nohidden " doesn't allow switching between buffers without saving them
 set shiftround
@@ -117,7 +99,8 @@ nnoremap gs <C-w>w
 nnoremap gS <C-w>W
 nnoremap s :w<cr>
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left> " find and replace 
-inoremap <c-l> <c-o>a   " jump right one char in insert mode
+" jump right a char
+inoremap <c-l> <c-o>a
 
 nnoremap J <c-d>
 nnoremap K <c-u>
@@ -151,9 +134,8 @@ nnoremap H ^
 onoremap L $h
 vnoremap L $h
 nnoremap L $
-nnoremap D D"_dd " deletes the whole line, but doesn't put \n to register
+nnoremap D D"_dd
 
-" leader based mappings
 let mapleader=" "
 nnoremap <leader>e :e **/*
 nnoremap <leader><leader> :b#<cr>
