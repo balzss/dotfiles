@@ -6,8 +6,10 @@ Plug 'daviesjamie/vim-base16-lightline'
 Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
-Plug 'ajh17/VimCompletesMe'
 Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
+Plug 'junegunn/fzf.vim'
+
 
 call plug#end()
 
@@ -137,9 +139,17 @@ nnoremap L $
 nnoremap D D"_dd
 
 let mapleader=" "
-nnoremap <leader>e :e **/*
+nnoremap <leader>e :Files<CR>
 nnoremap <leader><leader> :b#<cr>
 nnoremap <leader>b :b */*<C-d>
+
+inoremap <tab> <c-f>
+nnoremap <tab> >
+onoremap <tab> >
+vnoremap <tab> >
+nnoremap <s-tab> <
+onoremap <s-tab> <
+vnoremap <s-tab> <
 
 " line text-objects
 xnoremap il g_o0

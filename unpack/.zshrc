@@ -25,6 +25,7 @@ _comp_options+=(globdots)
 # source $HOME/scripts/gruvbox_256palette.sh
 source $HOME/scripts/zsh-history-substring-search.zsh
 source $HOME/scripts/autoenv.zsh
+source $HOME/scripts/zsh-git-prompt/zshrc.sh
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
@@ -66,6 +67,8 @@ alias venv="python3 -m venv .venv"
 alias vact="source .venv/bin/activate"
 alias voff="deactivate"
 
+alias vim="nvim"
+
 # git life 8)
 
 alias gac="git add -A && git commit -m"
@@ -97,6 +100,12 @@ prepend-sudo() {
     prefix="sudo"
     BUFFER="$prefix $BUFFER"
     CURSOR=$(($CURSOR + $#prefix + 1))
+}
+
+# fda - including hidden directories
+fd() {
+  local dir
+  dir=$(find ${1:-.} -type d 2> /dev/null | fzf-tmux +m) && cd "$dir"
 }
 
 
@@ -181,7 +190,7 @@ function virtualenv_info(){
     fi
 }
 
-PROMPT='${prompt_host}%F{magenta}[%d]%f%F{blue}${vcs_info_msg_0_}%f %F{yellow}${venv}%f
+PROMPT='${prompt_host}%F{magenta}[%d]%f %F{blue}$(git_super_status)%f %F{yellow}${venv}%f
  %F{A}✞%f '
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
