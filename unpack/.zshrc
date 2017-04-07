@@ -3,8 +3,6 @@ HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
 
-setopt HIST_FIND_NO_DUPS
-
 # use emacs keybindings
 bindkey -e
 
@@ -22,10 +20,22 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
-# source $HOME/scripts/gruvbox_256palette.sh
 source $HOME/scripts/zsh-history-substring-search.zsh
-source $HOME/scripts/autoenv.zsh
 source $HOME/scripts/zsh-git-prompt/zshrc.sh
+source $HOME/.zplug/init.zsh
+
+# zplug "rupa/z", use:z.sh
+
+# # Install plugins if there are plugins that have not been installed
+# if ! zplug check --verbose; then
+#     printf "Install? [y/N]: "
+#     if read -q; then
+#         echo; zplug install
+#     fi
+# fi
+
+# # Then, source plugins and add commands to $PATH
+# zplug load --verbose
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
@@ -89,12 +99,6 @@ mcd () {
 new_line() {
     echo
 }
-x-paste() {
-    PASTE=$(xclip -selection clipboard -o)
-    LBUFFER="$LBUFFER${RBUFFER:0:1}"
-    RBUFFER="$PASTE${RBUFFER:1:${#RBUFFER}}"
-    CURSOR=$(($CURSOR + $#PASTE + 1))
-}
 
 prepend-sudo() {
     prefix="sudo"
@@ -102,15 +106,7 @@ prepend-sudo() {
     CURSOR=$(($CURSOR + $#prefix + 1))
 }
 
-# fda - including hidden directories
-fd() {
-  local dir
-  dir=$(find ${1:-.} -type d 2> /dev/null | fzf-tmux +m) && cd "$dir"
-}
-
-
 # keybindings
-zle -N x-paste
 zle -N prepend-sudo
 
 # bindkey "^v" x-paste
