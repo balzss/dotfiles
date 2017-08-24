@@ -1,0 +1,27 @@
+snippet vapp "Vue App" b
+Vue.component('App', {
+	props: ['data'],
+	template: '<div>' +
+		'$1' +
+	'</div>'
+});
+
+var app = new Vue({
+	el: '#app',
+	template: '<App :data="data"/>',
+	data: {
+		data: 'Hello Vue!'
+	}
+});
+endsnippet
+
+snippet vcomp "Vue Component" b
+Vue.component('$1', {
+	props: [$2],
+	template: '<div>$3</div>'
+});
+endsnippet
+
+snippet gbi "getElementById" b
+document.getElementById('$1');
+endsnippet

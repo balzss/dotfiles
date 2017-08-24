@@ -1,2 +1,3 @@
 DOTPATH=$( cd $(dirname $0) ; pwd -P )
-ln -s $DOTPATH/link/{.??,}* $HOME/.
+ln -s -f $DOTPATH/link/{.??,}* $HOME
+ln -s -f $DOTPATH/nvim $HOME/.config/nvim

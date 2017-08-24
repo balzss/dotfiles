@@ -3,17 +3,23 @@
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
+Plug 'mgee/lightline-bufferline'
 Plug 'mattn/emmet-vim'
+Plug 'jreybert/vimagit'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
 Plug 'junegunn/fzf.vim'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'neomake/neomake'
 Plug 'hynek/vim-python-pep8-indent'
-Plug 'mxw/vim-jsx'
-Plug 'jiangmiao/auto-pairs'
+Plug 'mileszs/ack.vim'
 Plug 'Valloric/MatchTagAlways', { 'for': 'html' }
+Plug 'posva/vim-vue'
+Plug 'digitaltoad/vim-pug'
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'jiangmiao/auto-pairs'
+Plug 'SirVer/ultisnips'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -37,9 +43,11 @@ augroup general
         call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
                     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
     endif
-
 augroup END
 
+autocmd FileType python nnoremap <leader>r :terminal python %<cr>
+autocmd FileType javascript nnoremap <leader>r :terminal node %<cr>
+autocmd FileType html nnoremap <leader>r :!open %<cr>
 
 " code formatting
 filetype plugin indent on
@@ -68,16 +76,17 @@ set nolist
 set fillchars=vert:│
 set colorcolumn=120 " displays a vertical line at column 120
 set foldcolumn=0
+set showtabline=2
 
 " syntax highlighting
 syntax on
 set t_Co=256
 set synmaxcol=120
-colorscheme base16-tomorrow-night
+colorscheme base16-default-dark
 set background=dark
 
 let g:lightline = {
-      \ 'colorscheme': 'base16',
+      \ 'colorscheme': 'base16'
       \ }
 
 " behavior settings
@@ -108,20 +117,6 @@ nnoremap gs <C-w>w
 nnoremap gS <C-w>W
 nnoremap s :w<cr>
 vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
-" jump right a char
-inoremap <c-l> <c-o>a
-
-nnoremap J <c-d>
-vnoremap J <c-d>
-nnoremap K <c-u>
-vnoremap K <c-u>
-nnoremap M J
-nnoremap U <c-r>
-
-nnoremap gn :bnext<CR>
-nnoremap gp :bprevious<CR>
-nnoremap gd :bdelete<CR>
-nnoremap gd :bdelete<CR>
 
 " modified default keybindings
 nnoremap , ;
@@ -129,33 +124,38 @@ nnoremap ; ,
 onoremap H ^
 vnoremap H ^
 nnoremap H ^
-onoremap L $h
+onoremap L $
 vnoremap L $h
 nnoremap L $
+nnoremap <leader>d "_d
+onoremap <leader>d "_d
+vnoremap <leader>d "_d
+nnoremap J <c-d>
+vnoremap J <c-d>
+nnoremap K <c-u>
+vnoremap K <c-u>
+nnoremap M J
+nnoremap U <c-r>
+
+vnoremap y y`]
+
+nnoremap gn :bnext<CR>
+nnoremap gp :bprevious<CR>
+nnoremap gd :bdelete<CR>
 
 let mapleader=" "
 nnoremap <leader>e :Files<CR>
+nnoremap <leader>g :Ag<CR>
+nnoremap <leader>t :Tags<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader><leader> :b#<cr>
 nnoremap <leader>l :nohlsearch<CR><C-l>
-
-
-inoremap <tab> <c-n>
-inoremap <s-tab> <c-p>
-" nnoremap <tab> >
-" onoremap <tab> >
-" vnoremap <tab> >
-" nnoremap <s-tab> <
-" onoremap <s-tab> <
-" vnoremap <s-tab> <
-
-" line text-objects
-xnoremap il g_o0
-omap il :<C-u>normal vil<CR>
-xnoremap al $o0
-omap al :<C-u>normal val<CR>
-
-let g:deoplete#enable_at_startup = 1
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+onoremap <leader>d "_d
+nnoremap <leader>p "0p
+vnoremap <leader>p "0p
+onoremap <leader>p "0p
 
 let g:neomake_python_flake8_maker = {
     \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default', '--max-line-lenght=120'],
@@ -166,17 +166,8 @@ let g:neomake_python_flake8_maker = {
         \ '%-G%.%#',
     \ }
 let g:neomake_python_enabled_makers = ['flake8']
-
-" inoremap <c-m> <c-o>:call GetTab()<cr>
-
-" function! GetTab()
-"     let l:last_char = getline('.')[col('.') - 2]
-"     if l:last_char ==# ' '
-"         :normal a <tab>
-"     " else
-"     "     call feedkeys('{', 'n')
-"     endif
-" endf
+let g:neomake_javascript_enabled_makers = ['jshint']
+let g:neomake_html_enabled_makers = []
 
 function! s:fzf_statusline()
     " Override statusline as you like
@@ -187,3 +178,26 @@ function! s:fzf_statusline()
 endfunction
 
 autocmd! User FzfStatusLine call <SID>fzf_statusline()
+let g:ackprg = 'ag --nogroup --nocolor --column'
+
+let g:lightline#bufferline#unnamed      = '[No Name]'
+let g:lightline#bufferline#filename_modifier = ':t'
+let g:lightline.tabline          = {'left': [['buffers']]}
+let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
+let g:lightline.component_type   = {'buffers': 'tabsel'}
+
+let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
+
+let g:deoplete#enable_at_startup = 1
+" deoplete tab-complete
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
+
+let g:python3_host_prog = '/Users/balzss/.pyenv/versions/neovim/bin/python'
+
+let g:UltiSnipsExpandTrigger="<c-j>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+let g:UltiSnipsSnippetDirectories=["custom_snippets"]
+
+call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])

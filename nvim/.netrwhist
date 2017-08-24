@@ -1,0 +1,8 @@
+let g:netrw_dirhistmax  =10
+let g:netrw_dirhist_cnt =6
+let g:netrw_dirhist_1='/Users/balzss/prog/touchPL/node_modules/ace-builds/src-min'
+let g:netrw_dirhist_2='/Users/balzss/prog/touchPL/config'
+let g:netrw_dirhist_3='/Users/balzss/.pyenv/versions/3.6.1/lib'
+let g:netrw_dirhist_4='/Users/balzss/.pyenv/versions/3.6.1/lib/python3.6'
+let g:netrw_dirhist_5='/Users/balzss/.pyenv/versions'
+let g:netrw_dirhist_6='/Users/balzss/dotfiles/unpack/scripts/zsh/zsh-git-prompt'
