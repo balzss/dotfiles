@@ -1,0 +1,5 @@
+export GOPATH=$HOME/go
+export PATH=$PATH:$GOPATH/bin
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+export PIP_REQUIRE_VIRTUALENV=false
+export CLICOLOR=1

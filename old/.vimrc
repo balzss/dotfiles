@@ -10,7 +10,6 @@ Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
 Plug 'junegunn/fzf.vim'
 
-
 call plug#end()
 
 if filereadable(expand("~/.vimrc_background"))
@@ -66,7 +65,7 @@ set foldcolumn=0
 syntax on
 set t_Co=256
 set synmaxcol=120
-colorscheme base16-tomorrow-night
+colorscheme base16-default-dark
 set background=dark
 
 let g:lightline = {

@@ -11,6 +11,9 @@ Plug 'junegunn/fzf.vim'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'neomake/neomake'
 Plug 'hynek/vim-python-pep8-indent'
+Plug 'mxw/vim-jsx'
+Plug 'jiangmiao/auto-pairs'
+Plug 'Valloric/MatchTagAlways', { 'for': 'html' }
 
 call plug#end()
 
@@ -49,7 +52,7 @@ set autoindent
 set linebreak   "break line only between words
 set showbreak=>>    "indicate wrapped text
 set formatoptions=qj " allows writing long lines and reformat it manually
-set textwidth=80
+set textwidth=120
 
 " layout
 set laststatus=2 " statusline always visible
@@ -63,7 +66,7 @@ set cursorline
 set noshowmode
 set nolist
 set fillchars=vert:│
-set colorcolumn=80 " displays a vertical line at column 80
+set colorcolumn=120 " displays a vertical line at column 120
 set foldcolumn=0
 
 " syntax highlighting
@@ -109,7 +112,9 @@ vnoremap <C-r> "hy:%s/<C-r>h//gc<left><left><left>
 inoremap <c-l> <c-o>a
 
 nnoremap J <c-d>
+vnoremap J <c-d>
 nnoremap K <c-u>
+vnoremap K <c-u>
 nnoremap M J
 nnoremap U <c-r>
 
@@ -117,19 +122,6 @@ nnoremap gn :bnext<CR>
 nnoremap gp :bprevious<CR>
 nnoremap gd :bdelete<CR>
 nnoremap gd :bdelete<CR>
-
-
-" deleted default deleted
-inoremap <left> <nop>
-inoremap <right> <nop>
-inoremap <up> <nop>
-inoremap <down> <nop>
-nnoremap <left> <nop>
-nnoremap <right> <nop>
-nnoremap <up> <nop>
-nnoremap <down> <nop>
-nnoremap <backspace> <nop>
-nnoremap <c-r> <nop>
 
 " modified default keybindings
 nnoremap , ;
@@ -140,12 +132,12 @@ nnoremap H ^
 onoremap L $h
 vnoremap L $h
 nnoremap L $
-nnoremap D D"_dd
 
 let mapleader=" "
 nnoremap <leader>e :Files<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader><leader> :b#<cr>
+nnoremap <leader>l :nohlsearch<CR><C-l>
 
 
 inoremap <tab> <c-n>
@@ -166,7 +158,7 @@ omap al :<C-u>normal val<CR>
 let g:deoplete#enable_at_startup = 1
 
 let g:neomake_python_flake8_maker = {
-    \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default'],
+    \ 'args': ['--ignore=E221,E241,E272,E251,W702,E203,E201,E202',  '--format=default', '--max-line-lenght=120'],
     \ 'errorformat':
         \ '%E%f:%l: could not compile,%-Z%p^,' .
         \ '%A%f:%l:%c: %t%n %m,' .
