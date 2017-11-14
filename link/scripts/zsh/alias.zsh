@@ -19,3 +19,9 @@ alias gac="git add -A && git commit -m"
 alias gpl="git pull"
 alias gph="git push"
 alias gcl="git clone"
+
+alias venv="python3 -m venv .venv && vact"
+alias vact="source ./.venv/bin/activate"
+alias voff="deactivate"
+
+alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"

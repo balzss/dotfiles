@@ -17,7 +17,7 @@ fi
 # modified python virtualenv prompt
 function get_virtualenv_info(){
     if [[ -n "$VIRTUAL_ENV" ]]; then
-        echo "%F{yellow}[`basename \"$VIRTUAL_ENV\"`]%f "
+        echo "%F{yellow}[`basename $(dirname $VIRTUAL_ENV)`]%f "
     else
         echo ""
     fi

@@ -15,10 +15,6 @@ create_tmux_session() {
     fi
     tmux attach -t $SESSIONNAME
 }
-venv(){
-    pyenv virtualenv $(basename $PWD)
-    echo $(basename $PWD)>.python-version
-}
 ghcl (){
     git clone https://www.github.com/$1.git
 }

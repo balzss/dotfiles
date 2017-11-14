@@ -13,7 +13,6 @@ Plug 'junegunn/fzf.vim'
 Plug 'neomake/neomake'
 Plug 'hynek/vim-python-pep8-indent'
 Plug 'mileszs/ack.vim'
-Plug 'Valloric/MatchTagAlways', { 'for': 'html' }
 Plug 'posva/vim-vue'
 Plug 'digitaltoad/vim-pug'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }

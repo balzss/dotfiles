@@ -19,9 +19,6 @@ source $HOME/scripts/zsh/keybindings.zsh
 source $HOME/scripts/zsh/completion.zsh
 source $HOME/scripts/zsh/prompt.zsh
 
-eval "$(pyenv init -)"
-eval "$(pyenv virtualenv-init -)"
-
 # setup hooks
 autoload -Uz add-zsh-hook
 add-zsh-hook precmd new_line
