@@ -15,7 +15,7 @@ Plug 'hynek/vim-python-pep8-indent'
 Plug 'mileszs/ack.vim'
 Plug 'posva/vim-vue'
 Plug 'digitaltoad/vim-pug'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
@@ -187,10 +187,10 @@ let g:lightline.component_type   = {'buffers': 'tabsel'}
 
 let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 
-let g:deoplete#enable_at_startup = 1
-" deoplete tab-complete
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
-inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
+" let g:deoplete#enable_at_startup = 1
+" " deoplete tab-complete
+" inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 
 let g:python3_host_prog = '/Users/balzss/.pyenv/versions/neovim/bin/python'
 
@@ -199,4 +199,4 @@ let g:UltiSnipsJumpForwardTrigger="<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=["custom_snippets"]
 
-call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+" call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
