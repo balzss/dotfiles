@@ -8,10 +8,14 @@ map('u', 'S');
 map('U', 'D');
 map('O', 't');
 map('o', 'go');
-map('f', 'af');
-
+map('F', 'af');
 map('B', 'b');
-mapkey('b', '#8Open a bookmark', function() {
+
+mapkey('f', 'Open a link in current tab', function() {
+    Hints.create("", Hints.dispatchMouseClick, {tabbed: false});
+});
+
+mapkey('b', 'Open a bookmark', function() {
     Front.openOmnibar(({type: "Bookmarks", tabbed: false}));
 });
 
@@ -31,7 +35,7 @@ mapkey('D', 'forward 30s YT video', function() {
     document.getElementsByTagName("video")[0].currentTime += 30;
 });
 
-unmapAllExcept(['b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
+unmapAllExcept(['b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
 
 Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
