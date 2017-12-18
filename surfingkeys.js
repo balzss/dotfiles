@@ -35,7 +35,7 @@ mapkey('D', 'forward 30s YT video', function() {
     document.getElementsByTagName("video")[0].currentTime += 30;
 });
 
-unmapAllExcept(['<Ctrl-f>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
+unmapAllExcept(['<Ctrl-f>', '<Ctrl-e>', '<Ctrl-i>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
 
 Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
