@@ -27,12 +27,32 @@ mapkey('S', 'fullscreen YT video', function() {
     document.getElementsByClassName('ytp-fullscreen-button')[0].click();
 });
 
+mapkey('a', 'rewind 30s YT video', function() {
+    document.getElementsByTagName("video")[0].currentTime -= 5;
+});
+
+mapkey('d', 'forward 30s YT video', function() {
+    document.getElementsByTagName("video")[0].currentTime += 5;
+});
+
 mapkey('A', 'rewind 30s YT video', function() {
     document.getElementsByTagName("video")[0].currentTime -= 30;
 });
 
 mapkey('D', 'forward 30s YT video', function() {
     document.getElementsByTagName("video")[0].currentTime += 30;
+});
+
+mapkey('q', 'forward 30s YT video', function() {
+    document.getElementsByTagName("video")[0].playbackRate += 0.1;
+});
+
+mapkey('w', 'forward 30s YT video', function() {
+    document.getElementsByTagName("video")[0].playbackRate = 1.5;
+});
+
+mapkey('e', 'forward 30s YT video', function() {
+    document.getElementsByTagName("video")[0].playbackRate -= 0.1;
 });
 
 unmapAllExcept(['<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
