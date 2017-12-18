@@ -11,23 +11,6 @@ map('o', 'go');
 map('F', 'af');
 map('B', 'b');
 
-mapkey('z', 'Show me the money', function() {
-    
-    var xmlhttp = new XMLHttpRequest();
-    var url = "https://api.fixer.io/latest?base=USD&symbols=GBP";
-
-    xmlhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            var myArr = JSON.parse(this.responseText);
-            Front.showPopup(myArr);
-        }
-    };
-    xmlhttp.open("GET", url, true);
-    xmlhttp.send();
-    
-    
-});
-
 mapkey('f', 'Open a link in current tab', function() {
     Hints.create("", Hints.dispatchMouseClick, {tabbed: false});
 });
@@ -52,7 +35,7 @@ mapkey('D', 'forward 30s YT video', function() {
     document.getElementsByTagName("video")[0].currentTime += 30;
 });
 
-unmapAllExcept(['z', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
+unmapAllExcept(['<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
 
 Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
