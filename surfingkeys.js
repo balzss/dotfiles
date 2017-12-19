@@ -44,15 +44,15 @@ mapkey('D', 'forward 30s YT video', function() {
 });
 
 mapkey('q', 'forward 30s YT video', function() {
-    document.getElementsByTagName("video")[0].playbackRate += 0.1;
+    document.getElementsByTagName("video")[0].playbackRate -= 0.1;
 });
 
 mapkey('w', 'forward 30s YT video', function() {
-    document.getElementsByTagName("video")[0].playbackRate = 1.5;
+    document.getElementsByTagName("video")[0].playbackRate == 1 ? document.getElementsByTagName("video")[0].playbackRate = 1.5 : document.getElementsByTagName("video")[0].playbackRate = 1;
 });
 
 mapkey('e', 'forward 30s YT video', function() {
-    document.getElementsByTagName("video")[0].playbackRate -= 0.1;
+    document.getElementsByTagName("video")[0].playbackRate += 0.1;
 });
 
 unmapAllExcept(['a', 'd', 'q', 'w', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
