@@ -44,15 +44,15 @@ mapkey('D', 'forward 30s YT video', function() {
 });
 
 mapkey('q', 'forward 30s YT video', function() {
-    document.getElementsByTagName("video")[0].playbackRate -= 0.1;
+    document.getElementsByTagName("video")[0].playbackRate -= 0.2;
 });
 
 mapkey('w', 'forward 30s YT video', function() {
-    document.getElementsByTagName("video")[0].playbackRate == 1 ? document.getElementsByTagName("video")[0].playbackRate = 1.5 : document.getElementsByTagName("video")[0].playbackRate = 1;
+    document.getElementsByTagName("video")[0].playbackRate == 1 ? document.getElementsByTagName("video")[0].playbackRate = 1.6 : document.getElementsByTagName("video")[0].playbackRate = 1;
 });
 
 mapkey('e', 'forward 30s YT video', function() {
-    document.getElementsByTagName("video")[0].playbackRate += 0.1;
+    document.getElementsByTagName("video")[0].playbackRate += 0.2;
 });
 
 unmapAllExcept(['a', 'd', 'q', 'w', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
@@ -65,7 +65,7 @@ settings.focusFirstCandidate = true;
 
 addSearchAliasX('r', 'reddit', 'https://www.google.com/search?q=site:reddit.com+');
 addSearchAliasX('y', 'youtube', 'https://www.youtube.com/results?search_query=');
-addSearchAliasX('g', 'github', 'https://github.com/search?q=sort:stars+');
+addSearchAliasX('h', 'github', 'https://github.com/search?q=sort:stars+');
 addSearchAliasX('i', 'image', 'https://www.google.com/search?tbm=isch&q=');
 addSearchAliasX('m', 'maps', 'https://www.google.com/maps?q=');
 
