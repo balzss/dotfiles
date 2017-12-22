@@ -43,19 +43,23 @@ mapkey('D', 'forward 30s YT video', function() {
     document.getElementsByTagName("video")[0].currentTime += 30;
 });
 
-mapkey('q', 'forward 30s YT video', function() {
+mapkey('q', 'decrease speed of YT video', function() {
     document.getElementsByTagName("video")[0].playbackRate -= 0.2;
 });
 
-mapkey('w', 'forward 30s YT video', function() {
+mapkey('w', 'set speed of YT video', function() {
+    document.getElementsByTagName("video")[0].playbackRate == 1 ? document.getElementsByTagName("video")[0].playbackRate = 2 : document.getElementsByTagName("video")[0].playbackRate = 1;
+});
+
+mapkey('W', 'set speed of YT video', function() {
     document.getElementsByTagName("video")[0].playbackRate == 1 ? document.getElementsByTagName("video")[0].playbackRate = 1.6 : document.getElementsByTagName("video")[0].playbackRate = 1;
 });
 
-mapkey('e', 'forward 30s YT video', function() {
+mapkey('e', 'increase speed of YT video', function() {
     document.getElementsByTagName("video")[0].playbackRate += 0.2;
 });
 
-unmapAllExcept(['a', 'd', 'q', 'w', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
+unmapAllExcept(['a', 'd', 'q', 'w', 'W', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
 
 Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
