@@ -14,6 +14,7 @@ create_tmux_session() {
         # tmux send-keys -t $SESSIONNAME "~/scripts/tmux-script" C-m 
     fi
     tmux attach -t $SESSIONNAME
+    soz
 }
 ghcl (){
     git clone https://www.github.com/$1.git

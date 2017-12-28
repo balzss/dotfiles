@@ -29,5 +29,5 @@ function get_git_info(){
     echo "%F{blue}$(git_super_status)%f "
 }
 
-PROMPT='${prompt_host}$(get_dir_info)$(get_virtualenv_info)$(get_git_info)
+PROMPT='$(get_dir_info)$(get_virtualenv_info)$(get_git_info)
  %F{green}$%f '
