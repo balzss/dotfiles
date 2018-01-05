@@ -13,10 +13,7 @@ setopt extended_history
 source $HOME/scripts/zsh/zsh-history-substring-search.zsh
 source $HOME/scripts/zsh/zsh-git-prompt/zshrc.sh
 source $HOME/scripts/zsh/alias.zsh
-source $HOME/scripts/zsh/exports.zsh
-source $HOME/scripts/zsh/functions.zsh
-source $HOME/scripts/zsh/keybindings.zsh
-source $HOME/scripts/zsh/completion.zsh
+source $HOME/scripts/zsh/options.zsh
 source $HOME/scripts/zsh/prompt.zsh
 
 # setup hooks

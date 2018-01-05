@@ -21,6 +21,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tomlion/vim-solidity'
 Plug 'jceb/vim-orgmode', { 'for': 'org' }
+Plug 'rhysd/vim-grammarous', { 'on':  'GrammarousCheck' }
 
 call plug#end()
 
@@ -46,9 +47,26 @@ augroup general
     endif
 augroup END
 
-autocmd FileType python nnoremap <leader>r :terminal python %<cr>
-autocmd FileType javascript nnoremap <leader>r :terminal node %<cr>
-autocmd FileType html nnoremap <leader>r :!open %<cr>
+" augroup filetype_html
+"     autocmd!
+"     autocmd FileType markdown nnoremap o o<cr>#<space>
+"     autocmd FileType markdown nnoremap O O<esc>O#<space>
+"     " autocmd FileType markdown nnoremap <expr> <tab> getline('.') =~ '^#' ? ":.s/^/#/<bar>nohlsearch<cr><c-o>l" : ">>"
+"     autocmd FileType markdown nnoremap <s-tab> :call Dedent()<cr><c-o>h
+
+"     function! Dedent()
+"         if getline('.') =~ '^##'
+"             .s/^#// | nohlsearch
+"         elseif getline('.') =~ '^\-'
+"             normal "<<"
+"         endif
+"     endfunction
+
+" augroup END
+
+autocmd FileType python nnoremap <localleader>r :terminal python %<cr>
+autocmd FileType javascript nnoremap <localleader>r :terminal node %<cr>
+autocmd FileType html nnoremap <localleader>r :!open %<cr>
 
 " code formatting
 filetype plugin indent on
@@ -144,6 +162,7 @@ nnoremap gp :bprevious<CR>
 nnoremap gd :bdelete<CR>
 
 let mapleader=" "
+let maplocalleader="'"
 nnoremap <leader>e :Files<CR>
 nnoremap <leader>g :Ag<CR>
 nnoremap <leader>t :Tags<CR>
