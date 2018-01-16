@@ -1,5 +1,6 @@
 # (slightly outdated) screenshots
-![screenshot0](http://i.imgur.com/GmE8PIR.png)
-![screenshot1](http://i.imgur.com/PHigCbR.png)
-![screenshot2](http://i.imgur.com/QGfiQHV.png)
-![screenshot3](http://i.imgur.com/kbUqCyQ.png)
+![screenshot0](https://i.imgur.com/jXHUMLF.png)
+![screenshot1](https://i.imgur.com/LB6pjVo.png)
+![screenshot2](https://i.imgur.com/fdAuZAY.png)
+![screenshot3](https://i.imgur.com/N3dE9cK.png)
+![screenshot3](https://i.imgur.com/FNHrptL.png)
