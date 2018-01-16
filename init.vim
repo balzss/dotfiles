@@ -22,6 +22,7 @@ Plug 'honza/vim-snippets'
 Plug 'tomlion/vim-solidity'
 Plug 'jceb/vim-orgmode', { 'for': 'org' }
 Plug 'rhysd/vim-grammarous', { 'on':  'GrammarousCheck' }
+Plug 'othree/html5.vim'
 
 call plug#end()
 
@@ -95,6 +96,7 @@ set nolist
 set fillchars=vert:│
 set colorcolumn=120 " displays a vertical line at column 120
 set foldcolumn=0
+set foldmethod=indent
 set showtabline=2
 
 " syntax highlighting
