@@ -13,17 +13,24 @@ compinit
 _comp_options+=(globdots)
 
 
-# keybindings
+# keybindings (-v for vim; -e for emacs)
+bindkey -v
 
-# use emacs keybindings
-bindkey -e
-
-#ctrl-f edit current buffer in editor
-autoload -U edit-command-line
-zle -N edit-command-line
-bindkey '^f' edit-command-line
-
+zle -N zle-line-init
+zle -N zle-keymap-select
 zle -N prepend-sudo
+
 bindkey "^s" prepend-sudo
 bindkey "^p" history-substring-search-up
 bindkey "^n" history-substring-search-down
+
+bindkey "^?" backward-delete-char
+bindkey -M vicmd '/' history-incremental-search-backward
+bindkey -M vicmd "k" history-substring-search-up
+bindkey -M vicmd "j" history-substring-search-down
+bindkey -M vicmd "H" vi-beginning-of-line
+bindkey -M vicmd "L" vi-end-of-line
+bindkey -M vicmd "M" vi-join
+bindkey -M vicmd "U" redo
+bindkey -M vicmd "g" vi-fetch-history
+bindkey -M vicmd "s" prepend-sudo

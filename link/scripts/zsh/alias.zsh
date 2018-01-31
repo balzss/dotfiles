@@ -7,6 +7,9 @@ export PIP_REQUIRE_VIRTUALENV=false
 export CLICOLOR=1
 export MOZ_USE_XINPUT2=1
 export BASE16_THEME=default-dark
+export MOZ_USE_XINPUT2=1
+export EDITOR=/usr/bin/nvim
+export VISUAL=/usr/bin/nvim
 
 
 ######## aliases ########
@@ -27,6 +30,7 @@ alias soz="source ~/.zshrc"
 alias pls='sudo $(fc -ln -1)'
 
 alias vim="nvim"
+# alias vimf="nvim \$(fzf)"
 
 alias gac="git add -A && git commit -m"
 alias gpl="git pull"
@@ -42,6 +46,7 @@ alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '(
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
 alias inst="apt-get install"
 alias rmv="apt-get remove --auto-remove"
+alias musync="rsync -rv -e 'ssh -p 2222' --progress ~/Music 192.169.1.65:"
 
 
 ######## functions ########
@@ -81,4 +86,14 @@ prepend-sudo() {
     prefix="sudo"
     BUFFER="$prefix $BUFFER"
     CURSOR=$(($CURSOR + $#prefix + 1))
+}
+
+fontsize() {
+    CFS="$(gsettings get org.gnome.desktop.interface text-scaling-factor)"
+    if [ "$CFS" = "1.0" ]
+    then
+        gsettings set org.gnome.desktop.interface text-scaling-factor 1.4
+    else
+        gsettings set org.gnome.desktop.interface text-scaling-factor 1.0
+    fi
 }

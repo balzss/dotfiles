@@ -1,6 +1,7 @@
 HISTFILE=~/.histfile
 HISTSIZE=1000
 SAVEHIST=1000
+KEYTIMEOUT=1
 
 setopt append_history 
 setopt inc_append_history 

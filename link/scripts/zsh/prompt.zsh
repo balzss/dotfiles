@@ -2,16 +2,28 @@
 setopt prompt_subst # Enables additional prompt extentions
 autoload -U colors && colors    # Enables colours
 
+function zle-line-init zle-keymap-select {
+    case $KEYMAP in
+        main)
+            VIM_MODE="%F{blue}[I]%f"
+            ;;
+        vicmd)
+            VIM_MODE="%F{red}[N]%f"
+            ;;
+    esac
+    zle reset-prompt
+}
+
 # display host if in an SSH session, executed when .zshrc is sourced (on login)
 if [[ -z "$SSH_CLIENT" ]]; then
     prompt_host=""
     # autostart tmux
-    if [ "$TMUX" = "" ] && [ -z "$VSCODE" ]
+    if [ "$TMUX" = "" ]
     then
         create_tmux_session
     fi
 else
-    prompt_host="%F{172}[$(hostname -s)] %f"
+    prompt_host="%F{172}[$(hostname -s)] %f "
 fi
 
 # modified python virtualenv prompt
@@ -22,12 +34,6 @@ function get_virtualenv_info(){
         echo ""
     fi
 }
-function get_dir_info(){
-    echo "%F{magenta}[%d]%f "
-}
-function get_git_info(){
-    echo "%F{blue}$(git_super_status)%f "
-}
 
-PROMPT='$(get_dir_info)$(get_virtualenv_info)$(get_git_info)
- %F{green}$%f '
+PROMPT='$prompt_host%F{magenta}[%d]%f $(get_virtualenv_info)%F{blue}$(git_super_status)%f 
+$VIM_MODE%f '
