@@ -46,7 +46,7 @@ alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '(
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
 alias inst="apt-get install"
 alias rmv="apt-get remove --auto-remove"
-alias musync="rsync -rv -e 'ssh -p 2222' --progress ~/Music 192.169.1.65:"
+alias musync="~/adb-sync/adb-sync --delete ~/Music /storage/emulated/0"
 
 
 ######## functions ########
