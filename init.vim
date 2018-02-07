@@ -13,7 +13,7 @@ Plug 'mileszs/ack.vim'
 Plug 'posva/vim-vue'
 Plug 'digitaltoad/vim-pug'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'jiangmiao/auto-pairs'
+" Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tomlion/vim-solidity'
@@ -22,6 +22,11 @@ Plug 'Yggdroot/indentLine'
 Plug 'w0rp/ale'
 
 call plug#end()
+
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
 
 augroup general
     autocmd!
@@ -131,6 +136,9 @@ nnoremap <leader>p "0p
 vnoremap <leader>p "0p
 onoremap <leader>p "0p
 
+inoremap <c-l> <esc>la
+inoremap <c-b> {<cr>}<esc>==O<esc>cc
+
 " deoplete tab-complete
 inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
@@ -163,8 +171,6 @@ let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 let g:deoplete#enable_at_startup = 1
 
 let g:UltiSnipsExpandTrigger="<c-j>"
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=["custom_snippets"]
 
 call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
