@@ -13,7 +13,6 @@ Plug 'mileszs/ack.vim'
 Plug 'posva/vim-vue'
 Plug 'digitaltoad/vim-pug'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" Plug 'jiangmiao/auto-pairs'
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'tomlion/vim-solidity'
@@ -24,8 +23,8 @@ Plug 'w0rp/ale'
 call plug#end()
 
 if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
+    let base16colorspace=256
+    source ~/.vimrc_background
 endif
 
 augroup general
@@ -136,6 +135,8 @@ nnoremap <leader>p "0p
 vnoremap <leader>p "0p
 onoremap <leader>p "0p
 
+nnoremap <leader>r :te time ./%<cr>
+
 inoremap <c-l> <esc>la
 inoremap <c-b> {<cr>}<esc>==O<esc>cc
 
@@ -174,3 +175,5 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsSnippetDirectories=["custom_snippets"]
 
 call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+
+let g:ale_python_flake8_options = '--ignore=E501'
