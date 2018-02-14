@@ -481,7 +481,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Roboto Mono"
-                               :size 13.0
+                               :size 14.0
                                :weight normal
                                :width normal
                                :powerline-scale 1.1)
@@ -671,7 +671,7 @@ you should place your code here."
   (define-key evil-operator-state-map (kbd "L") (kbd "$ h"))
   (define-key evil-operator-state-map (kbd "H") (kbd "^"))
 
-  (setq powerline-default-separator 'arrow)
+  (setq powerline-default-separator 'nil)
   (setq scroll-margin 20)
 
 
