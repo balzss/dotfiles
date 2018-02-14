@@ -7,7 +7,7 @@ map('K', 'u');
 map('u', 'S');
 map('U', 'D');
 map('O', 't');
-map('o', 'go');
+map('o', 'og');
 map('F', 'af');
 map('B', 'b');
 
@@ -65,7 +65,7 @@ Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
 settings.hintAlign = "left";
 settings.newTabPosition = "right";
-settings.focusFirstCandidate = true;
+settings.focusFirstCandidate = false;
 
 addSearchAliasX('r', 'reddit', 'https://www.google.com/search?q=site:reddit.com+');
 addSearchAliasX('y', 'youtube', 'https://www.youtube.com/results?search_query=');
