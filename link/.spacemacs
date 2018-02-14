@@ -109,7 +109,7 @@ values."
    ;; directory. A string value must be a path to an image format supported
    ;; by your Emacs build.
    ;; If the value is nil then no banner is displayed. (default 'official)
-   dotspacemacs-startup-banner 'official
+   dotspacemacs-startup-banner nil
    ;; List of items to show in startup buffer or an association list of
    ;; the form `(list-type . list-size)`. If nil then it is disabled.
    ;; Possible values for list-type are:
@@ -300,6 +300,16 @@ executes.
  This function is mostly useful for variables that need to be set
 before packages are loaded. If you are unsure, you should try in setting them in
 `dotspacemacs/user-config' first."
+  )
+
+(defun dotspacemacs/user-config ()
+  "Configuration function for user code.
+This function is called at the very end of Spacemacs initialization after
+layers configuration.
+This is the place where most of your configurations should be done. Unless it is
+explicitly specified that a variable should be set before a package is loaded,
+you should place your code here."
+
   (define-key evil-normal-state-map (kbd "M") (kbd "J"))
   (define-key evil-normal-state-map (kbd "J") (kbd "C-d"))
   (define-key evil-normal-state-map (kbd "K") (kbd "C-u"))
@@ -315,15 +325,8 @@ before packages are loaded. If you are unsure, you should try in setting them in
 
   (setq powerline-default-separator 'arrow)
   (setq scroll-margin 20)
-  )
 
-(defun dotspacemacs/user-config ()
-  "Configuration function for user code.
-This function is called at the very end of Spacemacs initialization after
-layers configuration.
-This is the place where most of your configurations should be done. Unless it is
-explicitly specified that a variable should be set before a package is loaded,
-you should place your code here."
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
