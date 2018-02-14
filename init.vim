@@ -1,24 +1,29 @@
 ﻿call plug#begin()
 
+" language plugins
+Plug 'neovimhaskell/haskell-vim'
+Plug 'tomlion/vim-solidity'
+Plug 'digitaltoad/vim-pug'
+Plug 'mattn/emmet-vim'
+Plug 'posva/vim-vue'
+Plug 'othree/html5.vim'
+
+" misc plugins
 Plug 'chriskempson/base16-vim'
 Plug 'itchyny/lightline.vim'
 Plug 'daviesjamie/vim-base16-lightline'
 Plug 'mgee/lightline-bufferline'
-Plug 'mattn/emmet-vim'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
 Plug 'junegunn/fzf.vim'
 Plug 'mileszs/ack.vim'
-Plug 'posva/vim-vue'
-Plug 'digitaltoad/vim-pug'
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
-Plug 'tomlion/vim-solidity'
-Plug 'othree/html5.vim'
 Plug 'Yggdroot/indentLine'
 Plug 'w0rp/ale'
+Plug 'jpalardy/vim-slime'
 
 call plug#end()
 
@@ -177,3 +182,7 @@ let g:UltiSnipsSnippetDirectories=["custom_snippets"]
 call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
 
 let g:ale_python_flake8_options = '--ignore=E501'
+
+" let g:slime_target = "neovim"
+xmap <leader>c <Plug>SlimeRegionSend
+nmap <leader>c <Plug>SlimeParagraphSend
