@@ -30,19 +30,18 @@ alias soz="source ~/.zshrc"
 alias pls='sudo $(fc -ln -1)'
 
 alias vim="nvim"
-# alias vimf="nvim \$(fzf)"
 
 alias gac="git add -A && git commit -m"
 alias gpl="git pull"
 alias gph="git push"
 alias gcl="git clone"
-# alias grt="cd $(git rev-parse --show-toplevel)"
 
 alias venv="python3 -m venv .venv && vact"
 alias vact="source ./.venv/bin/activate"
 alias voff="deactivate"
 
-alias myip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
+alias myip="hostname -I"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
 alias inst="apt-get install"
 alias rmv="apt-get remove --auto-remove"
@@ -96,4 +95,8 @@ fontsize() {
     else
         gsettings set org.gnome.desktop.interface text-scaling-factor 1.0
     fi
+}
+
+myip() {
+
 }
