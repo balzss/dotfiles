@@ -125,7 +125,18 @@
   (define-key evil-operator-state-map (kbd "H") (kbd "^"))
 
   (setq powerline-default-separator 'nil)
-  (setq scroll-margin 20)
+  (setq scroll-margin 30)
+
+  (with-eval-after-load 'indent-guide
+    (when (boundp 'indent-guide-inhibit-modes)
+      ;; fix for crash on home page
+      (push 'spacemacs-buffer-mode indent-guide-inhibit-modes))
+
+    ;; configure indent guide
+    (setq indent-guide-char "|")
+    (setq indent-guide-recursive t)
+    (setq indent-guide-delay 0.2)
+    )
 
 
   )

@@ -23,7 +23,6 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Yggdroot/indentLine'
 Plug 'w0rp/ale'
-Plug 'jpalardy/vim-slime'
 
 call plug#end()
 
@@ -125,6 +124,7 @@ nnoremap gs <C-w>w
 nnoremap gS <C-w>W
 
 " new keybindings
+nnoremap <esc> :nohlsearch<CR><C-l>
 let mapleader=" "
 nnoremap <leader>s :w ! sudo tee %<cr>
 nnoremap <leader>e :Files<CR>
@@ -132,7 +132,6 @@ nnoremap <leader>g :Ag<CR>
 nnoremap <leader>t :Tags<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader><leader> :b#<cr>
-nnoremap <leader>l :nohlsearch<CR><C-l>
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 onoremap <leader>d "_d
@@ -141,6 +140,7 @@ vnoremap <leader>p "0p
 onoremap <leader>p "0p
 
 nnoremap <leader>r :te time ./%<cr>
+nnoremap <leader>R :te time ./%<space>
 
 inoremap <c-l> <esc>la
 inoremap <c-b> {<cr>}<esc>==O<esc>cc
@@ -182,7 +182,3 @@ let g:UltiSnipsSnippetDirectories=["custom_snippets"]
 call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
 
 let g:ale_python_flake8_options = '--ignore=E501'
-
-" let g:slime_target = "neovim"
-xmap <leader>c <Plug>SlimeRegionSend
-nmap <leader>c <Plug>SlimeParagraphSend
