@@ -10,8 +10,8 @@ map('O', 't');
 map('o', 'go');
 map('F', 'af');
 map('B', 'b');
-map('<m-j>', 'R');
-map('<m-k>', 'E');
+map('<Alt-j>', 'R');
+map('<Alt-k>', 'E');
 vmap('H', '0');
 vmap('L', '$');
 
@@ -63,7 +63,7 @@ mapkey('e', 'increase speed of YT video', function() {
     document.getElementsByTagName("video")[0].playbackRate += 0.2;
 });
 
-unmapAllExcept(['<m-j>', '<m-k>', 'a', 'd', 'q', 'w', 'W', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
+unmapAllExcept(['<Alt-j>', '<Alt-k>', 'a', 'd', 'q', 'w', 'W', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
 
 Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
