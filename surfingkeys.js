@@ -10,6 +10,10 @@ map('O', 't');
 map('o', 'go');
 map('F', 'af');
 map('B', 'b');
+map('<m-j>', 'R');
+map('<m-k>', 'E');
+vmap('H', '0');
+vmap('L', '$');
 
 mapkey('f', 'Open a link in current tab', function() {
     Hints.create("", Hints.dispatchMouseClick, {tabbed: false});
@@ -59,13 +63,14 @@ mapkey('e', 'increase speed of YT video', function() {
     document.getElementsByTagName("video")[0].playbackRate += 0.2;
 });
 
-unmapAllExcept(['a', 'd', 'q', 'w', 'W', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
+unmapAllExcept(['<m-j>', '<m-k>', 'a', 'd', 'q', 'w', 'W', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
 
 Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
 settings.hintAlign = "left";
 settings.newTabPosition = "right";
 settings.focusFirstCandidate = false;
+settings.modeAfterYank = "Normal";
 
 addSearchAliasX('r', 'reddit', 'https://www.google.com/search?q=site:reddit.com+');
 addSearchAliasX('y', 'youtube', 'https://www.youtube.com/results?search_query=');
