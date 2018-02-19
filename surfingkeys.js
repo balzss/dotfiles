@@ -7,7 +7,7 @@ map('K', 'u');
 map('u', 'S');
 map('U', 'D');
 map('O', 't');
-map('o', 'og');
+map('o', 'go');
 map('F', 'af');
 map('B', 'b');
 
