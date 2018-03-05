@@ -63,7 +63,7 @@ mapkey('e', 'increase speed of YT video', function() {
     document.getElementsByTagName("video")[0].playbackRate += 0.2;
 });
 
-unmapAllExcept(['<Alt-j>', '<Alt-k>', 'a', 'd', 'q', 'w', 'W', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
+unmapAllExcept(['<Alt-j>', '<Alt-k>', 'a', 'd', 'q', 'w', 'W', 'e', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
 
 Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
@@ -79,24 +79,26 @@ addSearchAliasX('i', 'image', 'https://www.google.com/search?tbm=isch&q=');
 addSearchAliasX('m', 'maps', 'https://www.google.com/maps?q=');
 
 
-Hints.style(`background: #37474F;
-    color: #f0f0f0;
-    font-size: 14px;
+Hints.style(`background: #37474F !important;
+    color: #f0f0f0 !important;
+    font-size: 13px;
     border-radius: 3px;
     border: none;
-    padding: 4px 8px;
+    padding: 3px 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
+    font-family: 'Roboto Mono', monospace;
+    opacity: 1 !important;
 `);
 
-Hints.style(`color-background: #37474F;
-    background: #ccc;
-    font-size: 14px;
+Hints.style(`color: #37474F !important;
+    background: #ccc !important;
+    font-size: 13px;
     border-radius: 3px;
     border: none;
-    padding: 4px 8px;
+    padding: 3px 6px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
-}
+    font-family: 'Roboto Mono', monospace;
+    opacity: 1 !important;
 `, "text");
 
 // set theme
