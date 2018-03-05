@@ -20,7 +20,8 @@ alias grep='grep --color=auto'
 alias mkdir="mkdir -p"
 alias md="mkdir -p"
 alias cp="cp -R"
-alias l="ls -lhApF"
+alias l="ls -lhApF --color=auto"
+alias ld="ls -lrthApF --color=auto"
 
 alias zshrc="vim ~/.zshrc ~/scripts/zsh/**.zsh"
 alias zalias="vim ~/scripts/zsh/alias.zsh"
@@ -36,16 +37,12 @@ alias gpl="git pull"
 alias gph="git push"
 alias gcl="git clone"
 
-alias venv="python3 -m venv .venv && vact"
-alias vact="source ./.venv/bin/activate"
-alias voff="deactivate"
-
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
-alias myip="hostname -I"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
 alias inst="apt-get install"
 alias rmv="apt-get remove --auto-remove"
 alias musync="~/adb-sync/adb-sync --delete ~/Music /storage/emulated/0"
+alias xclip="xclip -selection c"
 
 
 ######## functions ########
@@ -97,6 +94,24 @@ fontsize() {
     fi
 }
 
-myip() {
+venv() {
+    if [[ -n "$VIRTUAL_ENV" ]]; then
+        echo "Deactivating virtualenv..."
+        deactivate
+        return 0
+    fi
 
+    if git rev-parse --git-dir > /dev/null 2>&1; then
+        VENV_DIR="$(git rev-parse --show-toplevel)/.venv"
+    else
+        VENV_DIR=".venv"
+    fi
+
+    if [ -d "$VENV_DIR" ]; then
+        echo "Activating virtualenv..."
+        source ./.venv/bin/activate
+    else
+        echo "Creating virtualenv..."
+        python3 -m venv "$VENV_DIR" && source "$VENV_DIR/bin/activate"
+    fi
 }

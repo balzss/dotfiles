@@ -5,10 +5,10 @@ autoload -U colors && colors    # Enables colours
 function zle-line-init zle-keymap-select {
     case $KEYMAP in
         main)
-            VIM_MODE="%F{blue}[I]%f"
+            VIM_MODE=" %F{blue}$%f"
             ;;
         vicmd)
-            VIM_MODE="%F{red}[N]%f"
+            VIM_MODE=" %F{red}$%f"
             ;;
     esac
     zle reset-prompt
