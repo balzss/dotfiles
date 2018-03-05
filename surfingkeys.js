@@ -63,7 +63,7 @@ mapkey('e', 'increase speed of YT video', function() {
     document.getElementsByTagName("video")[0].playbackRate += 0.2;
 });
 
-unmapAllExcept(['<Alt-j>', '<Alt-k>', 'a', 'd', 'q', 'w', 'W', 'e', '<Ctrl-f>', '<Ctrl-e>', '<Ctrl-u>', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
+unmapAllExcept(['<Alt-j>', '<Alt-k>', 'a', 'd', 'q', 'w', 'W', 'e', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
 
 Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
