@@ -77,6 +77,7 @@ addSearchAliasX('y', 'youtube', 'https://www.youtube.com/results?search_query=')
 addSearchAliasX('h', 'github', 'https://github.com/search?q=sort:stars+');
 addSearchAliasX('i', 'image', 'https://www.google.com/search?tbm=isch&q=');
 addSearchAliasX('m', 'maps', 'https://www.google.com/maps?q=');
+addSearchAliasX('d', 'duckduckgo', 'https://www.duckduckgo.com/?q=');
 
 
 Hints.style(`background: #37474F !important;
