@@ -57,6 +57,7 @@ set linebreak   "break line only between words
 set showbreak=>>    "indicate wrapped text
 set formatoptions=qj " allows writing long lines and reformat it manually
 set textwidth=120
+set conceallevel=0
 
 " layout
 set laststatus=2 " statusline always visible
