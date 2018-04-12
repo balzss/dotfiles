@@ -7,6 +7,8 @@ Plug 'digitaltoad/vim-pug'
 Plug 'mattn/emmet-vim'
 Plug 'posva/vim-vue'
 Plug 'othree/html5.vim'
+Plug 'hail2u/vim-css3-syntax'
+Plug 'pangloss/vim-javascript'
 
 " misc plugins
 Plug 'chriskempson/base16-vim'
@@ -58,6 +60,8 @@ set showbreak=>>    "indicate wrapped text
 set formatoptions=qj " allows writing long lines and reformat it manually
 set textwidth=120
 set conceallevel=0
+set foldmethod=syntax
+set foldlevel=99
 
 " layout
 set laststatus=2 " statusline always visible
@@ -69,7 +73,8 @@ set number " hybrid mode with relative number: current is the actual and not 0
 set wildmenu
 set cursorline
 set noshowmode
-set nolist
+set list
+set listchars=trail:•,nbsp:≡
 set fillchars=vert:│
 set colorcolumn=120 " displays a vertical line at column 120
 set showtabline=2
@@ -116,6 +121,7 @@ vnoremap K <c-u>
 nnoremap M J
 nnoremap U <c-r>
 vnoremap y y`]
+nnoremap z za
 
 
 " new keybindings
@@ -136,6 +142,9 @@ onoremap <leader>d "_d
 nnoremap <leader>p "0p
 vnoremap <leader>p "0p
 onoremap <leader>p "0p
+nnoremap <leader>y "+y
+vnoremap <leader>y "+y
+onoremap <leader>y "+y
 
 " buffer navigation
 nnoremap gd :bdelete<CR>

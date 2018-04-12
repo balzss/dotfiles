@@ -31,11 +31,17 @@ alias soz="source ~/.zshrc"
 alias pls='sudo $(fc -ln -1)'
 
 alias vim="nvim"
+alias v="nvim"
+alias vl="/usr/share/nvim/runtime/macros/less.sh"
 
 alias gac="git add -A && git commit -m"
+alias gad="git add"
+alias gcm="git commit -m"
+alias gst="git status"
 alias gpl="git pull"
 alias gph="git push"
 alias gcl="git clone"
+alias gch="git checkout"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
