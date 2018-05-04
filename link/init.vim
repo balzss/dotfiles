@@ -108,6 +108,7 @@ set backspace=2 "otherwise backspace wont't work in mac OS
 
 " modified default keybindings
 nnoremap s :w<cr>
+vnoremap s :w<cr>
 onoremap H ^
 vnoremap H ^
 nnoremap H ^
