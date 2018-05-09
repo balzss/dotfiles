@@ -48,7 +48,8 @@ alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --pr
 alias inst="apt-get install"
 alias rmv="apt-get remove --auto-remove"
 alias musync="~/adb-sync/adb-sync --delete ~/Music /storage/emulated/0"
-alias xclip="xclip -selection c"
+alias xcl="xclip -selection c"
+alias xim="xclip -selection clipboard -t image/png -o >"
 
 
 ######## functions ########

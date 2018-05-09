@@ -25,6 +25,7 @@ Plug 'SirVer/ultisnips'
 Plug 'honza/vim-snippets'
 Plug 'Yggdroot/indentLine'
 Plug 'w0rp/ale'
+Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 
@@ -205,6 +206,7 @@ let g:deoplete#enable_at_startup = 1
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsSnippetDirectories=["custom_snippets"]
 
-call deoplete#custom#set('ultisnips', 'matchers', ['matcher_fuzzy'])
+call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
 
+let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_python_flake8_options = '--ignore=E501'
