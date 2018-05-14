@@ -1,0 +1,1 @@
+/home/balzss/dotfiles/link/home/.zprofile
