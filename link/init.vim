@@ -29,6 +29,8 @@ Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
 
+au TermOpen * setlocal nonumber norelativenumber
+
 if filereadable(expand("~/.vimrc_background"))
     let base16colorspace=256
     source ~/.vimrc_background
@@ -124,6 +126,7 @@ nnoremap M J
 nnoremap U <c-r>
 vnoremap y y`]
 nnoremap z za
+nnoremap Q q:
 
 
 " new keybindings
@@ -210,3 +213,5 @@ call deoplete#custom#source('ultisnips', 'matchers', ['matcher_fuzzy'])
 
 let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_python_flake8_options = '--ignore=E501'
+
+let g:indentLine_setConceal = 0
