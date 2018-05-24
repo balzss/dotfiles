@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 
-# reset keyboard mappings
+# reset keyboard mappings to default us and kell xcape for a fresh start
 setxkbmap -layout us
 pkill -x xcape
 
-# caps to control
+# use control instead of caps
 setxkbmap -option ctrl:nocaps
 # short press on control act as escape
 xcape -e "Control_L=Escape"
@@ -51,8 +51,12 @@ xmodmap -e "keycode 56 = b B U1D4D1"
 xmodmap -e "keycode 57 = n N U1D4DD"
 xmodmap -e "keycode 58 = m M U1D4DC"
 
-# # space is 65 and tab is 23
+# Mode_switch is a 3rd level modifier similar to Shift which is a 2nd level modifier
 spare_modifier="Mode_switch"
+
+# space is 65 and tab is 23; but you can use any ordinary key
+# change Tab to modifier
 xmodmap -e "keycode 23 = $spare_modifier"
 xmodmap -e "keycode any = Tab"
+# short press on modifier act as Tab
 xcape -e "$spare_modifier=Tab"
