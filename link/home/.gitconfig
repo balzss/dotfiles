@@ -8,3 +8,21 @@
 
 [github]
     user = balzss
+
+[diff]
+    tool = vimdiff
+
+[merge]
+    tool = vimdiff
+
+[mergetool]
+    prompt = true
+
+[difftool]
+    prompt = true
+
+[mergetool "vimdiff"]
+    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[difftool "vimdiff"]
+    cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
