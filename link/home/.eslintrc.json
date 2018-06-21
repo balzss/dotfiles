@@ -8,6 +8,7 @@
   },
 
   "env": {
+    "browser": true,
     "es6": true,
     "node": true
   },
@@ -138,7 +139,7 @@
     "no-this-before-super": "error",
     "no-throw-literal": "error",
     "no-trailing-spaces": "error",
-    "no-undef": "error",
+    "no-undef": 0,
     "no-undef-init": "error",
     "no-unexpected-multiline": "error",
     "no-unmodified-loop-condition": "error",
@@ -146,8 +147,8 @@
     "no-unreachable": "error",
     "no-unsafe-finally": "error",
     "no-unsafe-negation": "error",
-    "no-unused-expressions": ["error", { "allowShortCircuit": true, "allowTernary": true, "allowTaggedTemplates": true }],
-    "no-unused-vars": ["error", { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
+    "no-unused-expressions": [0, { "allowShortCircuit": true, "allowTernary": true, "allowTaggedTemplates": true }],
+    "no-unused-vars": [0, { "vars": "all", "args": "none", "ignoreRestSiblings": true }],
     "no-use-before-define": ["error", { "functions": false, "classes": false, "variables": false }],
     "no-useless-call": "error",
     "no-useless-computed-key": "error",
