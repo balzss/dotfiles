@@ -9,12 +9,13 @@ Plug 'posva/vim-vue'
 Plug 'othree/html5.vim'
 Plug 'hail2u/vim-css3-syntax'
 Plug 'pangloss/vim-javascript'
+Plug 'mxw/vim-jsx'
 
 " misc plugins
+Plug 'simnalamburt/vim-mundo'
+Plug 'tpope/vim-fugitive'
+Plug 'jreybert/vimagit'
 Plug 'chriskempson/base16-vim'
-Plug 'itchyny/lightline.vim'
-Plug 'daviesjamie/vim-base16-lightline'
-Plug 'mgee/lightline-bufferline'
 Plug 'tpope/vim-commentary'
 Plug 'tpope/vim-surround'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
@@ -67,20 +68,19 @@ set foldmethod=syntax
 set foldlevel=99
 
 " layout
-set laststatus=2 " statusline always visible
-set showtabline=0 " tabline never visible
-set ruler "show the cursor position all the time
+set laststatus=1 " show statusline (same for tabline): (0|never, 1|when needed; 2|always)
+set showtabline=1
+set ruler "show the cursor position all the time at bottom right corner
 set showcmd " display incomplete commands
 set relativenumber " relative numbering to the current line
 set number " hybrid mode with relative number: current is the actual and not 0
 set wildmenu
 set cursorline
-set noshowmode
+set showmode
 set list
 set listchars=trail:•,nbsp:≡
 set fillchars=vert:│
 set colorcolumn=120 " displays a vertical line at column 120
-set showtabline=2
 
 " syntax highlighting
 syntax on
@@ -90,6 +90,7 @@ colorscheme base16-default-dark
 set background=dark
 
 " behavior settings
+set inccommand=nosplit
 set ignorecase
 set smartcase
 set history=1000 "number of commands to keep in history
@@ -125,48 +126,50 @@ vnoremap K <c-u>
 nnoremap M J
 nnoremap U <c-r>
 vnoremap y y`]
-nnoremap z za
+nnoremap <CR> za
 nnoremap Q q:
-
 
 " new keybindings
 nnoremap <esc> :nohlsearch<CR><C-l>
 let mapleader=" "
+
 nnoremap <leader>s :%s/
-vnoremap <leader>s :s/
+vnoremap <leader>s y:%s/<C-r>"//g<left><left>
+
 nnoremap <leader>S :w ! sudo tee %<cr>
 nnoremap <leader>e :Files<CR>
-nnoremap <leader>g :Ag<CR>
-" nnoremap <leader>t :Tags<CR>
-" nnoremap <leader>t :Tags<CR>
+nnoremap <leader>q :History:<CR>
+nnoremap <leader>a :Ag<CR>
 nnoremap <leader>b :Buffers<CR>
 nnoremap <leader><leader> :b#<cr>
 nnoremap <leader>d "_d
 vnoremap <leader>d "_d
 onoremap <leader>d "_d
-nnoremap <leader>p "0p
-vnoremap <leader>p "0p
-onoremap <leader>p "0p
 nnoremap <leader>y "+y
 vnoremap <leader>y "+y
 onoremap <leader>y "+y
+nnoremap <leader>p "+p
+vnoremap <leader>p "+p
+onoremap <leader>p "+p
+
+nnoremap <leader>f :ALEFix<CR>
+nnoremap <leader>m :Magit<CR>
+nnoremap <leader>u :MundoToggle<CR>
+
+nnoremap <leader>gb :Gblame<CR>
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gpl :Gpull<CR>
+nnoremap <leader>gph :Gpush<CR>
+nnoremap <leader>gd :Gdiff<CR>
 
 " buffer navigation
 nnoremap gd :bdelete<CR>
-nnoremap gs <C-w>w
-nnoremap gS <C-w>W
-nnoremap gn :bnext<CR>
-nnoremap gp :bprevious<CR>
-nmap <Leader>1 <Plug>lightline#bufferline#go(1)
-nmap <Leader>2 <Plug>lightline#bufferline#go(2)
-nmap <Leader>3 <Plug>lightline#bufferline#go(3)
-nmap <Leader>4 <Plug>lightline#bufferline#go(4)
-nmap <Leader>5 <Plug>lightline#bufferline#go(5)
-nmap <Leader>6 <Plug>lightline#bufferline#go(6)
-nmap <Leader>7 <Plug>lightline#bufferline#go(7)
-nmap <Leader>8 <Plug>lightline#bufferline#go(8)
-nmap <Leader>9 <Plug>lightline#bufferline#go(9)
-nmap <Leader>0 <Plug>lightline#bufferline#go(10)
+nnoremap gn <C-w>w
+nnoremap gp <C-w>W
+nnoremap gj <C-w>h
+nnoremap gj <C-w>j
+nnoremap gk <C-w>k
+nnoremap gl <C-w>l
 
 nnoremap <leader>r :te time ./%<cr>
 nnoremap <leader>R :te time ./%<space>
@@ -182,25 +185,7 @@ inoremap <expr><s-tab> pumvisible() ? "\<c-p>" : "\<tab>"
 nmap <silent> <C-k> <Plug>(ale_previous_wrap)
 nmap <silent> <C-j> <Plug>(ale_next_wrap)
 
-function! s:fzf_statusline()
-    " Override statusline as you like
-    highlight fzf1 ctermfg=161 ctermbg=251
-    highlight fzf2 ctermfg=23 ctermbg=251
-    highlight fzf3 ctermfg=237 ctermbg=251
-    setlocal statusline=%#fzf1#\ >\ %#fzf2#fz%#fzf3#f
-endfunction
-
-autocmd! User FzfStatusLine call <SID>fzf_statusline()
 let g:ackprg = 'ag --nogroup --nocolor --column'
-
-let g:lightline = { 'colorscheme': 'base16' }
-
-let g:lightline#bufferline#unnamed      = '[No Name]'
-let g:lightline#bufferline#filename_modifier = ':t'
-let g:lightline#bufferline#show_number = 2
-let g:lightline.tabline          = {'left': [['buffers']], 'right': [[]]}
-let g:lightline.component_expand = {'buffers': 'lightline#bufferline#buffers'}
-let g:lightline.component_type   = {'buffers': 'tabsel'}
 
 let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
 
@@ -215,3 +200,5 @@ let g:ale_linters = {'javascript': ['eslint']}
 let g:ale_python_flake8_options = '--ignore=E501'
 
 let g:indentLine_setConceal = 0
+let g:jsx_ext_required = 0
+let b:ale_fixers = {'javascript': ['prettier', 'eslint']}
