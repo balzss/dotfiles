@@ -14,6 +14,7 @@ export VISUAL=/usr/bin/nvim
 
 ######## aliases ########
 
+alias -- -="cd -"
 alias ..="cd .."
 alias ...="cd ../.."
 alias grep='grep --color=auto'
@@ -47,9 +48,9 @@ alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
 alias inst="apt-get install"
 alias rmv="apt-get remove --auto-remove"
-alias musync="~/adb-sync/adb-sync --delete ~/Music /storage/emulated/0"
 alias xcl="xclip -selection c"
 alias xim="xclip -selection clipboard -t image/png -o >"
+alias trash="trash-put"
 
 
 ######## functions ########
@@ -132,4 +133,24 @@ fkill() {
     then
         echo $pid | xargs kill -${1:-9}
     fi
+}
+
+o() {
+    local TARGET_DIR
+
+    TARGET_DIR=$(find ~/prog \( -name .git -o -name .venv -o -name node_modules -o -name vendor \) -prune -o -type d -print | fzy)
+
+    if [ ! -n "$TARGET_DIR" ]; then
+        return
+    fi
+
+    local TARGET_FILE
+    TARGET_FILE=$(readlink -f $(find $TARGET_DIR \( -name .git -o -name .venv -o -name node_modules -o -name vendor \) -prune -o -type f -print | fzy))
+
+    if [ ! -n "$TARGET_FILE" ]; then
+        return
+    fi
+
+    cd $TARGET_DIR
+    "${EDITOR:-vim}" $TARGET_FILE
 }

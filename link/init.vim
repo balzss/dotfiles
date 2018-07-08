@@ -131,6 +131,7 @@ nnoremap Q q:
 
 " new keybindings
 nnoremap <esc> :nohlsearch<CR><C-l>
+nnoremap \ :Buffers<CR>
 let mapleader=" "
 
 nnoremap <leader>s :%s/
@@ -166,10 +167,6 @@ nnoremap <leader>gd :Gdiff<CR>
 nnoremap gd :bdelete<CR>
 nnoremap gn <C-w>w
 nnoremap gp <C-w>W
-nnoremap gj <C-w>h
-nnoremap gj <C-w>j
-nnoremap gk <C-w>k
-nnoremap gl <C-w>l
 
 nnoremap <leader>r :te time ./%<cr>
 nnoremap <leader>R :te time ./%<space>

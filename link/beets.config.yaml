@@ -121,7 +121,6 @@ match:
 # Plugins --------------------------------------------------------------------
 
 plugins: [
-    discogs,
     fetchart,
     embedart,
     missing,
