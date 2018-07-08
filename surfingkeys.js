@@ -125,6 +125,9 @@ settings.theme = `
     color: #f0f0f0;
     background: tomato;
 }
+.sk_theme ul>li {
+    background: #454545;
+}
 .sk_theme ul>li:nth-child(odd) {
     background: #323232;
 }
