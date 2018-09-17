@@ -24,7 +24,8 @@ mapkey('b', 'Open a bookmark', function() {
 });
 
 mapkey('s', 'Pause YT video', function() {
-    document.getElementsByClassName('ytp-play-button')[0].click();
+    let vid = document.getElementsByTagName("video")[0];
+    vid.paused ? vid.play() : vid.pause();
 });
 
 mapkey('S', 'fullscreen YT video', function() {
