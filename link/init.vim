@@ -12,6 +12,8 @@ Plug 'pangloss/vim-javascript'
 Plug 'mxw/vim-jsx'
 
 " misc plugins
+Plug 'daviesjamie/vim-base16-lightline'
+Plug 'itchyny/lightline.vim'
 Plug 'simnalamburt/vim-mundo'
 Plug 'tpope/vim-fugitive'
 Plug 'jreybert/vimagit'
@@ -29,6 +31,10 @@ Plug 'w0rp/ale'
 Plug 'editorconfig/editorconfig-vim'
 
 call plug#end()
+
+let g:lightline = {
+\   'colorscheme': 'base16'
+\ }
 
 au TermOpen * setlocal nonumber norelativenumber
 
@@ -68,15 +74,15 @@ set foldmethod=syntax
 set foldlevel=99
 
 " layout
-set laststatus=1 " show statusline (same for tabline): (0|never, 1|when needed; 2|always)
-set showtabline=1
+set laststatus=2 " show statusline (same for tabline): (0|never, 1|when needed; 2|always)
+set noshowmode "hide -- INSERT --, etc. at the bottom because lightline takes care of that
+set showtabline=0
 set ruler "show the cursor position all the time at bottom right corner
 set showcmd " display incomplete commands
 set relativenumber " relative numbering to the current line
 set number " hybrid mode with relative number: current is the actual and not 0
 set wildmenu
 set cursorline
-set showmode
 set list
 set listchars=trail:•,nbsp:≡
 set fillchars=vert:│

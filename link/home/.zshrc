@@ -11,7 +11,6 @@ setopt hist_reduce_blanks
 setopt extended_history
 
 # sourcing other parts of config
-source $HOME/scripts/zsh/z/z.sh
 source $HOME/scripts/zsh/zsh-history-substring-search.zsh
 source $HOME/scripts/zsh/zsh-git-prompt/zshrc.sh
 source $HOME/scripts/zsh/alias.zsh
