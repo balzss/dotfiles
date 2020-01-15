@@ -10,6 +10,7 @@ export BASE16_THEME=default-dark
 export MOZ_USE_XINPUT2=1
 export EDITOR=/usr/bin/nvim
 export VISUAL=/usr/bin/nvim
+export PATH=/home/balzss/.local/bin:$PATH
 
 
 ######## aliases ########
@@ -76,7 +77,7 @@ create_tmux_session() {
 ghcl (){
     git clone https://www.github.com/$1.git
 }
-groot() { 
+grt() { 
     cd "$(git rev-parse --show-toplevel)"
 }
 mcd () {
@@ -153,4 +154,32 @@ o() {
 
     cd $TARGET_DIR
     "${EDITOR:-vim}" $TARGET_FILE
+}
+
+nvm() {
+    init_nvm
+    nvm "$@"
+}
+
+node() {
+    init_nvm
+    node "$@"
+}
+
+npm() {
+    init_nvm
+    npm "$@"
+}
+
+init_nvm() {
+    unset -f npm
+    unset -f node
+    unset -f nvm
+    export NVM_DIR=~/.nvm
+    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+}
+
+pjs() {
+    v $(dirname $(npm root))/package.json
 }
