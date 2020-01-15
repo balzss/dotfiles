@@ -21,8 +21,8 @@ alias grep='grep --color=auto'
 alias mkdir="mkdir -p"
 alias md="mkdir -p"
 alias cp="cp -R"
-alias l="ls -lhApF --color=auto"
-alias ld="ls -lrthApF --color=auto"
+alias l="ls -lhApF"
+alias ld="ls -lrthApF"
 
 alias zshrc="vim ~/.zshrc ~/scripts/zsh/**.zsh"
 alias zalias="vim ~/scripts/zsh/alias.zsh"
