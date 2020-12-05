@@ -1,6 +1,6 @@
 HISTFILE=~/.histfile
-HISTSIZE=1000
-SAVEHIST=1000
+HISTSIZE=50000
+SAVEHIST=50000
 KEYTIMEOUT=1
 
 setopt append_history 
@@ -16,6 +16,7 @@ source $HOME/scripts/zsh/zsh-git-prompt/zshrc.sh
 source $HOME/scripts/zsh/alias.zsh
 source $HOME/scripts/zsh/options.zsh
 source $HOME/scripts/zsh/prompt.zsh
+[ -f ~/.local-env-vars.zsh ] && source ~/.local-env-vars.zsh
 
 # setup hooks
 autoload -Uz add-zsh-hook
@@ -29,3 +30,7 @@ stty -ixon
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+
+export NVM_DIR=~/.nvm
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion

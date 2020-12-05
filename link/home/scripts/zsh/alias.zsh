@@ -9,6 +9,7 @@ export MOZ_USE_XINPUT2=1
 export BASE16_THEME=default-dark
 export MOZ_USE_XINPUT2=1
 export EDITOR=/usr/bin/nvim
+export PAGER="nvim -R"
 export VISUAL=/usr/bin/nvim
 export PATH=/home/balzss/.local/bin:$PATH
 
@@ -41,17 +42,15 @@ alias gad="git add"
 alias gcm="git commit -m"
 alias gst="git status"
 alias gpl="git pull"
-alias gph="git push"
 alias gcl="git clone"
-alias gch="git checkout"
+alias gco="git checkout"
+alias gcom="git checkout master"
+alias gcob="git checkout -b"
+alias gdf="git diff"
+alias gpoh="git push origin HEAD"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
-alias inst="apt-get install"
-alias rmv="apt-get remove --auto-remove"
-alias xcl="xclip -selection c"
-alias xim="xclip -selection clipboard -t image/png -o >"
-alias trash="trash-put"
 
 
 ######## functions ########
@@ -93,38 +92,6 @@ prepend-sudo() {
     CURSOR=$(($CURSOR + $#prefix + 1))
 }
 
-fontsize() {
-    CFS="$(gsettings get org.gnome.desktop.interface text-scaling-factor)"
-    if [ "$CFS" = "1.0" ]
-    then
-        gsettings set org.gnome.desktop.interface text-scaling-factor 1.4
-    else
-        gsettings set org.gnome.desktop.interface text-scaling-factor 1.0
-    fi
-}
-
-venv() {
-    if [[ -n "$VIRTUAL_ENV" ]]; then
-        echo "Deactivating virtualenv..."
-        deactivate
-        return 0
-    fi
-
-    if git rev-parse --git-dir > /dev/null 2>&1; then
-        VENV_DIR="$(git rev-parse --show-toplevel)/.venv"
-    else
-        VENV_DIR=".venv"
-    fi
-
-    if [ -d "$VENV_DIR" ]; then
-        echo "Activating virtualenv..."
-        source ./.venv/bin/activate
-    else
-        echo "Creating virtualenv..."
-        python3 -m venv "$VENV_DIR" && source "$VENV_DIR/bin/activate"
-    fi
-}
-
 # fkill - kill process
 fkill() {
     local pid
@@ -134,52 +101,4 @@ fkill() {
     then
         echo $pid | xargs kill -${1:-9}
     fi
-}
-
-o() {
-    local TARGET_DIR
-
-    TARGET_DIR=$(find ~/prog \( -name .git -o -name .venv -o -name node_modules -o -name vendor \) -prune -o -type d -print | fzy)
-
-    if [ ! -n "$TARGET_DIR" ]; then
-        return
-    fi
-
-    local TARGET_FILE
-    TARGET_FILE=$(readlink -f $(find $TARGET_DIR \( -name .git -o -name .venv -o -name node_modules -o -name vendor \) -prune -o -type f -print | fzy))
-
-    if [ ! -n "$TARGET_FILE" ]; then
-        return
-    fi
-
-    cd $TARGET_DIR
-    "${EDITOR:-vim}" $TARGET_FILE
-}
-
-nvm() {
-    init_nvm
-    nvm "$@"
-}
-
-node() {
-    init_nvm
-    node "$@"
-}
-
-npm() {
-    init_nvm
-    npm "$@"
-}
-
-init_nvm() {
-    unset -f npm
-    unset -f node
-    unset -f nvm
-    export NVM_DIR=~/.nvm
-    [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-}
-
-pjs() {
-    v $(dirname $(npm root))/package.json
 }
