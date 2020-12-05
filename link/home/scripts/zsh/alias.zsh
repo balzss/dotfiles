@@ -52,11 +52,6 @@ alias gpoh="git push origin HEAD"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
-alias inst="apt-get install"
-alias rmv="apt-get remove --auto-remove"
-alias xcl="xclip -selection c"
-alias xim="xclip -selection clipboard -t image/png -o >"
-alias trash="trash-put"
 alias mrc="~/scripts/make-react-component.sh"
 
 
