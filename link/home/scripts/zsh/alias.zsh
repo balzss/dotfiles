@@ -2,6 +2,7 @@
 
 export GOPATH=$HOME/go
 export PATH=$PATH:$GOPATH/bin
+export PATH=$PATH:$HOME/.local/bin
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PIP_REQUIRE_VIRTUALENV=false
 export CLICOLOR=1
@@ -21,8 +22,8 @@ alias grep='grep --color=auto'
 alias mkdir="mkdir -p"
 alias md="mkdir -p"
 alias cp="cp -R"
-alias l="ls -lhApF"
-alias ld="ls -lrthApF"
+alias l="ls -lhApF --color=auto"
+alias ld="ls -lrthApF --color=auto"
 
 alias zshrc="vim ~/.zshrc ~/scripts/zsh/**.zsh"
 alias zalias="vim ~/scripts/zsh/alias.zsh"
@@ -51,6 +52,7 @@ alias rmv="apt-get remove --auto-remove"
 alias xcl="xclip -selection c"
 alias xim="xclip -selection clipboard -t image/png -o >"
 alias trash="trash-put"
+alias mrc="~/scripts/make-react-component.sh"
 
 
 ######## functions ########
@@ -76,7 +78,7 @@ create_tmux_session() {
 ghcl (){
     git clone https://www.github.com/$1.git
 }
-groot() { 
+grt() { 
     cd "$(git rev-parse --show-toplevel)"
 }
 mcd () {
