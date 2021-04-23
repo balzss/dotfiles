@@ -19,8 +19,8 @@ let mapleader=" "
     let g:coc_npm_path = trim(system('which npm'))
 
     " Use `gp` and `gn` to navigate diagnostics
-    nmap <silent>gp <Plug>(coc-diagnostic-next)
-    nmap <silent>gn <Plug>(coc-diagnostic-prev)
+    nmap <silent>gp <Plug>(coc-diagnostic-prev)
+    nmap <silent>gn <Plug>(coc-diagnostic-next)
 
     " Remap keys for gotos
     nmap <silent> gd <Plug>(coc-definition)
@@ -29,6 +29,8 @@ let mapleader=" "
 
     nmap <leader>rn <Plug>(coc-rename)
     nmap <leader>rf <Plug>(coc-refactor)
+
+    nmap <leader>f  <Plug>(coc-fix-current)
 
     " Use tab for trigger completion with characters ahead and navigate.
     inoremap <silent><expr> <TAB>
@@ -59,6 +61,7 @@ let mapleader=" "
     Plug 'honza/vim-snippets'
 
 " appearance
+    Plug 'kshenoy/vim-signature'
     Plug 'daviesjamie/vim-base16-lightline'
     Plug 'itchyny/lightline.vim'
     Plug 'chriskempson/base16-vim'
@@ -67,10 +70,11 @@ let mapleader=" "
       \ 'colorscheme': 'base16',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'filename' ],
       \             [ 'readonly', 'cocstatus', 'currentfunction', 'modified' ] ],
       \  'right': [ [ 'lineinfo' ],
       \              [ 'percent' ],
-      \              [ 'gitbranch', 'filename' ] ]
+      \              [ 'gitbranch' ] ]
       \ },
       \ 'component_function': {
       \   'cocstatus': 'coc#status',
@@ -92,7 +96,7 @@ let mapleader=" "
     Plug 'mileszs/ack.vim'
 
 " misc
-    Plug 'simnalamburt/vim-mundo'
+    Plug 'mbbill/undotree'
     Plug 'tpope/vim-fugitive'
     Plug 'jreybert/vimagit'
     Plug 'editorconfig/editorconfig-vim'
@@ -238,11 +242,8 @@ augroup END
     vnoremap <leader>y "+y
     onoremap <leader>y "+y
 
-    nnoremap <leader>m :Magit<CR>
-    nnoremap <leader>u :MundoToggle<CR>
-
-    " buffer navigation
-    nnoremap gd :bdelete<CR>
+    nnoremap <leader>m :Marks<CR>
+    nnoremap <leader>u :UndotreeToggle<CR>
 
     " nnoremap <leader>r :te time ./%<cr>
     " nnoremap <leader>R :te time ./%<space>
