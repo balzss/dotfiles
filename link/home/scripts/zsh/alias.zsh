@@ -23,8 +23,14 @@ alias grep='grep --color=auto'
 alias mkdir="mkdir -p"
 alias md="mkdir -p"
 alias cp="cp -R"
-alias l="ls -lhApF --color=auto"
-alias ld="ls -lrthApF --color=auto"
+
+# --color option for ls is not available on macs
+_myos="$(uname)"
+case $_myos in
+  Linux) alias l="ls -lhApF --color";;
+  Darwin) alias l="ls -lhApF";;
+  *) ;;
+esac
 
 alias zshrc="vim ~/.zshrc ~/scripts/zsh/**.zsh"
 alias zalias="vim ~/scripts/zsh/alias.zsh"
