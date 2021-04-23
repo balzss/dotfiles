@@ -1,8 +1,5 @@
 ######## exports ########
 
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
-export PATH=$PATH:$HOME/.local/bin
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PIP_REQUIRE_VIRTUALENV=false
 export CLICOLOR=1
@@ -12,7 +9,9 @@ export MOZ_USE_XINPUT2=1
 export EDITOR=/usr/bin/nvim
 export PAGER="nvim -R"
 export VISUAL=/usr/bin/nvim
-export PATH=/home/balzss/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
 
 
 ######## aliases ########
@@ -47,7 +46,7 @@ alias gcl="git clone"
 alias gco="git checkout"
 alias gcom="git checkout master"
 alias gcob="git checkout -b"
-alias gdf="git diff"
+alias gdf="git diff --no-color"
 alias gpoh="git push origin HEAD"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
@@ -94,7 +93,7 @@ prepend-sudo() {
     CURSOR=$(($CURSOR + $#prefix + 1))
 }
 
-# fkill - kill process
+# kill process with fzf
 fkill() {
     local pid
     pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')
