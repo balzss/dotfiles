@@ -3,8 +3,11 @@
     email = balazs.saros@gmail.com
 
 [core]
-    editor = vim
+    editor = nvim
     excludesfile = ~/.gitignore
+
+[color]
+    ui = true
 
 [github]
     user = balzss

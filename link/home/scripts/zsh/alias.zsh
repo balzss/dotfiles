@@ -1,7 +1,5 @@
 ######## exports ########
 
-export GOPATH=$HOME/go
-export PATH=$PATH:$GOPATH/bin
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PIP_REQUIRE_VIRTUALENV=false
 export CLICOLOR=1
@@ -11,7 +9,9 @@ export MOZ_USE_XINPUT2=1
 export EDITOR=/usr/bin/nvim
 export PAGER="nvim -R"
 export VISUAL=/usr/bin/nvim
-export PATH=/home/balzss/.local/bin:$PATH
+export PATH=$HOME/.local/bin:$PATH
+export GEM_HOME="$HOME/gems"
+export PATH="$HOME/gems/bin:$PATH"
 
 
 ######## aliases ########
@@ -23,8 +23,8 @@ alias grep='grep --color=auto'
 alias mkdir="mkdir -p"
 alias md="mkdir -p"
 alias cp="cp -R"
-alias l="ls -lhApF"
-alias ld="ls -lrthApF"
+alias l="ls -lhApF --color=auto"
+alias ld="ls -lrthApF --color=auto"
 
 alias zshrc="vim ~/.zshrc ~/scripts/zsh/**.zsh"
 alias zalias="vim ~/scripts/zsh/alias.zsh"
@@ -51,6 +51,7 @@ alias gpoh="git push origin HEAD"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
+alias mrc="~/scripts/make-react-component.sh"
 
 
 ######## functions ########
@@ -92,7 +93,7 @@ prepend-sudo() {
     CURSOR=$(($CURSOR + $#prefix + 1))
 }
 
-# fkill - kill process
+# kill process with fzf
 fkill() {
     local pid
     pid=$(ps -ef | sed 1d | fzf -m | awk '{print $2}')

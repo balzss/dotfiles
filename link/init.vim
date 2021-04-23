@@ -15,6 +15,11 @@ let mapleader=" "
 " language server
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+    let g:coc_global_extensions = [
+          \ 'coc-eslint',
+          \ 'coc-prettier',
+          \ ]
+
     let g:coc_node_path = trim(system('which node'))
     let g:coc_npm_path = trim(system('which npm'))
 
@@ -102,6 +107,11 @@ let mapleader=" "
     Plug 'editorconfig/editorconfig-vim'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
+
+" nerdtree
+    Plug 'preservim/nerdtree'
+
+    nmap <leader>n :NERDTree<cr>
 
     command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
