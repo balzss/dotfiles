@@ -46,7 +46,7 @@ alias gcl="git clone"
 alias gco="git checkout"
 alias gcom="git checkout master"
 alias gcob="git checkout -b"
-alias gdf="git diff"
+alias gdf="git diff --no-color"
 alias gpoh="git push origin HEAD"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
