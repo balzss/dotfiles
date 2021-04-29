@@ -1,6 +1,10 @@
-# screenshots
-![screenshot0](https://i.imgur.com/jXHUMLF.png)
-![screenshot1](https://i.imgur.com/LB6pjVo.png)
-![screenshot2](https://i.imgur.com/fdAuZAY.png)
-![screenshot3](https://i.imgur.com/N3dE9cK.png)
-![screenshot3](https://i.imgur.com/FNHrptL.png)
+This repo includes:
+- my config files for:
+  - vim (neovim)
+  - zsh
+  - git
+  - tmux
+- custom utility scripts
+- some older config files I might reuse in the future
+
+Running `link.sh` will create symlinks to for the files in the `link` folder.

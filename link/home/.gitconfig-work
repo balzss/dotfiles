@@ -1,0 +1,10 @@
+[user]
+    name = Balazs-Saros
+    email = balazs.saros@ibm.com
+
+[core]
+    editor = vim
+    excludesfile = ~/.gitignore
+    page = nvim -R
+[color]
+    pager = no

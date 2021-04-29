@@ -1,17 +1,10 @@
 settings.scrollStepSize = 90;
 
-map('h', 'E');
-map('l', 'R');
 map('J', 'd');
 map('K', 'u');
 map('u', 'S');
 map('U', 'D');
-map('O', 't');
-map('o', 'go');
 map('F', 'af');
-map('B', 'b');
-map('<Alt-j>', 'R');
-map('<Alt-k>', 'E');
 vmap('H', '0');
 vmap('L', '$');
 
@@ -19,52 +12,50 @@ mapkey('f', 'Open a link in current tab', function() {
     Hints.create("", Hints.dispatchMouseClick, {tabbed: false});
 });
 
-mapkey('b', 'Open a bookmark', function() {
-    Front.openOmnibar(({type: "Bookmarks", tabbed: false}));
-});
-
-mapkey('s', 'Pause YT video', function() {
-    let vid = document.getElementsByTagName("video")[0];
+mapkey('s', 'Pause video', function() {
+    const vid = document.getElementsByTagName("video")[0];
     vid.paused ? vid.play() : vid.pause();
 });
 
-mapkey('S', 'fullscreen YT video', function() {
+mapkey('S', 'Fullscreen video', function() {
     document.getElementsByClassName('ytp-fullscreen-button')[0].click();
 });
 
-mapkey('a', 'rewind 30s YT video', function() {
+mapkey('a', 'rewind video 5s', function() {
     document.getElementsByTagName("video")[0].currentTime -= 5;
 });
 
-mapkey('d', 'forward 30s YT video', function() {
+mapkey('d', 'forward video 5s', function() {
     document.getElementsByTagName("video")[0].currentTime += 5;
 });
 
-mapkey('A', 'rewind 30s YT video', function() {
+mapkey('A', 'rewind video 30s', function() {
     document.getElementsByTagName("video")[0].currentTime -= 30;
 });
 
-mapkey('D', 'forward 30s YT video', function() {
+mapkey('D', 'forward video 30s', function() {
     document.getElementsByTagName("video")[0].currentTime += 30;
 });
 
-mapkey('q', 'decrease speed of YT video', function() {
+mapkey('q', 'decrease video playback rate by 20%', function() {
     document.getElementsByTagName("video")[0].playbackRate -= 0.2;
 });
 
-mapkey('w', 'set speed of YT video', function() {
-    document.getElementsByTagName("video")[0].playbackRate == 1 ? document.getElementsByTagName("video")[0].playbackRate = 2 : document.getElementsByTagName("video")[0].playbackRate = 1;
-});
-
-mapkey('W', 'set speed of YT video', function() {
-    document.getElementsByTagName("video")[0].playbackRate == 1 ? document.getElementsByTagName("video")[0].playbackRate = 1.6 : document.getElementsByTagName("video")[0].playbackRate = 1;
-});
-
-mapkey('e', 'increase speed of YT video', function() {
+mapkey('e', 'increase video playback rate by 20%', function() {
     document.getElementsByTagName("video")[0].playbackRate += 0.2;
 });
 
-unmapAllExcept(['<Alt-j>', '<Alt-k>', 'a', 'd', 'q', 'w', 'W', 'e', 'b', 'B', 's', 'S', 'A', 'D', 'o', 'O', 'f', 'F', 'n', 'N', 'h', 'l', 'J', 'K', 'u', 'U', '/', 'gg', 'G', 'j', 'k', 'i', 'r', 'x', 'X', 'v']);
+mapkey('w', 'set speed of YT video', function() {
+  const video = document.getElementsByTagName("video")[0];
+  video.playbackRate = video.playbackRate === 1 ? 2 : 1;
+});
+
+mapkey('W', 'set speed of YT video', function() {
+  const video = document.getElementsByTagName("video")[0];
+  video.playbackRate = video.playbackRate === 1 ? 1.6 : 1;
+});
+
+unmapAllExcept(['a', 'd', 'q', 'w', 'W', 'e', 's', 'S', 'A', 'D', 'f', 'F', 'J', 'K', 'u', 'U', 'gg', 'G', 'j', 'k', 'i', 'v']);
 
 Hints.characters = "asdfghjkl";
 settings.modeAfterYank = "normal";
@@ -102,37 +93,3 @@ Hints.style(`color: #37474F !important;
     font-family: 'Roboto Mono', monospace;
     opacity: 1 !important;
 `, "text");
-
-// set theme
-settings.theme = `
-.sk_theme {
-    background: #212121;
-    color: #f0f0f0;
-    font-size: 16px;
-}
-.sk_theme tbody {
-    color: #fff;
-}
-.sk_theme input {
-    color: #d9dce0;
-}
-.sk_theme .url {
-    color: #2173c5;
-}
-.sk_theme .annotation {
-    color: #38f;
-}
-.sk_theme .omnibar_highlight {
-    color: #f0f0f0;
-    background: tomato;
-}
-.sk_theme ul>li {
-    background: #454545;
-}
-.sk_theme ul>li:nth-child(odd) {
-    background: #323232;
-}
-.sk_theme ul>li.focused {
-    color: #212121;
-    background: #ccc;
-}`;

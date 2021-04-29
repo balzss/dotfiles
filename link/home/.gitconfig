@@ -29,3 +29,6 @@
 
 [difftool "vimdiff"]
     cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+
+[includeIf "gitdir:/Users/balazs/"]
+    path = /Users/balazs/dotfiles/link/home/.gitconfig-work
