@@ -32,9 +32,6 @@ let mapleader=" "
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
 
-    nmap <leader>rn <Plug>(coc-rename)
-    nmap <leader>rf <Plug>(coc-refactor)
-
     " Use tab for trigger completion with characters ahead and navigate.
     inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
@@ -103,6 +100,15 @@ let mapleader=" "
     Plug 'editorconfig/editorconfig-vim'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
+    Plug 'voldikss/vim-floaterm'
+
+    let g:floaterm_opener = 'edit'
+    let g:floaterm_autoclose = 1
+
+    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
+
+    let g:clap_enable_background_shadow = v:false
+
 
 " nerdtree
     Plug 'preservim/nerdtree'
@@ -144,6 +150,8 @@ augroup general
     endif
 
     autocmd TermOpen * setlocal nonumber norelativenumber
+    autocmd TermOpen * startinsert
+    autocmd TermClose * bd!
 augroup END
 
 " settings
@@ -219,14 +227,12 @@ augroup END
     nnoremap M J
     nnoremap U <c-r>
     vnoremap y y`]
-    nnoremap <CR> za
-    nnoremap Q q:
 
     " keep visual selection when indenting/outdenting
     vmap < <gv
     vmap > >gv
 
-    " new keybindings
+    " remove highlights on escape
     nnoremap <esc> :nohlsearch<CR><C-l>
 
     nnoremap <leader>s :%s/
@@ -234,12 +240,39 @@ augroup END
 
     nnoremap <leader>S :w ! sudo tee %<cr>
 
-    nnoremap <leader>e :Files<CR>
-    nnoremap <leader>a :Ag<CR>
-    nnoremap <leader>/ :BLines<CR>
-    nnoremap <leader>g :GFiles?<CR>
-    nnoremap <leader>b :Buffers<CR>
     nnoremap <leader><leader> :b#<cr>
+    nnoremap <leader>a :Ag<CR>
+    nnoremap <leader>b :Clap buffers<CR>
+    nnoremap <leader>c :Clap commits<CR>
+    nnoremap <leader>m :Clap marks<CR>
+    nnoremap <leader>h :Clap history<cr>
+    nnoremap <leader>e :FloatermNew broot<cr>
+
+    nnoremap <leader>g :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
+
+    nnoremap <leader>t :FloatermToggleNofocus<cr>
+    vnoremap <leader>t :FloatermToggleNofocus<cr>
+    vnoremap <leader>r :'<,'>FloatermSend<cr>
+
+    command! FloatermToggleNofocus call FloatermToggleNofocus()
+    function! FloatermToggleNofocus() abort
+      if len(floaterm#buflist#gather()) == 0
+        FloatermNew --wintype=vsplit --width=0.4 node
+        stopinsert
+        wincmd p
+        return
+      endif
+      if len(filter(tabpagebuflist(), { _,b -> getbufvar(b, '&ft') == 'floaterm' })) >= 1
+        FloatermHide!
+        return
+      endif
+      FloatermToggle
+      stopinsert
+      wincmd p
+    endfunction
+
+    nnoremap <leader>u :UndotreeToggle<CR>
+    nnoremap <leader>f  <Plug>(coc-fix-current)
 
     nnoremap <leader>d "_d
     vnoremap <leader>d "_d
@@ -248,14 +281,6 @@ augroup END
     vnoremap <leader>y "+y
     onoremap <leader>y "+y
 
-    nnoremap <leader>m :Magit<CR>
-    nnoremap <leader>u :MundoToggle<CR>
-
-    " buffer navigation
-    nnoremap gd :bdelete<CR>
-
-    " nnoremap <leader>r :te time ./%<cr>
-    " nnoremap <leader>R :te time ./%<space>
 
     inoremap <c-l> <esc>la
     inoremap <c-h> <esc>i
