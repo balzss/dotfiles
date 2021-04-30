@@ -16,7 +16,9 @@ source $HOME/scripts/zsh/zsh-git-prompt/zshrc.sh
 source $HOME/scripts/zsh/alias.zsh
 source $HOME/scripts/zsh/options.zsh
 source $HOME/scripts/zsh/prompt.zsh
+source $HOME/.config/broot/launcher/bash/br
 [ -f ~/.local-env-vars.zsh ] && source ~/.local-env-vars.zsh
+
 
 # setup hooks
 autoload -Uz add-zsh-hook
