@@ -205,6 +205,7 @@ augroup END
     set updatetime=300
     set shortmess+=c " don't give |ins-completion-menu| messages.
     set signcolumn=yes
+    set suffixesadd+=.js,.jsx
 
 " keybindings
     " modified default keybindings
