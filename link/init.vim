@@ -96,6 +96,9 @@ let mapleader=" "
     Plug 'junegunn/fzf.vim'
     Plug 'mileszs/ack.vim'
 
+    Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
+    Plug 'antoinemadec/coc-fzf'
+
 " misc
     Plug 'mbbill/undotree'
     Plug 'tpope/vim-fugitive'
@@ -111,16 +114,11 @@ let mapleader=" "
     Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 
     let g:clap_enable_background_shadow = v:false
+    let g:clap_provider_grep_executable = 'ag'
 
     Plug 'kana/vim-textobj-user'
     Plug 'thinca/vim-textobj-function-javascript'
     Plug 'inside/vim-textobj-jsxattr'
-
-
-" nerdtree
-    Plug 'preservim/nerdtree'
-
-    nmap <leader>n :NERDTree<cr>
 
     command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
 
@@ -129,6 +127,7 @@ let mapleader=" "
     endif
 
     let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
+    let $FZF_DEFAULT_OPTS = '--layout reverse'
 
 call plug#end()
 
@@ -249,11 +248,14 @@ augroup END
 
     nnoremap <leader><leader> :b#<cr>
     nnoremap <leader>a :Ag<CR>
-    nnoremap <leader>b :Clap buffers<CR>
+    nnoremap <leader>b :FzfPreviewBuffersRpc<CR>
     nnoremap <leader>c :Clap commits<CR>
     nnoremap <leader>m :Clap marks<CR>
     nnoremap <leader>h :Clap history<cr>
-    nnoremap <leader>e :FloatermNew --title=edit broot<cr>
+    nnoremap <leader>E :FloatermNew --title=edit broot<cr>
+    nnoremap <leader>e :FzfPreviewProjectFilesRpc<cr>
+    " nnoremap <leader>p :Clap command<cr>
+    nnoremap <leader>p  :<C-u>CocFzfList commands<CR>
 
     nnoremap <leader>g :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
 

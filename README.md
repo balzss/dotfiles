@@ -15,8 +15,10 @@
 ### Programs I use
 
 - for [neovim](https://github.com/neovim/neovim):
-  - [fzf](https://github.com/junegunn/fzf)
-  - [ag](https://github.com/ggreer/the_silver_searcher)
+  - [fzf](https://github.com/junegunn/fzf) with:
+    - [ripgrep](https://github.com/BurntSushi/ripgrep)
+    - [ag](https://github.com/ggreer/the_silver_searcher)
+    - [bat](https://github.com/sharkdp/bat)
   - [lazygit](https://github.com/jesseduffield/lazygit)
   - [broot](https://github.com/Canop/broot)
 - for [zsh](https://www.zsh.org/):
