@@ -1,4 +1,4 @@
-## In this repo
+### In this repo
 
 - my config files for:
   - [vim (neovim)](/link/init.vim)
@@ -8,11 +8,11 @@
 - [custom utility scripts](/link/home/scripts)
 - [some older config files I might reuse in the future](/old)
 
-## Setting it up
+### Setting it up
 
 [`link.sh`](/link.sh) is my very minimalist makeshift bootstrapper that creates symlinks for the files in the `link` folder.
 
-## Programs I use
+### Programs I use
 
 - for [neovim](https://github.com/neovim/neovim):
   - [fzf](https://github.com/junegunn/fzf)
