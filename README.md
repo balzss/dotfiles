@@ -1,4 +1,5 @@
-This repo includes:
+## In this repo
+
 - my config files for:
   - [vim (neovim)](/link/init.vim)
   - [zsh](/link/home/.zshrc)
@@ -7,13 +8,12 @@ This repo includes:
 - [custom utility scripts](/link/home/scripts)
 - [some older config files I might reuse in the future](/old)
 
----
+## Setting it up
 
 [`link.sh`](/link.sh) is my very minimalist makeshift bootstrapper that creates symlinks for the files in the `link` folder.
 
----
+## Programs I use
 
-Programs I use
 - for [neovim](https://github.com/neovim/neovim):
   - [fzf](https://github.com/junegunn/fzf)
   - [ag](https://github.com/ggreer/the_silver_searcher)
