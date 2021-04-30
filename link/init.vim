@@ -1,5 +1,6 @@
 ﻿call plug#begin()
 
+
 let mapleader=" "
 
 " webdev
@@ -110,6 +111,10 @@ let mapleader=" "
     Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
 
     let g:clap_enable_background_shadow = v:false
+
+    Plug 'kana/vim-textobj-user'
+    Plug 'thinca/vim-textobj-function-javascript'
+    Plug 'inside/vim-textobj-jsxattr'
 
 
 " nerdtree
@@ -247,7 +252,7 @@ augroup END
     nnoremap <leader>c :Clap commits<CR>
     nnoremap <leader>m :Clap marks<CR>
     nnoremap <leader>h :Clap history<cr>
-    nnoremap <leader>e :FloatermNew broot<cr>
+    nnoremap <leader>e :FloatermNew --title=edit broot<cr>
 
     nnoremap <leader>g :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
 
