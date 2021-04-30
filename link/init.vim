@@ -153,7 +153,6 @@ augroup general
 
     autocmd TermOpen * setlocal nonumber norelativenumber
     autocmd TermOpen * startinsert
-    autocmd TermClose * bd!
 augroup END
 
 " settings
