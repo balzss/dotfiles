@@ -12,7 +12,7 @@ export VISUAL=/usr/bin/nvim
 export PATH=$HOME/.local/bin:$PATH
 export GEM_HOME="$HOME/gems"
 export PATH="$HOME/gems/bin:$PATH"
-
+export BAT_THEME="base16"
 
 ######## aliases ########
 
@@ -54,6 +54,7 @@ alias gcom="git checkout master"
 alias gcob="git checkout -b"
 alias gdf="git diff --no-color"
 alias gpoh="git push origin HEAD"
+alias lg="lazygit"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
