@@ -22,6 +22,7 @@ let mapleader=" "
 
     let g:coc_node_path = trim(system('which node'))
     let g:coc_npm_path = trim(system('which npm'))
+    " TODO disable eslint/prettier autosave
 
     " Use `gp` and `gn` to navigate diagnostics
     nmap <silent>gp <Plug>(coc-diagnostic-prev)
@@ -31,6 +32,7 @@ let mapleader=" "
     nmap <silent> gd <Plug>(coc-definition)
     nmap <silent> gi <Plug>(coc-implementation)
     nmap <silent> gr <Plug>(coc-references)
+    " TODO move these to where other keymaps are
 
     " Use tab for trigger completion with characters ahead and navigate.
     inoremap <silent><expr> <TAB>
@@ -38,6 +40,7 @@ let mapleader=" "
           \ <SID>check_back_space() ? "\<TAB>" :
           \ coc#refresh()
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    " TODO use <c-j/k> or <c-n/p> instead of <tab>
 
     function! s:check_back_space() abort
       let col = col('.') - 1
@@ -53,12 +56,12 @@ let mapleader=" "
     " Highlight symbol under cursor on CursorHold
     autocmd CursorHold * silent call CocActionAsync('highlight')
 
-
 " snippets
     Plug 'SirVer/ultisnips'
     let g:UltiSnipsExpandTrigger="<c-j>"
 
     Plug 'honza/vim-snippets'
+    " TODO add more snippets
 
 " appearance
     Plug 'kshenoy/vim-signature'
@@ -95,13 +98,19 @@ let mapleader=" "
     Plug 'junegunn/fzf.vim'
     Plug 'mileszs/ack.vim'
 
-    Plug 'yuki-yano/fzf-preview.vim', { 'branch': 'release/rpc' }
-    Plug 'antoinemadec/coc-fzf'
+    command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
+
+    if executable('ag')
+      let g:ackprg = 'ag --vimgrep'
+    endif
+
+    let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+    let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
+    let $FZF_DEFAULT_OPTS="--preview-window 'right:60%' --layout reverse"
 
 " misc
     Plug 'mbbill/undotree'
     Plug 'tpope/vim-fugitive'
-    Plug 'jreybert/vimagit'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
@@ -110,23 +119,10 @@ let mapleader=" "
     let g:floaterm_opener = 'edit'
     let g:floaterm_autoclose = 1
 
-    Plug 'liuchengxu/vim-clap', { 'do': ':Clap install-binary!' }
-
-    let g:clap_enable_background_shadow = v:false
-    let g:clap_provider_grep_executable = 'ag'
-
     Plug 'kana/vim-textobj-user'
-    Plug 'thinca/vim-textobj-function-javascript'
+    Plug 'kana/vim-textobj-function'
+    Plug 'haya14busa/vim-textobj-function-syntax'
     Plug 'inside/vim-textobj-jsxattr'
-
-    command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
-    if executable('ag')
-      let g:ackprg = 'ag --vimgrep'
-    endif
-
-    let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
-    let $FZF_DEFAULT_OPTS = '--layout reverse'
 
 call plug#end()
 
@@ -249,14 +245,13 @@ augroup END
 
     nnoremap <leader><leader> :b#<cr>
     nnoremap <leader>a :Ag<CR>
-    nnoremap <leader>b :FzfPreviewBuffersRpc<CR>
-    nnoremap <leader>c :Clap commits<CR>
-    nnoremap <leader>m :Clap marks<CR>
-    nnoremap <leader>h :Clap history<cr>
-    nnoremap <leader>E :FloatermNew --title=edit broot<cr>
-    nnoremap <leader>e :FzfPreviewProjectFilesRpc<cr>
-    " nnoremap <leader>p :Clap command<cr>
-    nnoremap <leader>p  :<C-u>CocFzfList commands<CR>
+    nnoremap <leader>b :Buffers<CR>
+    nnoremap <leader>c :Commits<CR>
+    nnoremap <leader>m :Marks<CR>
+    nnoremap <leader>h :History<cr>
+    nnoremap <leader>E :FloatermNew --width=0.8 --height=0.8 --title=broot --name=broot broot<cr>
+    nnoremap <leader>e :Files<cr>
+    nnoremap <leader>p :Commands<cr>
 
     nnoremap <leader>g :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
 
