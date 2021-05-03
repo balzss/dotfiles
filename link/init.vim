@@ -29,9 +29,9 @@ let mapleader=" "
     nmap <silent>gn <Plug>(coc-diagnostic-next)
 
     " Remap keys for gotos
-    nmap <silent> gd <Plug>(coc-definition)
-    nmap <silent> gi <Plug>(coc-implementation)
-    nmap <silent> gr <Plug>(coc-references)
+    nmap <silent>gd <Plug>(coc-definition)
+    nmap <silent>gi <Plug>(coc-implementation)
+    nmap <silent>gr <Plug>(coc-references)
     " TODO move these to where other keymaps are
 
     " Use tab for trigger completion with characters ahead and navigate.
@@ -103,8 +103,9 @@ let mapleader=" "
     if executable('ag')
       let g:ackprg = 'ag --vimgrep'
     endif
+    " TODO try ripgrep instead
 
-    let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.9 } }
+    let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
     let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
     let $FZF_DEFAULT_OPTS="--preview-window 'right:60%' --layout reverse"
 
@@ -240,6 +241,7 @@ augroup END
     nnoremap <leader>q :q<cr>
     nnoremap <leader>Q :q!<cr>
 
+    nnoremap <leader>/ :BLines<cr>
     " search and replace visually selected text
     vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
 
@@ -285,7 +287,6 @@ augroup END
     nnoremap <leader>y "+y
     vnoremap <leader>y "+y
     onoremap <leader>y "+y
-
 
     inoremap <c-l> <Right>
     inoremap <c-h> <Left>
