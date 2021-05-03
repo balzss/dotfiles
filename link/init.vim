@@ -1,6 +1,5 @@
 ﻿call plug#begin()
 
-
 let mapleader=" "
 
 " webdev
@@ -218,21 +217,19 @@ augroup END
 
 " keybindings
     " modified default keybindings
-    nnoremap s :w<cr>
-    vnoremap s :w<cr>
     onoremap H ^
     vnoremap H ^
     nnoremap H ^
     onoremap L $
     vnoremap L $h
     nnoremap L $
-    nnoremap J <c-d>
-    vnoremap J <c-d>
-    nnoremap K <c-u>
-    vnoremap K <c-u>
+    nnoremap J }
+    vnoremap J }
+    nnoremap K {
+    vnoremap K {
     nnoremap M J
     nnoremap U <c-r>
-    vnoremap y y`]
+    vnoremap y ygv<esc>
 
     " keep visual selection when indenting/outdenting
     vmap < <gv
@@ -241,10 +238,14 @@ augroup END
     " remove highlights on escape
     nnoremap <esc> :nohlsearch<CR><C-l>
 
-    nnoremap <leader>s :%s/
-    vnoremap <leader>s y:%s/<C-r>"//g<left><left>
-
+    " save and quit
+    nnoremap <leader>s :w<cr>
     nnoremap <leader>S :w ! sudo tee %<cr>
+    nnoremap <leader>q :q<cr>
+    nnoremap <leader>Q :q!<cr>
+
+    " search and replace visually selected text
+    vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
 
     nnoremap <leader><leader> :b#<cr>
     nnoremap <leader>a :Ag<CR>
@@ -259,7 +260,7 @@ augroup END
 
     nnoremap <leader>g :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
 
-    nnoremap <leader>t :FloatermToggleNofocus<cr>
+    nnoremap <leader>T :FloatermToggle<cr>
     vnoremap <leader>t :FloatermToggleNofocus<cr>
     vnoremap <leader>r :'<,'>FloatermSend<cr>
 
@@ -291,6 +292,6 @@ augroup END
     onoremap <leader>y "+y
 
 
-    inoremap <c-l> <esc>la
-    inoremap <c-h> <esc>i
+    inoremap <c-l> <Right>
+    inoremap <c-h> <Left>
     inoremap <c-b> {<cr>}<esc>==O<esc>cc
