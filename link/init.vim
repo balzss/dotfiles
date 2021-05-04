@@ -115,7 +115,6 @@ let mapleader=" "
 " misc
     Plug 'kshenoy/vim-signature' " place, toggle and display marks
     Plug 'mbbill/undotree'
-    Plug 'tpope/vim-fugitive'
     Plug 'editorconfig/editorconfig-vim'
     Plug 'tpope/vim-commentary'
     Plug 'tpope/vim-surround'
@@ -123,6 +122,13 @@ let mapleader=" "
 
     let g:floaterm_opener = 'edit'
     let g:floaterm_autoclose = 1
+
+" git
+    Plug 'tpope/vim-fugitive'
+    Plug 'airblade/vim-gitgutter'
+
+    let g:gitgutter_sign_added = '┃'
+    let g:gitgutter_sign_modified = '┃'
 
 call plug#end()
 
@@ -258,7 +264,7 @@ augroup END
     nnoremap <leader>b :Buffers<CR>
     nnoremap <leader>c :Commits<CR>
     nnoremap <leader>m :Marks<CR>
-    nnoremap <leader>h :History<cr>
+    nnoremap <leader>H :History<cr>
     nnoremap <leader>E :FloatermNew --width=0.8 --height=0.8 --title=broot --name=broot broot<cr>
     nnoremap <leader>e :Files<cr>
     nnoremap <leader>p :Commands<CR>
@@ -287,7 +293,8 @@ augroup END
     endfunction
 
     nnoremap <leader>u :UndotreeToggle<CR>
-    nnoremap <leader>f  :CocFix<cr>
+    nnoremap <leader>f :CocFix<cr>
+    nnoremap <leader>d :Gvdiffsplit!<cr>
 
     nnoremap <leader>y "+y
     vnoremap <leader>y "+y
