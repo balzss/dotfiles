@@ -25,6 +25,7 @@ let mapleader=" "
     " TODO disable eslint/prettier autosave
 
     " Use `gp` and `gn` to navigate diagnostics
+    " note: use `map` instead of `noremap` for mappings with <Plug>
     nmap <silent>gp <Plug>(coc-diagnostic-prev)
     nmap <silent>gn <Plug>(coc-diagnostic-next)
 
@@ -53,9 +54,6 @@ let mapleader=" "
     " Or use `complete_info` if your vim support it, like:
     inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
 
-    " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
-
 " snippets
     Plug 'SirVer/ultisnips'
     let g:UltiSnipsExpandTrigger="<c-j>"
@@ -64,7 +62,6 @@ let mapleader=" "
     " TODO add more snippets
 
 " appearance
-    Plug 'kshenoy/vim-signature'
     Plug 'daviesjamie/vim-base16-lightline'
     Plug 'itchyny/lightline.vim'
     Plug 'chriskempson/base16-vim'
@@ -109,7 +106,14 @@ let mapleader=" "
     let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
     let $FZF_DEFAULT_OPTS="--preview-window 'right:60%' --layout reverse"
 
+" new text objects
+    Plug 'kana/vim-textobj-user'
+    Plug 'kana/vim-textobj-function'
+    Plug 'haya14busa/vim-textobj-function-syntax'
+    Plug 'inside/vim-textobj-jsxattr'
+
 " misc
+    Plug 'kshenoy/vim-signature' " place, toggle and display marks
     Plug 'mbbill/undotree'
     Plug 'tpope/vim-fugitive'
     Plug 'editorconfig/editorconfig-vim'
@@ -119,11 +123,6 @@ let mapleader=" "
 
     let g:floaterm_opener = 'edit'
     let g:floaterm_autoclose = 1
-
-    Plug 'kana/vim-textobj-user'
-    Plug 'kana/vim-textobj-function'
-    Plug 'haya14busa/vim-textobj-function-syntax'
-    Plug 'inside/vim-textobj-jsxattr'
 
 call plug#end()
 
@@ -140,12 +139,15 @@ call plug#end()
 
 augroup general
     autocmd!
+
     if !isdirectory($HOME."/.vim/backup")
         call mkdir($HOME."/.vim/backupp", "p")
     endif
+
     if !isdirectory($HOME."/.vim/undo")
         call mkdir($HOME."/.vim/undo", "p")
     endif
+
     if !filereadable($HOME."/.vim/autoload/plug.vim")
         call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
                     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
@@ -153,15 +155,18 @@ augroup general
 
     autocmd TermOpen * setlocal nonumber norelativenumber
     autocmd TermOpen * startinsert
+
+    " Highlight symbol under cursor on CursorHold
+    autocmd CursorHold * silent call CocActionAsync('highlight')
 augroup END
 
 " settings
     " code formatting
-    set breakindent
-    set tabstop=2
+    set tabstop=2 " only needed for files that have mixed tabs and spaces so probably could be dropped
     set softtabstop=2   " number of spaces in tab when editing
     set shiftwidth=2
     set expandtab
+    set breakindent
     set autoindent
     set linebreak   "break line only between words
     set showbreak=>>    "indicate wrapped text
@@ -241,6 +246,9 @@ augroup END
     nnoremap <leader>q :q<cr>
     nnoremap <leader>Q :q!<cr>
 
+    " temporarily disabling `s` until I stop using it for saving
+    nnoremap s <nop>
+
     nnoremap <leader>/ :BLines<cr>
     " search and replace visually selected text
     vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
@@ -253,37 +261,34 @@ augroup END
     nnoremap <leader>h :History<cr>
     nnoremap <leader>E :FloatermNew --width=0.8 --height=0.8 --title=broot --name=broot broot<cr>
     nnoremap <leader>e :Files<cr>
-    nnoremap <leader>p :Commands<cr>
+    nnoremap <leader>p :Commands<CR>
 
     nnoremap <leader>g :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
 
-    nnoremap <leader>T :FloatermToggle<cr>
-    vnoremap <leader>t :FloatermToggleNofocus<cr>
+    nnoremap <leader>t :FloatermToggle --width=0.8 --height=0.8 --title=sh --name=sh<cr>
+    vnoremap <leader>T :FloatermToggleNofocus<cr>
     vnoremap <leader>r :'<,'>FloatermSend<cr>
 
     command! FloatermToggleNofocus call FloatermToggleNofocus()
     function! FloatermToggleNofocus() abort
-      if len(floaterm#buflist#gather()) == 0
-        FloatermNew --wintype=vsplit --width=0.4 node
+        if len(floaterm#buflist#gather()) == 0
+            FloatermNew --wintype=vsplit --width=0.4 node
+            stopinsert
+            wincmd p
+            return
+        endif
+        if len(filter(tabpagebuflist(), { _,b -> getbufvar(b, '&ft') == 'floaterm' })) >= 1
+            FloatermHide!
+            return
+        endif
+        FloatermToggle
         stopinsert
         wincmd p
-        return
-      endif
-      if len(filter(tabpagebuflist(), { _,b -> getbufvar(b, '&ft') == 'floaterm' })) >= 1
-        FloatermHide!
-        return
-      endif
-      FloatermToggle
-      stopinsert
-      wincmd p
     endfunction
 
     nnoremap <leader>u :UndotreeToggle<CR>
-    nnoremap <leader>f  <Plug>(coc-fix-current)
+    nnoremap <leader>f  :CocFix<cr>
 
-    nnoremap <leader>d "_d
-    vnoremap <leader>d "_d
-    onoremap <leader>d "_d
     nnoremap <leader>y "+y
     vnoremap <leader>y "+y
     onoremap <leader>y "+y
