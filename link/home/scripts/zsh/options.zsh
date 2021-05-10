@@ -1,3 +1,18 @@
+# so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
+stty -ixon
+
+HISTFILE=~/.histfile
+HISTSIZE=50000
+SAVEHIST=50000
+KEYTIMEOUT=1
+
+setopt append_history 
+setopt inc_append_history 
+setopt hist_ignore_dups
+setopt hist_find_no_dups
+setopt hist_reduce_blanks
+setopt extended_history
+
 # custom autocomplete
 zstyle :compinstall filename '/home/balzss/.zshrc'
 zstyle ':completion:*' menu select
@@ -12,6 +27,10 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
+# setup hooks
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd new_line
+add-zsh-hook preexec new_line
 
 # keybindings (-v for vim; -e for emacs)
 bindkey -v
