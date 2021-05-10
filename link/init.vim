@@ -22,26 +22,13 @@ let mapleader=" "
 
     let g:coc_node_path = trim(system('which node'))
     let g:coc_npm_path = trim(system('which npm'))
-    " TODO disable eslint/prettier autosave
 
-    " Use `gp` and `gn` to navigate diagnostics
-    " note: use `map` instead of `noremap` for mappings with <Plug>
-    nmap <silent>gp <Plug>(coc-diagnostic-prev)
-    nmap <silent>gn <Plug>(coc-diagnostic-next)
-
-    " Remap keys for gotos
-    nmap <silent>gd <Plug>(coc-definition)
-    nmap <silent>gi <Plug>(coc-implementation)
-    nmap <silent>gr <Plug>(coc-references)
-    " TODO move these to where other keymaps are
-
-    " Use tab for trigger completion with characters ahead and navigate.
+    " Use tab to trigger completion with characters ahead and navigate.
     inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
           \ <SID>check_back_space() ? "\<TAB>" :
           \ coc#refresh()
     inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-    " TODO use <c-j/k> or <c-n/p> instead of <tab>
 
     function! s:check_back_space() abort
       let col = col('.') - 1
@@ -113,6 +100,7 @@ let mapleader=" "
     Plug 'inside/vim-textobj-jsxattr'
 
 " misc
+    Plug 'tpope/vim-fugitive'
     Plug 'kshenoy/vim-signature' " place, toggle and display marks
     Plug 'mbbill/undotree'
     Plug 'editorconfig/editorconfig-vim'
@@ -122,13 +110,6 @@ let mapleader=" "
 
     let g:floaterm_opener = 'edit'
     let g:floaterm_autoclose = 1
-
-" git
-    Plug 'tpope/vim-fugitive'
-    Plug 'airblade/vim-gitgutter'
-
-    let g:gitgutter_sign_added = '┃'
-    let g:gitgutter_sign_modified = '┃'
 
 call plug#end()
 
@@ -164,6 +145,9 @@ augroup general
 
     " Highlight symbol under cursor on CursorHold
     autocmd CursorHold * silent call CocActionAsync('highlight')
+
+    autocmd BufReadPost,FileReadPost,BufNewFile,BufEnter * call system("tmux rename-window vim")
+    autocmd VimLeave * call system("tmux setw automatic-rename")
 augroup END
 
 " settings
@@ -262,21 +246,22 @@ augroup END
     nnoremap <leader><leader> :b#<cr>
     nnoremap <leader>a :Ag<CR>
     nnoremap <leader>b :Buffers<CR>
-    nnoremap <leader>c :Commits<CR>
     nnoremap <leader>m :Marks<CR>
     nnoremap <leader>H :History<cr>
     nnoremap <leader>E :FloatermNew --width=0.8 --height=0.8 --title=broot --name=broot broot<cr>
     nnoremap <leader>e :Files<cr>
     nnoremap <leader>p :Commands<CR>
 
-    nnoremap <leader>g :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
+    nnoremap <leader>gg :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
+    nnoremap <leader>gd :Gvdiffsplit<cr>
+    nnoremap <leader>gc <nop>
 
     nnoremap <leader>t :FloatermToggle --width=0.8 --height=0.8 --title=sh --name=sh<cr>
-    vnoremap <leader>T :FloatermToggleNofocus<cr>
+    nnoremap <leader>T :NodeReplToggle<cr>
     vnoremap <leader>r :'<,'>FloatermSend<cr>
 
-    command! FloatermToggleNofocus call FloatermToggleNofocus()
-    function! FloatermToggleNofocus() abort
+    command! NodeReplToggle call NodeReplToggle()
+    function! NodeReplToggle() abort
         if len(floaterm#buflist#gather()) == 0
             FloatermNew --wintype=vsplit --width=0.4 node
             stopinsert
@@ -294,7 +279,6 @@ augroup END
 
     nnoremap <leader>u :UndotreeToggle<CR>
     nnoremap <leader>f :CocFix<cr>
-    nnoremap <leader>d :Gvdiffsplit!<cr>
 
     nnoremap <leader>y "+y
     vnoremap <leader>y "+y
@@ -303,3 +287,13 @@ augroup END
     inoremap <c-l> <Right>
     inoremap <c-h> <Left>
     inoremap <c-b> {<cr>}<esc>==O<esc>cc
+
+    " Use `gp` and `gn` to navigate diagnostics
+    " note: use `map` instead of `noremap` for mappings with <Plug>
+    nmap <silent>gp <Plug>(coc-diagnostic-prev)
+    nmap <silent>gn <Plug>(coc-diagnostic-next)
+
+    " Remap keys for gotos
+    nmap <silent>gd <Plug>(coc-definition)
+    nmap <silent>gi <Plug>(coc-implementation)
+    nmap <silent>gr <Plug>(coc-references)
