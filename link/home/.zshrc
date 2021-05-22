@@ -6,9 +6,6 @@ source $HOME/scripts/zsh/functions.zsh
 source $HOME/scripts/zsh/prompt.zsh
 source $HOME/scripts/zsh/options.zsh
 
-BR_DIR=$HOME/.config/broot/launcher/bash
-[ -f "$BR_DIR/br" ] && source "$BR_DIR/br"
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 BASE16_SHELL=$HOME/.config/base16-shell/
