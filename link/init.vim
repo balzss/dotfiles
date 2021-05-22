@@ -23,13 +23,6 @@ let mapleader=" "
     let g:coc_node_path = trim(system('which node'))
     let g:coc_npm_path = trim(system('which npm'))
 
-    " Use tab to trigger completion with characters ahead and navigate.
-    inoremap <silent><expr> <TAB>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<TAB>" :
-          \ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
     function! s:check_back_space() abort
       let col = col('.') - 1
       return !col || getline('.')[col - 1]  =~# '\s'
@@ -75,7 +68,6 @@ let mapleader=" "
     " syntax highlighting
     set t_Co=256
     set synmaxcol=420
-    set background=dark
 
 " fzf/ag
     Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
@@ -152,46 +144,33 @@ augroup END
 
 " settings
     " code formatting
-    set tabstop=2 " only needed for files that have mixed tabs and spaces so probably could be dropped
+    set tabstop=2       " only needed for files that have mixed tabs and spaces so probably could be dropped
     set softtabstop=2   " number of spaces in tab when editing
     set shiftwidth=2
     set expandtab
     set breakindent
-    set autoindent
-    set linebreak   "break line only between words
-    set showbreak=>>    "indicate wrapped text
-    set formatoptions=qj " allows writing long lines and reformat it manually
+    set linebreak       " break line only between words
+    set showbreak=>>    " indicate wrapped text
     set textwidth=120
     set conceallevel=0
     set foldmethod=syntax
     set foldlevel=99
 
     " layout
-    set laststatus=2 " show statusline (same for tabline): (0|never, 1|when needed; 2|always)
     set noshowmode "hide -- INSERT --, etc. at the bottom because lightline takes care of that
     set showtabline=0
-    set ruler "show the cursor position all the time at bottom right corner
-    set showcmd " display incomplete commands
     set relativenumber " relative numbering to the current line
     set number " hybrid mode with relative number: current is the actual and not 0
-    set wildmenu
     set cursorline
     set list
-    set listchars=trail:•,nbsp:≡
-    set fillchars=vert:│
     set colorcolumn=120 " displays a vertical line at column 120
 
     " behavior settings
-    set autoread " detect when a file is changed
     set inccommand=nosplit
     set ignorecase
     set smartcase
-    set history=1000 " number of commands to keep in history
-    set incsearch "do incremental searching
     set lazyredraw "redraw only when we need to
     set scrolloff=30 "doesn't get close to the edge when scrolling
-    set ttimeoutlen=30
-    set ttyfast
     set splitbelow
     set splitright
     set backupdir=$HOME/.vim/backup
@@ -201,9 +180,7 @@ augroup END
     set undoreload=10000
     set nohidden "doesn't allow switching between buffers without saving them
     set shiftround
-    set backspace=indent,eol,start  " more powerful backspacing
     set updatetime=300
-    set shortmess+=c " don't give |ins-completion-menu| messages.
     set signcolumn=yes
     set suffixesadd+=.js,.jsx
 
@@ -222,6 +199,10 @@ augroup END
     nnoremap M J
     nnoremap U <c-r>
     vnoremap y ygv<esc>
+
+    nmap <silent>gp <Plug>(coc-diagnostic-prev)
+    nmap <silent>gn <Plug>(coc-diagnostic-next)
+    nmap <silent>gd <Plug>(coc-definition)
 
     " keep visual selection when indenting/outdenting
     vmap < <gv
@@ -247,36 +228,14 @@ augroup END
     nnoremap <leader>a :Ag<CR>
     nnoremap <leader>b :Buffers<CR>
     nnoremap <leader>m :Marks<CR>
-    nnoremap <leader>H :History<cr>
-    nnoremap <leader>E :FloatermNew --width=0.8 --height=0.8 --title=broot --name=broot broot<cr>
     nnoremap <leader>e :Files<cr>
     nnoremap <leader>p :Commands<CR>
 
     nnoremap <leader>gg :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
     nnoremap <leader>gd :Gvdiffsplit<cr>
-    nnoremap <leader>gc <nop>
+    nnoremap <leader>gc :FloatermNew --width=0.8 --height=0.8 --title=commits --name=commits git_fzf_commits %<cr>
 
     nnoremap <leader>t :FloatermToggle --width=0.8 --height=0.8 --title=sh --name=sh<cr>
-    nnoremap <leader>T :NodeReplToggle<cr>
-    vnoremap <leader>r :'<,'>FloatermSend<cr>
-
-    command! NodeReplToggle call NodeReplToggle()
-    function! NodeReplToggle() abort
-        if len(floaterm#buflist#gather()) == 0
-            FloatermNew --wintype=vsplit --width=0.4 node
-            stopinsert
-            wincmd p
-            return
-        endif
-        if len(filter(tabpagebuflist(), { _,b -> getbufvar(b, '&ft') == 'floaterm' })) >= 1
-            FloatermHide!
-            return
-        endif
-        FloatermToggle
-        stopinsert
-        wincmd p
-    endfunction
-
     nnoremap <leader>u :UndotreeToggle<CR>
     nnoremap <leader>f :CocFix<cr>
 
@@ -287,13 +246,3 @@ augroup END
     inoremap <c-l> <Right>
     inoremap <c-h> <Left>
     inoremap <c-b> {<cr>}<esc>==O<esc>cc
-
-    " Use `gp` and `gn` to navigate diagnostics
-    " note: use `map` instead of `noremap` for mappings with <Plug>
-    nmap <silent>gp <Plug>(coc-diagnostic-prev)
-    nmap <silent>gn <Plug>(coc-diagnostic-next)
-
-    " Remap keys for gotos
-    nmap <silent>gd <Plug>(coc-definition)
-    nmap <silent>gi <Plug>(coc-implementation)
-    nmap <silent>gr <Plug>(coc-references)
