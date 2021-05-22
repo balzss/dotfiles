@@ -7,7 +7,12 @@
     excludesfile = ~/.gitignore
 
 [color]
+    diff = false
+    status = auto
+    branch = auto
+    interactive = auto
     ui = true
+    pager = true
 
 [github]
     user = balzss

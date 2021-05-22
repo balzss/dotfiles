@@ -29,7 +29,7 @@ alias gcl="git clone"
 alias gco="git checkout"
 alias gcom="git checkout master"
 alias gcob="git checkout -b"
-alias gdf="git diff --no-color"
+alias gdf="git diff"
 alias gpoh="git push origin HEAD"
 alias lg="lazygit"
 
