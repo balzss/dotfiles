@@ -16,6 +16,7 @@ let mapleader=" "
     Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
     let g:coc_global_extensions = [
+          \ 'coc-tsserver',
           \ 'coc-eslint',
           \ 'coc-prettier',
           \ ]
@@ -33,6 +34,13 @@ let mapleader=" "
     " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
     " Or use `complete_info` if your vim support it, like:
     inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
+
+    inoremap <silent><expr> <TAB>
+          \ pumvisible() ? "\<C-n>" :
+          \ <SID>check_back_space() ? "\<TAB>" :
+          \ coc#refresh()
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 
 " snippets
     Plug 'SirVer/ultisnips'
@@ -82,7 +90,7 @@ let mapleader=" "
     " TODO try ripgrep instead
 
     let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-    let $FZF_DEFAULT_COMMAND = 'ag -l -g ""'
+    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --glob "!**/.git/**"'
     let $FZF_DEFAULT_OPTS="--preview-window 'right:60%' --layout reverse"
 
 " new text objects
@@ -120,7 +128,7 @@ augroup general
     autocmd!
 
     if !isdirectory($HOME."/.vim/backup")
-        call mkdir($HOME."/.vim/backupp", "p")
+        call mkdir($HOME."/.vim/backup", "p")
     endif
 
     if !isdirectory($HOME."/.vim/undo")
@@ -152,7 +160,6 @@ augroup END
     set linebreak       " break line only between words
     set showbreak=>>    " indicate wrapped text
     set textwidth=120
-    set conceallevel=0
     set foldmethod=syntax
     set foldlevel=99
 
@@ -200,10 +207,6 @@ augroup END
     nnoremap U <c-r>
     vnoremap y ygv<esc>
 
-    nmap <silent>gp <Plug>(coc-diagnostic-prev)
-    nmap <silent>gn <Plug>(coc-diagnostic-next)
-    nmap <silent>gd <Plug>(coc-definition)
-
     " keep visual selection when indenting/outdenting
     vmap < <gv
     vmap > >gv
@@ -216,32 +219,41 @@ augroup END
     nnoremap <leader>S :w ! sudo tee %<cr>
     nnoremap <leader>q :q<cr>
     nnoremap <leader>Q :q!<cr>
-
     " temporarily disabling `s` until I stop using it for saving
     nnoremap s <nop>
-
-    nnoremap <leader>/ :BLines<cr>
-    " search and replace visually selected text
-    vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
-
-    nnoremap <leader><leader> :b#<cr>
-    nnoremap <leader>a :Ag<CR>
-    nnoremap <leader>b :Buffers<CR>
-    nnoremap <leader>m :Marks<CR>
-    nnoremap <leader>e :Files<cr>
-    nnoremap <leader>p :Commands<CR>
-
-    nnoremap <leader>gg :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
-    nnoremap <leader>gd :Gvdiffsplit<cr>
-    nnoremap <leader>gc :FloatermNew --width=0.8 --height=0.8 --title=commits --name=commits git_fzf_commits %<cr>
-
-    nnoremap <leader>t :FloatermToggle --width=0.8 --height=0.8 --title=sh --name=sh<cr>
-    nnoremap <leader>u :UndotreeToggle<CR>
-    nnoremap <leader>f :CocFix<cr>
 
     nnoremap <leader>y "+y
     vnoremap <leader>y "+y
     onoremap <leader>y "+y
+
+    " search and replace visually selected text
+    vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
+
+    function! RipgrepFzf (query, fullscreen)
+      let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
+      let initial_command = printf(command_fmt, shellescape(a:query))
+      call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview({'options': '--delimiter : --nth 2..'}))
+    endfunction
+    command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
+
+    nnoremap <leader>a :RG<CR>
+    nnoremap <leader>e :Files<cr>
+    nnoremap <leader>p :Commands<CR>
+    nnoremap <leader>b :Buffers<CR>
+    nnoremap <leader><leader> :b#<cr>
+
+    nnoremap <leader>gg :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
+    nnoremap <leader>t :FloatermToggle --width=0.8 --height=0.8 --title=sh --name=sh<cr>
+    nnoremap <leader>u :UndotreeToggle<CR>
+
+    nnoremap <silent><nowait> <leader>co  :<C-u>CocList outline<cr>
+    nnoremap <leader>cf :CocFix<cr>
+    nmap <leader>cr <Plug>(coc-rename)
+    nmap <silent>gp <Plug>(coc-diagnostic-prev)
+    nmap <silent>gn <Plug>(coc-diagnostic-next)
+    nmap <silent>gd <Plug>(coc-definition)
+    nmap <silent> <C-s> <Plug>(coc-range-select)
+    xmap <silent> <C-s> <Plug>(coc-range-select)
 
     inoremap <c-l> <Right>
     inoremap <c-h> <Left>
