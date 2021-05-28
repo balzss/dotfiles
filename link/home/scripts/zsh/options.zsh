@@ -6,8 +6,8 @@ HISTSIZE=50000
 SAVEHIST=50000
 KEYTIMEOUT=1
 
-setopt append_history 
-setopt inc_append_history 
+setopt append_history
+setopt inc_append_history
 setopt hist_ignore_dups
 setopt hist_find_no_dups
 setopt hist_reduce_blanks

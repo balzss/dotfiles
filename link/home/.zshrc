@@ -1,12 +1,12 @@
 source $HOME/scripts/zsh/zsh-history-substring-search.zsh
 source $HOME/scripts/zsh/zsh-git-prompt/zshrc.sh
 
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
 source $HOME/scripts/zsh/aliases.zsh
 source $HOME/scripts/zsh/functions.zsh
 source $HOME/scripts/zsh/prompt.zsh
 source $HOME/scripts/zsh/options.zsh
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"

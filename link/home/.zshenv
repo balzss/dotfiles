@@ -3,6 +3,8 @@ export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.config/nvim/plugged/vim-floaterm/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
+export FZF_DEFAULT_OPTS='--height 50% --layout=reverse'
+
 export VIRTUAL_ENV_DISABLE_PROMPT=1
 export PIP_REQUIRE_VIRTUALENV=false
 export CLICOLOR=1
