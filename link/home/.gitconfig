@@ -8,9 +8,9 @@
 
 [color]
     diff = false
-    status = auto
-    branch = auto
-    interactive = auto
+    status = true
+    branch = true
+    interactive = true
     ui = true
     pager = true
 
