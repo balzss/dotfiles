@@ -26,9 +26,6 @@ mcd () {
   mkdir -p $1
   cd $1
 }
-new_line() {
-  echo
-}
 prepend-sudo() {
   prefix="sudo"
   BUFFER="$prefix $BUFFER"

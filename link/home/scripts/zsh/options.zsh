@@ -1,5 +1,5 @@
 # so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
-stty -ixon
+[ "$(uname)" = "Darwin" ] && stty -ixon
 
 HISTFILE=~/.histfile
 HISTSIZE=50000
@@ -27,30 +27,19 @@ autoload -Uz compinit
 compinit
 _comp_options+=(globdots)
 
-# setup hooks
-autoload -Uz add-zsh-hook
-add-zsh-hook precmd new_line
-add-zsh-hook preexec new_line
-
-# keybindings (-v for vim; -e for emacs)
 bindkey -v
-
 zle -N zle-line-init
-zle -N zle-keymap-select
 zle -N prepend-sudo
+zle -N history-substring-search-up
+zle -N history-substring-search-down
 
 bindkey "^s" prepend-sudo
 bindkey "^p" history-substring-search-up
 bindkey "^n" history-substring-search-down
 bindkey "^u" backward-kill-line
-
-bindkey "^?" backward-delete-char
-bindkey -M vicmd '/' history-incremental-search-backward
-bindkey -M vicmd "k" history-substring-search-up
-bindkey -M vicmd "j" history-substring-search-down
+bindkey "^?" backward-delete-char # for backspace to work in vi mode
 bindkey -M vicmd "H" vi-beginning-of-line
 bindkey -M vicmd "L" vi-end-of-line
 bindkey -M vicmd "M" vi-join
 bindkey -M vicmd "U" redo
 bindkey -M vicmd "g" vi-fetch-history
-# bindkey -M vicmd "s" prepend-sudo
