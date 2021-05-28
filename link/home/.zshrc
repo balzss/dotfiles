@@ -1,3 +1,9 @@
+_myos="$(uname)"
+case $_myos in
+  Linux) source $HOME/dotfiles/linux-capslock-remap.sh;;
+  *) ;;
+esac
+
 source $HOME/scripts/zsh/zsh-history-substring-search.zsh
 source $HOME/scripts/zsh/zsh-git-prompt/zshrc.sh
 
