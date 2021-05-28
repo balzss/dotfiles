@@ -20,5 +20,3 @@ export BASE16_THEME=default-dark
 export BAT_THEME="base16"
 
 [ -f ~/.local-env-vars.zsh ] && source ~/.local-env-vars.zsh
-
-. "$HOME/.cargo/env"
