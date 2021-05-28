@@ -35,5 +35,7 @@ function get_virtualenv_info(){
     fi
 }
 
+# https://github.com/olivierverdier/zsh-git-prompt
+
 PROMPT='$prompt_host%F{magenta}[%d]%f $(get_virtualenv_info)%F{blue}$(git_super_status)%f 
 $VIM_MODE%f '

@@ -1,7 +1,7 @@
 new_line() echo
 autoload -Uz add-zsh-hook && add-zsh-hook precmd new_line
 
-[ "$(uname)"  = 'Linux' ] && source "$HOME/dotfiles/linux-capslock-remap.sh"
+[ "$(uname)"  = 'Linux' ] && source "$HOME/scripts/linux-capslock-remap.sh"
 BASE16_SHELL=$HOME/.config/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 
