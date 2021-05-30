@@ -6,7 +6,7 @@ function chpwd() {
     fi
 }
 create_tmux_session() {
-    SESSIONNAME="zsh"
+    SESSIONNAME="default session"
     tmux has-session -t $SESSIONNAME &> /dev/null
     if [ $? != 0 ] 
     then

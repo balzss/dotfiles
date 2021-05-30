@@ -4,6 +4,7 @@ alias ...="cd ../.."
 alias grep='grep --color=auto'
 alias md="mkdir -p"
 alias cp="cp -R"
+alias du="du -h"
 
 # --color option for ls is not available on macs
 _myos="$(uname)"
@@ -36,3 +37,4 @@ alias lg="lazygit"
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
 alias mrc="~/scripts/make-react-component.sh"
+alias escaps="setxkbmap -option esc:nocaps"
