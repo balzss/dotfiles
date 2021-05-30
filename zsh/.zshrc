@@ -22,11 +22,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-# Start tmux if not in a session already
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+source $HOME/dotfiles/zsh/.p10k.zsh
 source $HOME/dotfiles/zsh/options.zsh
 source $HOME/dotfiles/zsh/aliases.zsh
 source $HOME/dotfiles/zsh/functions.zsh
+
+# Start tmux if not in a session already
 [ -z "$TMUX" ] && create_tmux_session
 
 # Load a few important annexes, without Turbo (this is currently required for annexes)
@@ -37,14 +38,11 @@ zinit light-mode for \
     zinit-zsh/z-a-bin-gem-node
 
 # My plugins
+zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
 zinit light lukechilds/zsh-nvm
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-history-substring-search
-
-zinit ice depth=1
-zinit light romkatv/powerlevel10k
-zinit light jeffreytse/zsh-vi-mode
-
+zinit ice depth=1; zinit light romkatv/powerlevel10k
 zinit ice from"gh-r" as"program"; zinit load junegunn/fzf-bin
 
 ### --------------------------------------------------- ###

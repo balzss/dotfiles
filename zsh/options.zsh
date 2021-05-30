@@ -27,19 +27,16 @@ zstyle ':completion:*' group-name ''
 autoload -Uz compinit && compinit
 _comp_options+=(globdots)
 
-bindkey -v
-zle -N zle-line-init
-zle -N prepend-sudo
-zle -N history-substring-search-up
-zle -N history-substring-search-down
+function zvm_after_lazy_keybindings() {
+  bindkey -M vicmd "k" history-substring-search-up
+  bindkey -M vicmd "j" history-substring-search-down
+  bindkey -M vicmd "H" vi-beginning-of-line
+  bindkey -M vicmd "L" vi-end-of-line
+  bindkey -M vicmd "M" vi-join
+  bindkey -M vicmd "U" redo
+}
 
-bindkey "^s" prepend-sudo
-bindkey "^p" history-substring-search-up
-bindkey "^n" history-substring-search-down
-bindkey "^u" backward-kill-line
-bindkey "^?" backward-delete-char # for backspace to work in vi mode
-bindkey -M vicmd "H" vi-beginning-of-line
-bindkey -M vicmd "L" vi-end-of-line
-bindkey -M vicmd "M" vi-join
-bindkey -M vicmd "U" redo
-bindkey -M vicmd "g" vi-fetch-history
+function zvm_after_init() {
+  zvm_bindkey viins '^p' history-substring-search-up
+  zvm_bindkey viins '^n' history-substring-search-down
+}
