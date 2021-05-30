@@ -16,8 +16,8 @@ esac
 
 alias vim="nvim"
 alias v="nvim"
-alias zshrc="nvim ~/.zshrc ~/.zshenv ~/scripts/zsh/**.zsh"
-alias vimrc="nvim ~/.config/nvim/init.vim"
+alias zshrc="nvim ~/dotfiles/zsh/.zshrc ~/dotfiles/zsh/.zshenv ~/dotfiles/zsh/*"
+alias vimrc="nvim ~/dotfiles/nvim/init.vim"
 alias soz="source ~/.zshrc"
 alias pls='sudo $(fc -ln -1)'
 
