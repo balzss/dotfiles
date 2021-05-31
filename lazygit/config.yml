@@ -1,0 +1,8 @@
+keybinding:
+  universal:
+    openFile: 'e'
+    edit: 'E'
+os:
+  openCommand: 'floaterm {{filename}}'
+services:
+  "github.ibm.com": "github:github.ibm.com"

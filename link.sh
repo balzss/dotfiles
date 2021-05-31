@@ -11,4 +11,4 @@ case "$(uname)" in
   Darwin) LAZYGIT_TARGET_DIR="$HOME/Library/Application Support/lazygit/config.yml";;
   *) ;;
 esac
-ln -isv $HOME/dotfiles/lazygit/config.yml $LAZYGIT_TARGET_DIR
+ln -isv $HOME/dotfiles/lazygit/config.yml "$LAZYGIT_TARGET_DIR"
