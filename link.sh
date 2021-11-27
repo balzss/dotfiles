@@ -12,6 +12,7 @@ case $MYOS in
   Darwin) LAZYGIT_TARGET="$HOME/Library/Application Support/lazygit/config.yml";;
   *) ;;
 esac
+
 ln -isv $HOME/dotfiles/lazygit/config.yml $LAZYGIT_TARGET
 
 [ $MYOS = "Linux" ] && ln -isv $HOME/dotfiles/scripts/.profile $HOME/.profile

@@ -1,6 +1,3 @@
-# so as not to be disturbed by Ctrl-S ctrl-Q in terminals:
-[ "$(uname)" = "Darwin" ] && stty -ixon
-
 HISTFILE=~/.histfile
 HISTSIZE=50000
 SAVEHIST=50000
@@ -15,7 +12,7 @@ setopt extended_history
 
 zstyle :compinstall filename '/home/balzss/.zshrc'
 zstyle ':completion:*' menu select
-eval "$(dircolors)"
+[ "$(uname)" = "Linux" ] && eval "$(dircolors)"
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle ':completion:*' verbose yes
 zstyle ':completion:*:descriptions' format "$fg[yellow]%B--- %d%b"
