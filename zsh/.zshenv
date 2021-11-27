@@ -13,7 +13,7 @@ export MOZ_USE_XINPUT2=1
 export GEM_HOME="$HOME/gems"
 
 export EDITOR="nvim"
-export PAGER="nvim -R"
+export PAGER="nvim +Man!"
 export VISUAL="nvim"
 
 export BASE16_THEME=default-dark
