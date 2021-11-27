@@ -2,102 +2,59 @@
 
 let mapleader=" "
 
+" neovim 0.5 stuff
+  Plug 'neovim/nvim-lspconfig'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+  Plug 'nvim-lua/popup.nvim'
+  Plug 'nvim-lua/plenary.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+  Plug 'hrsh7th/nvim-compe'
+
 " webdev
-    Plug 'mattn/emmet-vim'
-    Plug 'othree/html5.vim'
-    Plug 'hail2u/vim-css3-syntax'
-    Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-    Plug 'Jxnblk/vim-mdx-js'
-    Plug 'yuezk/vim-js'
-    Plug 'maxmellon/vim-jsx-pretty'
-    let g:vim_jsx_pretty_highlight_close_tag = 1
-
-" language server
-    Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-    let g:coc_global_extensions = [
-          \ 'coc-tsserver',
-          \ 'coc-eslint',
-          \ 'coc-prettier',
-          \ ]
-
-    let g:coc_node_path = trim(system('which node'))
-    let g:coc_npm_path = trim(system('which npm'))
-
-    function! s:check_back_space() abort
-      let col = col('.') - 1
-      return !col || getline('.')[col - 1]  =~# '\s'
-    endfunction
-
-    " Use <cr> to confirm completion, `<C-g>u` means break undo chain at current position.
-    " Coc only does snippet and additional edit on confirm.
-    " inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
-    " Or use `complete_info` if your vim support it, like:
-    inoremap <expr> <cr> complete_info()["selected"] != "-1" ? "\<C-y>" : "\<C-g>u\<CR>"
-
-    inoremap <silent><expr> <TAB>
-          \ pumvisible() ? "\<C-n>" :
-          \ <SID>check_back_space() ? "\<TAB>" :
-          \ coc#refresh()
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
+  Plug 'mattn/emmet-vim'
+  Plug 'othree/html5.vim'
+  Plug 'hail2u/vim-css3-syntax'
+  Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
+  Plug 'Jxnblk/vim-mdx-js'
+  Plug 'yuezk/vim-js'
+  Plug 'maxmellon/vim-jsx-pretty'
+  let g:vim_jsx_pretty_highlight_close_tag = 1
+  Plug 'jparise/vim-graphql'
 
 " snippets
-    Plug 'SirVer/ultisnips'
-    let g:UltiSnipsExpandTrigger="<c-j>"
+  Plug 'SirVer/ultisnips'
+  let g:UltiSnipsExpandTrigger="<c-j>"
 
-    Plug 'honza/vim-snippets'
-    " TODO add more snippets
+  Plug 'honza/vim-snippets'
+  " TODO add more snippets
 
 " appearance
-    Plug 'daviesjamie/vim-base16-lightline'
-    Plug 'itchyny/lightline.vim'
-    Plug 'chriskempson/base16-vim'
+  Plug 'daviesjamie/vim-base16-lightline'
+  Plug 'itchyny/lightline.vim'
+  Plug 'chriskempson/base16-vim'
 
-    let g:lightline = {
-      \ 'colorscheme': 'base16',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'filename' ],
-      \             [ 'readonly', 'cocstatus', 'currentfunction', 'modified' ] ],
-      \  'right': [ [ 'lineinfo' ],
-      \              [ 'percent' ],
-      \              [ 'gitbranch' ] ]
-      \ },
-      \ 'component_function': {
-      \   'cocstatus': 'coc#status',
-      \   'currentfunction': 'CocCurrentFunction',
-      \   'gitbranch': 'FugitiveHead'
-      \ },
-      \ }
-    let g:coc_status_error_sign = '✘'
-    let g:coc_status_warning_sign = '♠'
+  let g:lightline = {
+    \ 'colorscheme': 'base16',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'filename' ],
+    \             [ 'readonly', 'cocstatus', 'currentfunction', 'modified' ] ],
+    \  'right': [ [ 'lineinfo' ],
+    \              [ 'percent' ],
+    \              [ 'gitbranch' ] ]
+    \ },
+    \ 'component_function': {
+    \   'cocstatus': 'coc#status',
+    \   'currentfunction': 'CocCurrentFunction',
+    \   'gitbranch': 'FugitiveHead'
+    \ },
+    \ }
+  let g:coc_status_error_sign = '✘'
+  let g:coc_status_warning_sign = '♠'
 
-    " syntax highlighting
-    set t_Co=256
-    set synmaxcol=420
-
-" fzf/ag
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' } 
-    Plug 'junegunn/fzf.vim'
-    Plug 'mileszs/ack.vim'
-
-    command! -bang -nargs=* Ag call fzf#vim#ag(<q-args>, {'options': '--delimiter : --nth 4..'}, <bang>0)
-
-    if executable('ag')
-      let g:ackprg = 'ag --vimgrep'
-    endif
-    " TODO try ripgrep instead
-
-    let g:fzf_layout = { 'window': { 'width': 0.8, 'height': 0.8 } }
-    let $FZF_DEFAULT_COMMAND = 'rg --files --hidden --glob "!**/.git/**"'
-    let $FZF_DEFAULT_OPTS="--preview-window 'right:60%' --layout reverse"
-
-" new text objects
-    Plug 'kana/vim-textobj-user'
-    Plug 'kana/vim-textobj-function'
-    Plug 'haya14busa/vim-textobj-function-syntax'
-    Plug 'inside/vim-textobj-jsxattr'
+  " syntax highlighting
+  set t_Co=256
+  set synmaxcol=420
 
 " misc
     Plug 'tpope/vim-fugitive'
@@ -126,15 +83,6 @@ call plug#end()
 
 augroup general
     autocmd!
-
-    if !isdirectory($HOME."/.vim/backup")
-        call mkdir($HOME."/.vim/backup", "p")
-    endif
-
-    if !isdirectory($HOME."/.vim/undo")
-        call mkdir($HOME."/.vim/undo", "p")
-    endif
-
     if !filereadable($HOME."/.vim/autoload/plug.vim")
         call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
                     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
@@ -142,9 +90,6 @@ augroup general
 
     autocmd TermOpen * setlocal nonumber norelativenumber
     autocmd TermOpen * startinsert
-
-    " Highlight symbol under cursor on CursorHold
-    autocmd CursorHold * silent call CocActionAsync('highlight')
 
     autocmd BufReadPost,FileReadPost,BufNewFile,BufEnter * call system("tmux rename-window vim")
     autocmd VimLeave * call system("tmux setw automatic-rename")
@@ -191,6 +136,37 @@ augroup END
     set signcolumn=yes
     set suffixesadd+=.js,.jsx
 
+    set completeopt=menuone,noselect
+
+    let g:compe = {}
+    let g:compe.enabled = v:true
+    let g:compe.autocomplete = v:true
+    let g:compe.debug = v:false
+    let g:compe.min_length = 1
+    let g:compe.preselect = 'enable'
+    let g:compe.throttle_time = 80
+    let g:compe.source_timeout = 200
+    let g:compe.resolve_timeout = 800
+    let g:compe.incomplete_delay = 400
+    let g:compe.max_abbr_width = 100
+    let g:compe.max_kind_width = 100
+    let g:compe.max_menu_width = 100
+    let g:compe.documentation = v:true
+
+    let g:compe.source = {}
+    let g:compe.source.path = v:true
+    let g:compe.source.buffer = v:true
+    let g:compe.source.calc = v:true
+    let g:compe.source.nvim_lsp = v:true
+    let g:compe.source.nvim_lua = v:false
+    let g:compe.source.vsnip = v:false
+    let g:compe.source.ultisnips = v:true
+    let g:compe.source.luasnip = v:false
+    let g:compe.source.emoji = v:false
+
+    inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
+    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 " keybindings
     " modified default keybindings
     onoremap H ^
@@ -229,32 +205,42 @@ augroup END
     " search and replace visually selected text
     vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
 
-    function! RipgrepFzf (query, fullscreen)
-      let command_fmt = 'rg --column --line-number --no-heading --color=always --smart-case -- %s || true'
-      let initial_command = printf(command_fmt, shellescape(a:query))
-      call fzf#vim#grep(initial_command, 1, fzf#vim#with_preview({'options': '--delimiter : --nth 2..'}))
-    endfunction
-    command! -nargs=* -bang RG call RipgrepFzf(<q-args>, <bang>0)
-
-    nnoremap <leader>a :RG<CR>
-    nnoremap <leader>e :Files<cr>
-    nnoremap <leader>p :Commands<CR>
-    nnoremap <leader>b :Buffers<CR>
+    nnoremap <leader>e <cmd>Telescope find_files<cr>
+    nnoremap <leader>a <cmd>Telescope live_grep<cr>
+    nnoremap <leader>b <cmd>Telescope buffers<cr>
+    nnoremap <leader>p <cmd>Telescope commands<cr>
+    nnoremap <leader>h <cmd>Telescope oldfiles<cr>
     nnoremap <leader><leader> :b#<cr>
 
     nnoremap <leader>gg :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
+    nnoremap <leader>gb :Git blame<cr>
     nnoremap <leader>t :FloatermToggle --width=0.8 --height=0.8 --title=sh --name=sh<cr>
     nnoremap <leader>u :UndotreeToggle<CR>
 
-    nnoremap <silent><nowait> <leader>co  :<C-u>CocList outline<cr>
-    nnoremap <leader>cf :CocFix<cr>
-    nmap <leader>cr <Plug>(coc-rename)
-    nmap <silent>gp <Plug>(coc-diagnostic-prev)
-    nmap <silent>gn <Plug>(coc-diagnostic-next)
-    nmap <silent>gd <Plug>(coc-definition)
-    nmap <silent> <C-s> <Plug>(coc-range-select)
-    xmap <silent> <C-s> <Plug>(coc-range-select)
+    nnoremap <silent>gn :lua vim.lsp.diagnostic.goto_next()<cr>
+    nnoremap <silent>gp :lua vim.lsp.diagnostic.goto_prev()<cr>
+    nnoremap <silent>gd <cmd>Telescope lsp_definitions<cr>
+    nnoremap <silent>gr <cmd>Telescope lsp_references<cr>
+    nnoremap <leader>ca <cmd>Telescope lsp_code_action<cr>
+    nnoremap <leader>cc :lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
 
     inoremap <c-l> <Right>
     inoremap <c-h> <Left>
     inoremap <c-b> {<cr>}<esc>==O<esc>cc
+
+lua << EOF
+require'telescope'.setup{
+  defaults = {
+    file_sorter =  require'telescope.sorters'.get_fzy_sorter,
+  }
+}
+
+require'lspconfig'.tsserver.setup{}
+require'lspconfig'.eslint.setup{}
+
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+  vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = false
+  }
+)
+EOF

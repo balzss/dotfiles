@@ -14,6 +14,7 @@ zinit light chriskempson/base16-shell
 
 # Preceed commands with empty lines for readablity https://stackoverflow.com/a/59576993/4503695
 precmd() precmd() echo
+zinit light lukechilds/zsh-nvm
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
@@ -39,7 +40,6 @@ zinit light-mode for \
 
 # My plugins
 zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode
-zinit light lukechilds/zsh-nvm
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-history-substring-search
 zinit ice depth=1; zinit light romkatv/powerlevel10k

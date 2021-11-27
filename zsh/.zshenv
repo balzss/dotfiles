@@ -1,3 +1,4 @@
+[ -f ~/.local-env-vars.zsh ] && source ~/.local-env-vars.zsh
 export PATH="$HOME/gems/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.config/nvim/plugged/vim-floaterm/bin:$PATH"
@@ -18,5 +19,3 @@ export VISUAL="nvim"
 
 export BASE16_THEME=default-dark
 export BAT_THEME="base16"
-
-[ -f ~/.local-env-vars.zsh ] && source ~/.local-env-vars.zsh
