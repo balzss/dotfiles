@@ -8,7 +8,7 @@ let mapleader=" "
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
-  Plug 'hrsh7th/nvim-compe'
+  Plug 'hrsh7th/nvim-cmp'
 
 " webdev
   Plug 'mattn/emmet-vim'
@@ -29,28 +29,8 @@ let mapleader=" "
   " TODO add more snippets
 
 " appearance
-  Plug 'daviesjamie/vim-base16-lightline'
-  Plug 'itchyny/lightline.vim'
-  Plug 'chriskempson/base16-vim'
-
-  let g:lightline = {
-    \ 'colorscheme': 'base16',
-    \ 'active': {
-    \   'left': [ [ 'mode', 'paste' ],
-    \             [ 'filename' ],
-    \             [ 'readonly', 'cocstatus', 'currentfunction', 'modified' ] ],
-    \  'right': [ [ 'lineinfo' ],
-    \              [ 'percent' ],
-    \              [ 'gitbranch' ] ]
-    \ },
-    \ 'component_function': {
-    \   'cocstatus': 'coc#status',
-    \   'currentfunction': 'CocCurrentFunction',
-    \   'gitbranch': 'FugitiveHead'
-    \ },
-    \ }
-  let g:coc_status_error_sign = '✘'
-  let g:coc_status_warning_sign = '♠'
+  Plug 'nvim-lualine/lualine.nvim'
+  Plug 'gruvbox-community/gruvbox'
 
   " syntax highlighting
   set t_Co=256
@@ -71,14 +51,10 @@ let mapleader=" "
 call plug#end()
 
 " colorscheme
-    if filereadable(expand("~/.vimrc_background"))
-        let base16colorspace=256
-        source ~/.vimrc_background
-    else
-        colorscheme base16-default-dark
-    endif
-
     syntax on
+    set background=dark
+    colorscheme gruvbox
+
     filetype plugin indent on
 
 augroup general
@@ -136,8 +112,8 @@ augroup END
     set signcolumn=yes
     set suffixesadd+=.js,.jsx
 
+    " completion
     set completeopt=menuone,noselect
-
     let g:compe = {}
     let g:compe.enabled = v:true
     let g:compe.autocomplete = v:true
@@ -221,7 +197,7 @@ augroup END
     nnoremap <silent>gp :lua vim.lsp.diagnostic.goto_prev()<cr>
     nnoremap <silent>gd <cmd>Telescope lsp_definitions<cr>
     nnoremap <silent>gr <cmd>Telescope lsp_references<cr>
-    nnoremap <leader>ca <cmd>Telescope lsp_code_action<cr>
+    nnoremap <leader>ca <cmd>Telescope lsp_code_actions<cr>
     nnoremap <leader>cc :lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
 
     inoremap <c-l> <Right>
@@ -229,6 +205,23 @@ augroup END
     inoremap <c-b> {<cr>}<esc>==O<esc>cc
 
 lua << EOF
+require'lualine'.setup{
+  options = {
+    section_separators = '',
+    component_separators = '',
+    icons_enabled = false,
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {
+                  {'diagnostics', sources={'nvim_lsp'}}},
+    lualine_c = {'filename'},
+    lualine_x = {'branch'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+}
+
 require'telescope'.setup{
   defaults = {
     file_sorter =  require'telescope.sorters'.get_fzy_sorter,
