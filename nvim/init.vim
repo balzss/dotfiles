@@ -5,28 +5,41 @@ let mapleader=" "
 " neovim 0.5 stuff
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-  Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
+  Plug 'SmiteshP/nvim-gps'
+
+  Plug 'glepnir/dashboard-nvim'
+  let g:dashboard_default_executive ='telescope'
+  let g:dashboard_custom_header = [
+\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
+\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
+\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
+\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
+\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
+\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
+\]
+
+" snippets and completion
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
+  Plug 'L3MON4D3/LuaSnip'
+  Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'rafamadriz/friendly-snippets'
 
 " webdev
-  Plug 'mattn/emmet-vim'
-  Plug 'othree/html5.vim'
-  Plug 'hail2u/vim-css3-syntax'
-  Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' }
-  Plug 'Jxnblk/vim-mdx-js'
-  Plug 'yuezk/vim-js'
-  Plug 'maxmellon/vim-jsx-pretty'
+  Plug 'mattn/emmet-vim' " TODO still needed?
+  Plug 'othree/html5.vim' " TODO still needed?
+  Plug 'hail2u/vim-css3-syntax' " TODO still needed?
+  Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " TODO still needed?
+  Plug 'Jxnblk/vim-mdx-js' " TODO still needed?
+  Plug 'yuezk/vim-js' " TODO still needed?
+  Plug 'maxmellon/vim-jsx-pretty' " TODO still needed?
   let g:vim_jsx_pretty_highlight_close_tag = 1
   Plug 'jparise/vim-graphql'
-
-" snippets
-  Plug 'SirVer/ultisnips'
-  let g:UltiSnipsExpandTrigger="<c-j>"
-
-  Plug 'honza/vim-snippets'
-  " TODO add more snippets
 
 " appearance
   Plug 'nvim-lualine/lualine.nvim'
@@ -37,11 +50,11 @@ let mapleader=" "
   set synmaxcol=420
 
 " misc
-    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-fugitive' " TODO switch to gitsigns.nvim
     Plug 'kshenoy/vim-signature' " place, toggle and display marks
     Plug 'mbbill/undotree'
     Plug 'editorconfig/editorconfig-vim'
-    Plug 'tpope/vim-commentary'
+    Plug 'tpope/vim-commentary' " TODO switch to Comment.nvim
     Plug 'tpope/vim-surround'
     Plug 'voldikss/vim-floaterm'
 
@@ -113,35 +126,7 @@ augroup END
     set suffixesadd+=.js,.jsx
 
     " completion
-    set completeopt=menuone,noselect
-    let g:compe = {}
-    let g:compe.enabled = v:true
-    let g:compe.autocomplete = v:true
-    let g:compe.debug = v:false
-    let g:compe.min_length = 1
-    let g:compe.preselect = 'enable'
-    let g:compe.throttle_time = 80
-    let g:compe.source_timeout = 200
-    let g:compe.resolve_timeout = 800
-    let g:compe.incomplete_delay = 400
-    let g:compe.max_abbr_width = 100
-    let g:compe.max_kind_width = 100
-    let g:compe.max_menu_width = 100
-    let g:compe.documentation = v:true
-
-    let g:compe.source = {}
-    let g:compe.source.path = v:true
-    let g:compe.source.buffer = v:true
-    let g:compe.source.calc = v:true
-    let g:compe.source.nvim_lsp = v:true
-    let g:compe.source.nvim_lua = v:false
-    let g:compe.source.vsnip = v:false
-    let g:compe.source.ultisnips = v:true
-    let g:compe.source.luasnip = v:false
-    let g:compe.source.emoji = v:false
-
-    inoremap <silent><expr> <TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-    inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+    set completeopt=menu,menuone,noselect
 
 " keybindings
     " modified default keybindings
@@ -205,6 +190,16 @@ augroup END
     inoremap <c-b> {<cr>}<esc>==O<esc>cc
 
 lua << EOF
+local gps = require("nvim-gps")
+gps.setup{
+    icons = {
+        ["class-name"] = '',      -- Classes and class-like objects
+        ["function-name"] = '',   -- Functions
+        ["method-name"] = '',     -- Methods (functions inside class-like objects)
+        ["tag-name"] = ''         -- Tags (example: html tags)
+    },
+}
+
 require'lualine'.setup{
   options = {
     section_separators = '',
@@ -214,8 +209,14 @@ require'lualine'.setup{
   sections = {
     lualine_a = {'mode'},
     lualine_b = {
-                  {'diagnostics', sources={'nvim_lsp'}}},
-    lualine_c = {'filename'},
+      {'diagnostics', sources={'nvim_lsp'}}},
+    lualine_c = {
+      {'filename'},
+      {
+          gps.get_location,
+          cond = gps.is_available,
+          fmt = function(str) if #str ~= 0 then return '> ' .. str else return '' end end,
+          padding = {left = 0}}},
     lualine_x = {'branch'},
     lualine_y = {'progress'},
     lualine_z = {'location'}
@@ -236,4 +237,66 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
     virtual_text = false
   }
 )
+
+local has_words_before = function()
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
+local luasnip = require("luasnip")
+local cmp = require("cmp")
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      luasnip.lsp_expand(args.body) -- For `luasnip` users.
+    end,
+  },
+  mapping = {
+    ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
+    ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+    ['<C-e>'] = cmp.mapping({
+      i = cmp.mapping.abort(),
+      c = cmp.mapping.close(),
+    }),
+    -- Accept currently selected item. If none selected, `select` first item.
+    -- Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+
+    ["<C-j>"] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      end
+    end, { "i", "s" }),
+
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'luasnip' }, -- For luasnip users.
+    { name = 'buffer' },
+  })
+})
+
+require'luasnip'.filetype_extend("typescriptreact", {"javascript"})
+require("luasnip/loaders/from_vscode").lazy_load()
+
 EOF
