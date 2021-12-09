@@ -17,5 +17,5 @@ export EDITOR="nvim"
 export PAGER="nvim +Man!"
 export VISUAL="nvim"
 
-export BASE16_THEME=default-dark
+export BASE16_THEME="gruvbox-dark-pale"
 export BAT_THEME="base16"
