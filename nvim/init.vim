@@ -9,6 +9,42 @@ let mapleader=" "
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'SmiteshP/nvim-gps'
 
+" snippets and completion
+  Plug 'hrsh7th/cmp-nvim-lsp'
+  Plug 'hrsh7th/cmp-buffer'
+  Plug 'hrsh7th/cmp-path'
+  Plug 'hrsh7th/cmp-cmdline'
+  Plug 'hrsh7th/nvim-cmp'
+  Plug 'L3MON4D3/LuaSnip'
+  Plug 'saadparwaiz1/cmp_luasnip'
+  Plug 'rafamadriz/friendly-snippets'
+
+  Plug 'numToStr/Comment.nvim'
+  Plug 'lewis6991/gitsigns.nvim'
+
+" webdev
+  Plug 'mattn/emmet-vim' " TODO still needed?
+  Plug 'maxmellon/vim-jsx-pretty' " TODO still needed?
+  let g:vim_jsx_pretty_highlight_close_tag = 1
+  Plug 'jparise/vim-graphql'
+
+" appearance
+  Plug 'nvim-lualine/lualine.nvim'
+  Plug 'gruvbox-community/gruvbox'
+  Plug 'kyazdani42/nvim-tree.lua'
+  let g:nvim_tree_show_icons = {
+    \ 'git': 0,
+    \ 'folders': 0,
+    \ 'files': 0,
+    \ 'folder_arrows': 1,
+    \ } 
+
+" misc
+  Plug 'kshenoy/vim-signature' " place, toggle and display marks
+  Plug 'mbbill/undotree'
+  Plug 'editorconfig/editorconfig-vim'
+  Plug 'tpope/vim-surround'
+
   Plug 'glepnir/dashboard-nvim'
   let g:dashboard_default_executive ='telescope'
   let g:dashboard_custom_header = [
@@ -20,51 +56,12 @@ let mapleader=" "
 \ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
 \]
 
-" snippets and completion
-  Plug 'hrsh7th/cmp-nvim-lsp'
-  Plug 'hrsh7th/cmp-buffer'
-  Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
-  Plug 'hrsh7th/nvim-cmp'
-  Plug 'L3MON4D3/LuaSnip'
-  Plug 'saadparwaiz1/cmp_luasnip'
-  Plug 'rafamadriz/friendly-snippets'
-
-" webdev
-  Plug 'mattn/emmet-vim' " TODO still needed?
-  Plug 'othree/html5.vim' " TODO still needed?
-  Plug 'hail2u/vim-css3-syntax' " TODO still needed?
-  Plug 'cakebaker/scss-syntax.vim', { 'for': 'scss' } " TODO still needed?
-  Plug 'Jxnblk/vim-mdx-js' " TODO still needed?
-  Plug 'yuezk/vim-js' " TODO still needed?
-  Plug 'maxmellon/vim-jsx-pretty' " TODO still needed?
-  let g:vim_jsx_pretty_highlight_close_tag = 1
-  Plug 'jparise/vim-graphql'
-
-" appearance
-  Plug 'nvim-lualine/lualine.nvim'
-  Plug 'gruvbox-community/gruvbox'
-
-  " syntax highlighting
-  set t_Co=256
-  set synmaxcol=420
-
-" misc
-    Plug 'tpope/vim-fugitive' " TODO switch to gitsigns.nvim
-    Plug 'kshenoy/vim-signature' " place, toggle and display marks
-    Plug 'mbbill/undotree'
-    Plug 'editorconfig/editorconfig-vim'
-    Plug 'tpope/vim-commentary' " TODO switch to Comment.nvim
-    Plug 'tpope/vim-surround'
-    Plug 'voldikss/vim-floaterm'
-
-    let g:floaterm_opener = 'edit'
-    let g:floaterm_autoclose = 1
-
 call plug#end()
 
 " colorscheme
     syntax on
+    set t_Co=256
+    set synmaxcol=420
     set background=dark
     colorscheme gruvbox
 
@@ -173,10 +170,10 @@ augroup END
     nnoremap <leader>h <cmd>Telescope oldfiles<cr>
     nnoremap <leader><leader> :b#<cr>
 
-    nnoremap <leader>gg :FloatermNew --width=0.8 --height=0.8 --title=lazygit --name=lazygit lazygit<cr>
-    nnoremap <leader>gb :Git blame<cr>
-    nnoremap <leader>t :FloatermToggle --width=0.8 --height=0.8 --title=sh --name=sh<cr>
+    nnoremap <leader>gb :Gitsigns blame_line<CR>
+    nnoremap <leader>gd :Gitsigns diffthis ~1<CR>
     nnoremap <leader>u :UndotreeToggle<CR>
+    nnoremap <leader>f :NvimTreeFindFileToggle<CR>
 
     nnoremap <silent>gn :lua vim.lsp.diagnostic.goto_next()<cr>
     nnoremap <silent>gp :lua vim.lsp.diagnostic.goto_prev()<cr>
@@ -298,5 +295,8 @@ cmp.setup({
 
 require'luasnip'.filetype_extend("typescriptreact", {"javascript"})
 require("luasnip/loaders/from_vscode").lazy_load()
+require('Comment').setup()
+require('gitsigns').setup()
+require'nvim-tree'.setup()
 
 EOF
