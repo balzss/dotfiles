@@ -1,7 +1,6 @@
 [ -f ~/.local-env-vars.zsh ] && source ~/.local-env-vars.zsh
 export PATH="$HOME/gems/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
-export PATH="$HOME/.config/nvim/plugged/vim-floaterm/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 
 export FZF_DEFAULT_OPTS='--height 50% --layout=reverse'

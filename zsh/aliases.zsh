@@ -6,7 +6,7 @@ alias md="mkdir -p"
 alias cp="cp -R"
 alias du="du -h"
 
-# --color option for ls is not available on macs
+# --color option for ls is not available on mac
 _myos="$(uname)"
 case $_myos in
   Linux) alias l="ls -lhApF --color";;
@@ -24,7 +24,7 @@ alias pls='sudo $(fc -ln -1)'
 alias gac="git add -A && git commit -m"
 alias gad="git add"
 alias gcm="git commit -m"
-alias gst="git status -sb"
+alias gst="git status"
 alias gpl="git pull"
 alias gcl="git clone"
 alias gcom="git checkout master"
@@ -37,4 +37,4 @@ alias lg="lazygit"
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
 alias mrc="$HOME/dotfiles/scripts/make-react-component.sh"
-alias profile="$HOME/dotfiles/scripts/.profile"
+alias profile="$HOME/.profile"
