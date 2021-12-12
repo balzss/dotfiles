@@ -7,7 +7,10 @@ let mapleader=" "
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
+  Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
   Plug 'SmiteshP/nvim-gps'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'ethanholz/nvim-lastplace'
 
 " snippets and completion
   Plug 'hrsh7th/cmp-nvim-lsp'
@@ -29,19 +32,14 @@ let mapleader=" "
   Plug 'jparise/vim-graphql'
 
 " appearance
-  Plug 'nvim-lualine/lualine.nvim'
   Plug 'gruvbox-community/gruvbox'
+
+  Plug 'mbbill/undotree'
   Plug 'kyazdani42/nvim-tree.lua'
-  let g:nvim_tree_show_icons = {
-    \ 'git': 0,
-    \ 'folders': 0,
-    \ 'files': 0,
-    \ 'folder_arrows': 1,
-    \ } 
+  Plug 'nvim-lualine/lualine.nvim'
 
 " misc
   Plug 'kshenoy/vim-signature' " place, toggle and display marks
-  Plug 'mbbill/undotree'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'tpope/vim-surround'
 
@@ -179,8 +177,9 @@ augroup END
     nnoremap <silent>gp :lua vim.lsp.diagnostic.goto_prev()<cr>
     nnoremap <silent>gd <cmd>Telescope lsp_definitions<cr>
     nnoremap <silent>gr <cmd>Telescope lsp_references<cr>
-    nnoremap <leader>ca <cmd>Telescope lsp_code_actions<cr>
+    nnoremap <leader>ca <cmd>Telescope lsp_code_actions theme=cursor<cr>
     nnoremap <leader>cc :lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
+    nnoremap <leader>cr :lua vim.lsp.buf.rename()<cr>
 
     inoremap <c-l> <Right>
     inoremap <c-h> <Left>
@@ -222,9 +221,36 @@ require'lualine'.setup{
 
 require'telescope'.setup{
   defaults = {
-    file_sorter =  require'telescope.sorters'.get_fzy_sorter,
+    mappings = {
+      i = {
+        ["<esc>"] = require('telescope.actions').close,
+        ["<c-j>"] = require('telescope.actions').move_selection_next,
+        ["<c-k>"] = require('telescope.actions').move_selection_previous,
+        ["<c-t>"] = require('telescope.actions.layout').toggle_preview,
+      },
+    },
+    sorting_strategy = 'ascending',
+    layout_config = {
+      prompt_position = 'top'
+    }
+  },
+  pickers = {
+      buffers = {
+          ignore_current_buffer = true,
+          sort_lastused = true,
+      },
+  },
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
+    }
   }
 }
+require('telescope').load_extension('fzf')
 
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.eslint.setup{}
@@ -297,6 +323,14 @@ require'luasnip'.filetype_extend("typescriptreact", {"javascript"})
 require("luasnip/loaders/from_vscode").lazy_load()
 require('Comment').setup()
 require('gitsigns').setup()
-require'nvim-tree'.setup()
-
+require'nvim-tree'.setup{
+  view = {
+    width = 40
+  }
+}
+require'nvim-web-devicons'.setup()
+require'nvim-lastplace'.setup {
+    lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
+    lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
+}
 EOF
