@@ -5,6 +5,7 @@ let mapleader=" "
 " neovim 0.5 stuff
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+  Plug 'alexlafroscia/tree-sitter-glimmer'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
@@ -30,6 +31,7 @@ let mapleader=" "
   Plug 'maxmellon/vim-jsx-pretty' " TODO still needed?
   let g:vim_jsx_pretty_highlight_close_tag = 1
   Plug 'jparise/vim-graphql'
+  Plug 'joukevandermaas/vim-ember-hbs'
 
 " appearance
   Plug 'gruvbox-community/gruvbox'
@@ -320,6 +322,7 @@ cmp.setup({
 })
 
 require'luasnip'.filetype_extend("typescriptreact", {"javascript"})
+require'luasnip'.filetype_extend("typescript", {"javascript"})
 require("luasnip/loaders/from_vscode").lazy_load()
 require('Comment').setup()
 require('gitsigns').setup()
@@ -332,5 +335,12 @@ require'nvim-web-devicons'.setup()
 require'nvim-lastplace'.setup {
     lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
     lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
+}
+require'lspconfig'.ember.setup{}
+
+require'nvim-treesitter.configs'.setup {
+  highlight = {
+    enable = true,
+  },
 }
 EOF

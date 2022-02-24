@@ -4,7 +4,6 @@ alias ...="cd ../.."
 alias grep='grep --color=auto'
 alias md="mkdir -p"
 alias cp="cp -R"
-alias du="du -h"
 
 # --color option for ls is not available on mac
 _myos="$(uname)"
