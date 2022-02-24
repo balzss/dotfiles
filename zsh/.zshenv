@@ -14,6 +14,8 @@ export GEM_HOME="$HOME/gems"
 
 export EDITOR="nvim"
 export PAGER="nvim +Man!"
+export MANPAGER="nvim +Man!"
+export MANWIDTH=999
 export VISUAL="nvim"
 
 export BASE16_THEME="gruvbox-dark-pale"
