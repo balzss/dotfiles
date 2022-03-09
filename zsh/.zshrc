@@ -49,5 +49,3 @@ zinit ice from"gh-r" as"program"; zinit load junegunn/fzf-bin
 ### --------------------------------------------------- ###
 ### end of config, only auto-insertions come after this ###
 ### --------------------------------------------------- ###
-
-### End of Zinit's installer chunk

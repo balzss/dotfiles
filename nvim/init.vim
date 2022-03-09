@@ -2,7 +2,7 @@
 
 let mapleader=" "
 
-" neovim 0.5 stuff
+" neovim >0.5 stuff
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
   Plug 'alexlafroscia/tree-sitter-glimmer'
@@ -32,6 +32,7 @@ let mapleader=" "
   let g:vim_jsx_pretty_highlight_close_tag = 1
   Plug 'jparise/vim-graphql'
   Plug 'joukevandermaas/vim-ember-hbs'
+  Plug 'evanleck/vim-svelte', {'branch': 'main'}
 
 " appearance
   Plug 'gruvbox-community/gruvbox'
@@ -59,13 +60,8 @@ let mapleader=" "
 call plug#end()
 
 " colorscheme
-    syntax on
-    set t_Co=256
     set synmaxcol=420
-    set background=dark
     colorscheme gruvbox
-
-    filetype plugin indent on
 
 augroup general
     autocmd!
@@ -111,9 +107,7 @@ augroup END
     set scrolloff=30 "doesn't get close to the edge when scrolling
     set splitbelow
     set splitright
-    set backupdir=$HOME/.vim/backup
     set undofile
-    set undodir=$HOME/.vim/undo
     set undolevels=10000
     set undoreload=10000
     set nohidden "doesn't allow switching between buffers without saving them
@@ -256,6 +250,7 @@ require('telescope').load_extension('fzf')
 
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.eslint.setup{}
+require'lspconfig'.ember.setup{}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -336,8 +331,6 @@ require'nvim-lastplace'.setup {
     lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
     lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
 }
-require'lspconfig'.ember.setup{}
-
 require'nvim-treesitter.configs'.setup {
   highlight = {
     enable = true,

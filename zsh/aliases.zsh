@@ -1,17 +1,23 @@
-# aliases
+_myos="$(uname)"
+_sshfile="$HOME/.ssh/id_rsa.pub"
+
+case $_myos in
+  Linux)
+    alias l="ls -lhApF --color"
+    alias copy-ssh="xclip -selection clipboard -i $_sshfile"
+    ;;
+  Darwin)
+    alias l="ls -lhApF" # --color option for ls is not available on mac
+    alias copy-ssh="pbcopy < $_sshfile"
+    ;;
+  *) ;;
+esac
+
 alias ..="cd .."
 alias ...="cd ../.."
 alias grep='grep --color=auto'
 alias md="mkdir -p"
 alias cp="cp -R"
-
-# --color option for ls is not available on mac
-_myos="$(uname)"
-case $_myos in
-  Linux) alias l="ls -lhApF --color";;
-  Darwin) alias l="ls -lhApF";;
-  *) ;;
-esac
 
 alias v="nvim"
 alias zshrc="nvim ~/dotfiles/zsh/.zshrc ~/dotfiles/zsh/.zshenv ~/dotfiles/zsh/*"
