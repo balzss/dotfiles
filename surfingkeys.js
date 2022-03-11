@@ -1,3 +1,5 @@
+const { map, vmap, mapkey, unmapAllExcept } = api;
+
 settings.scrollStepSize = 90;
 
 map('J', 'd');
@@ -12,57 +14,52 @@ mapkey('f', 'Open a link in current tab', function() {
     Hints.create("", Hints.dispatchMouseClick, {tabbed: false});
 });
 
-mapkey('s', 'Pause video', function() {
+mapkey('s', 'Toggle video play/pause', function() {
     const vid = document.getElementsByTagName("video")[0];
     vid.paused ? vid.play() : vid.pause();
 });
 
-mapkey('S', 'Fullscreen video', function() {
+mapkey('S', 'Toggle video fullscreen', function() {
     document.getElementsByClassName('ytp-fullscreen-button')[0].click();
 });
 
-mapkey('a', 'rewind video 5s', function() {
+mapkey('a', 'Rewind video 5s', function() {
     document.getElementsByTagName("video")[0].currentTime -= 5;
 });
 
-mapkey('d', 'forward video 5s', function() {
+mapkey('d', 'Forward video 5s', function() {
     document.getElementsByTagName("video")[0].currentTime += 5;
 });
 
-mapkey('A', 'rewind video 30s', function() {
+mapkey('A', 'Rewind video 30s', function() {
     document.getElementsByTagName("video")[0].currentTime -= 30;
 });
 
-mapkey('D', 'forward video 30s', function() {
+mapkey('D', 'Forward video 30s', function() {
     document.getElementsByTagName("video")[0].currentTime += 30;
 });
 
-mapkey('q', 'decrease video playback rate by 20%', function() {
+mapkey('q', 'Decrease video playback rate by 20%', function() {
     document.getElementsByTagName("video")[0].playbackRate -= 0.2;
 });
 
-mapkey('e', 'increase video playback rate by 20%', function() {
+mapkey('e', 'Increase video playback rate by 20%', function() {
     document.getElementsByTagName("video")[0].playbackRate += 0.2;
 });
 
-mapkey('w', 'set speed of YT video', function() {
-  const video = document.getElementsByTagName("video")[0];
-  video.playbackRate = video.playbackRate === 1 ? 2 : 1;
-});
-
-mapkey('W', 'set speed of YT video', function() {
+mapkey('w', 'Toggle video playback rate fast/normal', function() {
   const video = document.getElementsByTagName("video")[0];
   video.playbackRate = video.playbackRate === 1 ? 1.6 : 1;
 });
 
 unmapAllExcept(['a', 'd', 'q', 'w', 'W', 'e', 's', 'S', 'A', 'D', 'f', 'F', 'J', 'K', 'u', 'U', 'gg', 'G', 'j', 'k', 'i', 'v']);
 
-Hints.characters = "asdfghjkl";
-settings.modeAfterYank = "normal";
-settings.hintAlign = "left";
-settings.newTabPosition = "right";
+Hints.characters = 'asdfghjkl';
+settings.modeAfterYank = 'normal';
+settings.hintAlign = 'left';
+settings.newTabPosition = 'right';
 settings.focusFirstCandidate = false;
-settings.modeAfterYank = "Normal";
+settings.modeAfterYank = 'Normal';
 
 addSearchAliasX('r', 'reddit', 'https://www.google.com/search?q=site:reddit.com+');
 addSearchAliasX('y', 'youtube', 'https://www.youtube.com/results?search_query=');
@@ -70,7 +67,6 @@ addSearchAliasX('h', 'github', 'https://github.com/search?q=sort:stars+');
 addSearchAliasX('i', 'image', 'https://www.google.com/search?tbm=isch&q=');
 addSearchAliasX('m', 'maps', 'https://www.google.com/maps?q=');
 addSearchAliasX('d', 'duckduckgo', 'https://www.duckduckgo.com/?q=');
-
 
 Hints.style(`background: #37474F !important;
     color: #f0f0f0 !important;
