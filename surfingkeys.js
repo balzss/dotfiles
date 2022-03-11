@@ -1,4 +1,4 @@
-const { map, vmap, mapkey, unmapAllExcept } = api;
+const { map, vmap, mapkey, unmapAllExcept, Hints, addSearchAliasX } = api;
 
 settings.scrollStepSize = 90;
 
