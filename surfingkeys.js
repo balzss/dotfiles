@@ -1,4 +1,4 @@
-const { map, vmap, mapkey, unmapAllExcept, Hints, addSearchAliasX } = api;
+const { map, vmap, mapkey, unmapAllExcept, Hints, addSearchAlias } = api;
 
 settings.scrollStepSize = 90;
 
@@ -61,12 +61,12 @@ settings.newTabPosition = 'right';
 settings.focusFirstCandidate = false;
 settings.modeAfterYank = 'Normal';
 
-addSearchAliasX('r', 'reddit', 'https://www.google.com/search?q=site:reddit.com+');
-addSearchAliasX('y', 'youtube', 'https://www.youtube.com/results?search_query=');
-addSearchAliasX('h', 'github', 'https://github.com/search?q=sort:stars+');
-addSearchAliasX('i', 'image', 'https://www.google.com/search?tbm=isch&q=');
-addSearchAliasX('m', 'maps', 'https://www.google.com/maps?q=');
-addSearchAliasX('d', 'duckduckgo', 'https://www.duckduckgo.com/?q=');
+addSearchAlias('r', 'reddit', 'https://www.google.com/search?q=site:reddit.com+');
+addSearchAlias('y', 'youtube', 'https://www.youtube.com/results?search_query=');
+addSearchAlias('h', 'github', 'https://github.com/search?q=sort:stars+');
+addSearchAlias('i', 'image', 'https://www.google.com/search?tbm=isch&q=');
+addSearchAlias('m', 'maps', 'https://www.google.com/maps?q=');
+addSearchAlias('d', 'duckduckgo', 'https://www.duckduckgo.com/?q=');
 
 Hints.style(`background: #37474F !important;
     color: #f0f0f0 !important;
