@@ -12,6 +12,7 @@ let mapleader=" "
   Plug 'SmiteshP/nvim-gps'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'ethanholz/nvim-lastplace'
+  Plug 'windwp/nvim-autopairs'
 
 " snippets and completion
   Plug 'hrsh7th/cmp-nvim-lsp'
@@ -20,7 +21,6 @@ let mapleader=" "
   Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'L3MON4D3/LuaSnip'
-  Plug 'saadparwaiz1/cmp_luasnip'
   Plug 'rafamadriz/friendly-snippets'
 
   Plug 'numToStr/Comment.nvim'
@@ -33,6 +33,7 @@ let mapleader=" "
   Plug 'jparise/vim-graphql'
   Plug 'joukevandermaas/vim-ember-hbs'
   Plug 'evanleck/vim-svelte', {'branch': 'main'}
+  Plug 'pantharshit00/vim-prisma'
 
 " appearance
   Plug 'gruvbox-community/gruvbox'
@@ -179,7 +180,6 @@ augroup END
 
     inoremap <c-l> <Right>
     inoremap <c-h> <Left>
-    inoremap <c-b> {<cr>}<esc>==O<esc>cc
 
 lua << EOF
 local gps = require("nvim-gps")
@@ -211,7 +211,7 @@ require'lualine'.setup{
           padding = {left = 0}}},
     lualine_x = {'branch'},
     lualine_y = {'progress'},
-    lualine_z = {'location'}
+    lualine_z = {'location', 'filetype'}
   },
 }
 
@@ -266,11 +266,6 @@ end
 local luasnip = require("luasnip")
 local cmp = require("cmp")
 cmp.setup({
-  snippet = {
-    expand = function(args)
-      luasnip.lsp_expand(args.body) -- For `luasnip` users.
-    end,
-  },
   mapping = {
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
@@ -280,7 +275,7 @@ cmp.setup({
     }),
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<CR>'] = cmp.mapping.confirm({ select = false }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -311,7 +306,6 @@ cmp.setup({
   },
   sources = cmp.config.sources({
     { name = 'nvim_lsp' },
-    { name = 'luasnip' }, -- For luasnip users.
     { name = 'buffer' },
   })
 })
@@ -336,4 +330,6 @@ require'nvim-treesitter.configs'.setup {
     enable = true,
   },
 }
+
+require('nvim-autopairs').setup{}
 EOF
