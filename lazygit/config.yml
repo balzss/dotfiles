@@ -1,8 +1,9 @@
+gui:
+  showFileTree: false
+  showRandomTip: false
 keybinding:
   universal:
     openFile: 'e'
     edit: 'E'
 os:
-  openCommand: 'floaterm {{filename}}'
-services:
-  "github.ibm.com": "github:github.ibm.com"
+  openCommand: '$EDITOR {{filename}}'

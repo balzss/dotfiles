@@ -1,4 +1,5 @@
 [ -f ~/.local-env-vars.zsh ] && source ~/.local-env-vars.zsh
+
 export PATH="$HOME/gems/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -20,3 +21,5 @@ export VISUAL="nvim"
 
 export BASE16_THEME="gruvbox-dark-pale"
 export BAT_THEME="base16"
+
+export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
