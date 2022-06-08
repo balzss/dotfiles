@@ -1,82 +1,50 @@
 ﻿call plug#begin()
 
-let mapleader=" "
-
-" neovim >0.5 stuff
+" lsp
   Plug 'neovim/nvim-lspconfig'
+  Plug 'ethanholz/nvim-lastplace'
+  Plug 'windwp/nvim-autopairs'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-  Plug 'alexlafroscia/tree-sitter-glimmer'
+  Plug 'glepnir/lspsaga.nvim'
+
+" telescope
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
-  Plug 'SmiteshP/nvim-gps'
-  Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'ethanholz/nvim-lastplace'
-  Plug 'windwp/nvim-autopairs'
 
 " snippets and completion
   Plug 'hrsh7th/cmp-nvim-lsp'
   Plug 'hrsh7th/cmp-buffer'
   Plug 'hrsh7th/cmp-path'
-  Plug 'hrsh7th/cmp-cmdline'
   Plug 'hrsh7th/nvim-cmp'
   Plug 'L3MON4D3/LuaSnip'
   Plug 'rafamadriz/friendly-snippets'
 
+" editing
   Plug 'numToStr/Comment.nvim'
-  Plug 'lewis6991/gitsigns.nvim'
-
-" webdev
-  Plug 'mattn/emmet-vim' " TODO still needed?
-  Plug 'maxmellon/vim-jsx-pretty' " TODO still needed?
-  let g:vim_jsx_pretty_highlight_close_tag = 1
-  Plug 'jparise/vim-graphql'
-  Plug 'joukevandermaas/vim-ember-hbs'
-  Plug 'evanleck/vim-svelte', {'branch': 'main'}
-  Plug 'pantharshit00/vim-prisma'
-
-" appearance
-  Plug 'gruvbox-community/gruvbox'
-
-  Plug 'mbbill/undotree'
-  Plug 'kyazdani42/nvim-tree.lua'
-  Plug 'nvim-lualine/lualine.nvim'
-
-" misc
-  Plug 'kshenoy/vim-signature' " place, toggle and display marks
   Plug 'editorconfig/editorconfig-vim'
   Plug 'tpope/vim-surround'
 
-  Plug 'glepnir/dashboard-nvim'
-  let g:dashboard_default_executive ='telescope'
-  let g:dashboard_custom_header = [
-\ ' ███╗   ██╗ ███████╗ ██████╗  ██╗   ██╗ ██╗ ███╗   ███╗',
-\ ' ████╗  ██║ ██╔════╝██╔═══██╗ ██║   ██║ ██║ ████╗ ████║',
-\ ' ██╔██╗ ██║ █████╗  ██║   ██║ ██║   ██║ ██║ ██╔████╔██║',
-\ ' ██║╚██╗██║ ██╔══╝  ██║   ██║ ╚██╗ ██╔╝ ██║ ██║╚██╔╝██║',
-\ ' ██║ ╚████║ ███████╗╚██████╔╝  ╚████╔╝  ██║ ██║ ╚═╝ ██║',
-\ ' ╚═╝  ╚═══╝ ╚══════╝ ╚═════╝    ╚═══╝   ╚═╝ ╚═╝     ╚═╝',
-\]
+" webdev
+  Plug 'jparise/vim-graphql'
+  Plug 'joukevandermaas/vim-ember-hbs'
+  Plug 'alexlafroscia/tree-sitter-glimmer'
+  Plug 'evanleck/vim-svelte', {'branch': 'main'}
+  Plug 'pantharshit00/vim-prisma'
+
+" appearance and UI
+  Plug 'gruvbox-community/gruvbox'
+  Plug 'lewis6991/gitsigns.nvim'
+  Plug 'mbbill/undotree'
+  Plug 'nvim-lualine/lualine.nvim'
+  Plug 'kshenoy/vim-signature' " place, toggle and display marks
+  Plug 'kyazdani42/nvim-web-devicons'
 
 call plug#end()
 
 " colorscheme
     set synmaxcol=420
     colorscheme gruvbox
-
-augroup general
-    autocmd!
-    if !filereadable($HOME."/.vim/autoload/plug.vim")
-        call system("curl -fLo ~/.vim/autoload/plug.vim --create-dirs 
-                    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim")
-    endif
-
-    autocmd TermOpen * setlocal nonumber norelativenumber
-    autocmd TermOpen * startinsert
-
-    autocmd BufReadPost,FileReadPost,BufNewFile,BufEnter * call system("tmux rename-window vim")
-    autocmd VimLeave * call system("tmux setw automatic-rename")
-augroup END
 
 " settings
     " code formatting
@@ -113,7 +81,7 @@ augroup END
     set undoreload=10000
     set nohidden "doesn't allow switching between buffers without saving them
     set shiftround
-    set updatetime=300
+    set updatetime=50
     set signcolumn=yes
     set suffixesadd+=.js,.jsx
 
@@ -121,6 +89,8 @@ augroup END
     set completeopt=menu,menuone,noselect
 
 " keybindings
+    let mapleader=" "
+
     " modified default keybindings
     onoremap H ^
     vnoremap H ^
@@ -133,6 +103,7 @@ augroup END
     nnoremap K {
     vnoremap K {
     nnoremap M J
+    vnoremap M J
     nnoremap U <c-r>
     vnoremap y ygv<esc>
 
@@ -182,16 +153,6 @@ augroup END
     inoremap <c-h> <Left>
 
 lua << EOF
-local gps = require("nvim-gps")
-gps.setup{
-    icons = {
-        ["class-name"] = '',      -- Classes and class-like objects
-        ["function-name"] = '',   -- Functions
-        ["method-name"] = '',     -- Methods (functions inside class-like objects)
-        ["tag-name"] = ''         -- Tags (example: html tags)
-    },
-}
-
 require'lualine'.setup{
   options = {
     section_separators = '',
@@ -204,11 +165,7 @@ require'lualine'.setup{
       {'diagnostics', sources={'nvim_lsp'}}},
     lualine_c = {
       {'filename'},
-      {
-          gps.get_location,
-          cond = gps.is_available,
-          fmt = function(str) if #str ~= 0 then return '> ' .. str else return '' end end,
-          padding = {left = 0}}},
+    },
     lualine_x = {'branch'},
     lualine_y = {'progress'},
     lualine_z = {'location', 'filetype'}
@@ -247,6 +204,11 @@ require'telescope'.setup{
   }
 }
 require('telescope').load_extension('fzf')
+
+require('lspsaga').init_lsp_saga {
+  error_sign = 'E',
+  warn_sign = 'I',
+}
 
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.eslint.setup{}
@@ -315,11 +277,6 @@ require'luasnip'.filetype_extend("typescript", {"javascript"})
 require("luasnip/loaders/from_vscode").lazy_load()
 require('Comment').setup()
 require('gitsigns').setup()
-require'nvim-tree'.setup{
-  view = {
-    width = 40
-  }
-}
 require'nvim-web-devicons'.setup()
 require'nvim-lastplace'.setup {
     lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
