@@ -39,8 +39,11 @@
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'kshenoy/vim-signature' " place, toggle and display marks
   Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'tpope/vim-fugitive'
 
 call plug#end()
+
+filetype plugin indent on
 
 " colorscheme
     set synmaxcol=420
@@ -56,8 +59,9 @@ call plug#end()
     set linebreak       " break line only between words
     set showbreak=>>    " indicate wrapped text
     set textwidth=120
-    set foldmethod=syntax
+    set foldmethod=expr
     set foldlevel=99
+    set foldexpr=nvim_treesitter#foldexpr()
 
     " layout
     set noshowmode "hide -- INSERT --, etc. at the bottom because lightline takes care of that
@@ -108,7 +112,7 @@ call plug#end()
     vmap > >gv
 
     " remove highlights on escape
-    nnoremap <esc> :nohlsearch<CR><C-l>
+    nnoremap <esc> :nohlsearch<cr><C-l>
 
     nnoremap <leader><cr> :so ~/.config/nvim/init.vim<cr>
 
@@ -138,22 +142,22 @@ call plug#end()
     nnoremap <leader>h <cmd>Telescope oldfiles<cr>
     nnoremap <leader><leader> :b#<cr>
 
-    nnoremap <leader>gb :Gitsigns blame_line<CR>
-    nnoremap <leader>gd :Gitsigns diffthis ~1<CR>
-    nnoremap <leader>gs :lua require'telescope.builtin'.git_status{}
+    nnoremap <leader>gb :Git blame<cr>
+    nnoremap <leader>gd :Gitsigns diffthis ~1<cr>
+    nnoremap <leader>gs :lua require'telescope.builtin'.git_status{}<cr>
 
-    nnoremap <leader>u :UndotreeToggle<CR>
+    nnoremap <leader>u :UndotreeToggle<cr>
 
     nnoremap <silent>gn :Lspsaga diagnostic_jump_next<cr>
     nnoremap <silent>gp :Lspsaga diagnostic_jump_prev<cr>
     nnoremap <silent>gd :Telescope lsp_definitions<cr>
     nnoremap <silent>gr :Telescope lsp_references<cr>
     nnoremap <leader>cc :Lspsaga show_cursor_diagnostics<cr>
-    nnoremap <leader>cr :Lspsaga rename<CR>
-    nnoremap <silent><leader>ca :Lspsaga code_action<CR>
-    vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
+    nnoremap <leader>cr :Lspsaga rename<cr>
+    nnoremap <silent><leader>ca :Lspsaga code_action<cr>
+    vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<cr>
 
-    nnoremap <silent>K :Lspsaga hover_doc<CR>
+    nnoremap <silent>K :Lspsaga hover_doc<cr>
 
     inoremap <c-l> <Right>
     inoremap <c-h> <Left>
@@ -238,7 +242,7 @@ cmp.setup({
     }),
     -- Accept currently selected item. If none selected, `select` first item.
     -- Set `select` to `false` to only confirm explicitly selected items.
-    ['<CR>'] = cmp.mapping.confirm({ select = false }),
+    ['<cr>'] = cmp.mapping.confirm({ select = false }),
     ["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
