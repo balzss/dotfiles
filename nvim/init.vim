@@ -2,10 +2,8 @@
 
 " lsp
   Plug 'neovim/nvim-lspconfig'
-  Plug 'ethanholz/nvim-lastplace'
-  Plug 'windwp/nvim-autopairs'
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
-  Plug 'glepnir/lspsaga.nvim'
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  Plug 'tami5/lspsaga.nvim' " fork of glepnir/lspsaga.nvim
 
 " telescope
   Plug 'nvim-lua/plenary.nvim'
@@ -24,8 +22,10 @@
   Plug 'numToStr/Comment.nvim'
   Plug 'editorconfig/editorconfig-vim'
   Plug 'tpope/vim-surround'
+  Plug 'ethanholz/nvim-lastplace'
+  Plug 'windwp/nvim-autopairs'
 
-" webdev
+" syntax
   Plug 'jparise/vim-graphql'
   Plug 'joukevandermaas/vim-ember-hbs'
   Plug 'alexlafroscia/tree-sitter-glimmer'
@@ -98,13 +98,9 @@ call plug#end()
     onoremap L $
     vnoremap L $h
     nnoremap L $
-    nnoremap J }
-    vnoremap J }
-    nnoremap K {
-    vnoremap K {
     nnoremap M J
     vnoremap M J
-    nnoremap U <c-r>
+    nnoremap U <c-r> " better redo
     vnoremap y ygv<esc>
 
     " keep visual selection when indenting/outdenting
@@ -114,17 +110,23 @@ call plug#end()
     " remove highlights on escape
     nnoremap <esc> :nohlsearch<CR><C-l>
 
+    nnoremap <leader><cr> :so ~/.config/nvim/init.vim<cr>
+
     " save and quit
     nnoremap <leader>s :w<cr>
-    nnoremap <leader>S :w ! sudo tee %<cr>
     nnoremap <leader>q :q<cr>
     nnoremap <leader>Q :q!<cr>
     " temporarily disabling `s` until I stop using it for saving
     nnoremap s <nop>
 
+    " copy/paste
     nnoremap <leader>y "+y
     vnoremap <leader>y "+y
     onoremap <leader>y "+y
+    xnoremap <leader>p "_dP
+    nmap <leader>Y "+Y
+    nnoremap <leader>d "_d
+    vnoremap <leader>d "_d
 
     " search and replace visually selected text
     vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
@@ -138,16 +140,20 @@ call plug#end()
 
     nnoremap <leader>gb :Gitsigns blame_line<CR>
     nnoremap <leader>gd :Gitsigns diffthis ~1<CR>
-    nnoremap <leader>u :UndotreeToggle<CR>
-    nnoremap <leader>f :NvimTreeFindFileToggle<CR>
+    nnoremap <leader>gs :lua require'telescope.builtin'.git_status{}
 
-    nnoremap <silent>gn :lua vim.lsp.diagnostic.goto_next()<cr>
-    nnoremap <silent>gp :lua vim.lsp.diagnostic.goto_prev()<cr>
-    nnoremap <silent>gd <cmd>Telescope lsp_definitions<cr>
-    nnoremap <silent>gr <cmd>Telescope lsp_references<cr>
-    nnoremap <leader>ca <cmd>Telescope lsp_code_actions theme=cursor<cr>
-    nnoremap <leader>cc :lua vim.lsp.diagnostic.show_line_diagnostics()<cr>
-    nnoremap <leader>cr :lua vim.lsp.buf.rename()<cr>
+    nnoremap <leader>u :UndotreeToggle<CR>
+
+    nnoremap <silent>gn :Lspsaga diagnostic_jump_next<cr>
+    nnoremap <silent>gp :Lspsaga diagnostic_jump_prev<cr>
+    nnoremap <silent>gd :Telescope lsp_definitions<cr>
+    nnoremap <silent>gr :Telescope lsp_references<cr>
+    nnoremap <leader>cc :Lspsaga show_cursor_diagnostics<cr>
+    nnoremap <leader>cr :Lspsaga rename<CR>
+    nnoremap <silent><leader>ca :Lspsaga code_action<CR>
+    vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<CR>
+
+    nnoremap <silent>K :Lspsaga hover_doc<CR>
 
     inoremap <c-l> <Right>
     inoremap <c-h> <Left>
@@ -203,12 +209,7 @@ require'telescope'.setup{
     }
   }
 }
-require('telescope').load_extension('fzf')
-
-require('lspsaga').init_lsp_saga {
-  error_sign = 'E',
-  warn_sign = 'I',
-}
+require'telescope'.load_extension('fzf')
 
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.eslint.setup{}
@@ -225,8 +226,8 @@ local has_words_before = function()
   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local luasnip = require("luasnip")
-local cmp = require("cmp")
+local luasnip = require'luasnip'
+local cmp = require'cmp'
 cmp.setup({
   mapping = {
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
@@ -274,9 +275,9 @@ cmp.setup({
 
 require'luasnip'.filetype_extend("typescriptreact", {"javascript"})
 require'luasnip'.filetype_extend("typescript", {"javascript"})
-require("luasnip/loaders/from_vscode").lazy_load()
-require('Comment').setup()
-require('gitsigns').setup()
+require'luasnip/loaders/from_vscode'.lazy_load()
+require'Comment'.setup()
+require'gitsigns'.setup()
 require'nvim-web-devicons'.setup()
 require'nvim-lastplace'.setup {
     lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
@@ -288,5 +289,9 @@ require'nvim-treesitter.configs'.setup {
   },
 }
 
-require('nvim-autopairs').setup{}
+require'nvim-autopairs'.setup{}
+
+require'lspsaga'.init_lsp_saga {
+  use_saga_diagnostic_sign = true,
+}
 EOF
