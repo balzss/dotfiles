@@ -24,6 +24,7 @@
   Plug 'tpope/vim-surround'
   Plug 'ethanholz/nvim-lastplace'
   Plug 'windwp/nvim-autopairs'
+  Plug 'mattn/emmet-vim'
 
 " syntax
   Plug 'jparise/vim-graphql'
