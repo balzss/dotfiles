@@ -25,6 +25,8 @@
   Plug 'ethanholz/nvim-lastplace'
   Plug 'windwp/nvim-autopairs'
   Plug 'mattn/emmet-vim'
+  Plug 'tpope/vim-repeat'
+  Plug 'ggandor/lightspeed.nvim'
 
 " syntax
   Plug 'jparise/vim-graphql'
@@ -41,6 +43,7 @@
   Plug 'kshenoy/vim-signature' " place, toggle and display marks
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'tpope/vim-fugitive'
+  Plug 'romgrk/barbar.nvim'
 
 call plug#end()
 
@@ -89,6 +92,7 @@ filetype plugin indent on
     set updatetime=50
     set signcolumn=yes
     set suffixesadd+=.js,.jsx
+    set mouse=a
 
     " completion
     set completeopt=menu,menuone,noselect
@@ -119,10 +123,9 @@ filetype plugin indent on
 
     " save and quit
     nnoremap <leader>s :w<cr>
+    nnoremap <c-s> :w<cr>
     nnoremap <leader>q :q<cr>
     nnoremap <leader>Q :q!<cr>
-    " temporarily disabling `s` until I stop using it for saving
-    nnoremap s <nop>
 
     " copy/paste
     nnoremap <leader>y "+y
@@ -136,11 +139,16 @@ filetype plugin indent on
     " search and replace visually selected text
     vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
 
+    nnoremap <c-l> <c-w>l
+    nnoremap <c-h> <c-w>h
+    nnoremap <c-j> <c-w>j
+    nnoremap <c-k> <c-w>k
+
     nnoremap <leader>e <cmd>Telescope find_files<cr>
     nnoremap <leader>a <cmd>Telescope live_grep<cr>
     nnoremap <leader>b <cmd>Telescope buffers<cr>
     nnoremap <leader>p <cmd>Telescope commands<cr>
-    nnoremap <leader>h <cmd>Telescope oldfiles<cr>
+    nnoremap <leader>o <cmd>Telescope oldfiles<cr>
     nnoremap <leader><leader> :b#<cr>
 
     nnoremap <leader>gb :Git blame<cr>
@@ -191,6 +199,7 @@ require'telescope'.setup{
         ["<c-j>"] = require('telescope.actions').move_selection_next,
         ["<c-k>"] = require('telescope.actions').move_selection_previous,
         ["<c-t>"] = require('telescope.actions.layout').toggle_preview,
+        ["<c-l>"] = require('telescope.actions').select_vertical,
       },
     },
     sorting_strategy = 'ascending',
