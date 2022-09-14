@@ -93,6 +93,9 @@ filetype plugin indent on
     " completion
     set completeopt=menu,menuone,noselect
 
+" set nunjucks filetype to html
+    au BufRead,BufNewFile *.njk setfiletype html
+
 " keybindings
     let mapleader=" "
 
@@ -234,6 +237,12 @@ end
 local luasnip = require'luasnip'
 local cmp = require'cmp'
 cmp.setup({
+  snippet = {
+    -- REQUIRED - you must specify a snippet engine
+    expand = function(args)
+      require('luasnip').lsp_expand(args.body) -- For `luasnip` users.
+    end,
+  },
   mapping = {
     ['<C-Space>'] = cmp.mapping(cmp.mapping.complete(), { 'i', 'c' }),
     ['<C-y>'] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
