@@ -11,36 +11,36 @@ be installed.
 
 ### macOS
 
-1. `Karabiner-Elements`
+- `Karabiner-Elements`
   - https://karabiner-elements.pqrs.org/
-2. `iTerm2`
+- `iTerm2`
   - https://iterm2.com/
-3. `homebrew`
+- `homebrew`
   - https://brew.sh/
-4. `zsh`
+- `zsh`
   - `brew install zsh`
-5. `zinit`
+- `zinit`
   - https://github.com/zdharma-continuum/zinit#automatic
-6. `tmux`
+- `tmux`
   - `brew install tmux`
-7. `neovim`
+- `neovim`
   - `brew install neovim`
-8. `vim-plug`
+- `vim-plug`
   - https://github.com/junegunn/vim-plug#neovim
-9. `lazygit`
+- `lazygit`
   - `brew install lazygit`
 
 ### Fedora
 
-1. `zsh`
+- `zsh`
   - `sudo dnf install zsh`
-2. `zinit`
+- `zinit`
   - https://github.com/zdharma-continuum/zinit#automatic
-3. `tmux`
+- `tmux`
   - `sudo dnf install tmux`
-4. `neovim`
+- `neovim`
   - `sudo dnf install neovim`
-5. `vim-plug`
+- `vim-plug`
   - https://github.com/junegunn/vim-plug#neovim
 
 ## Setup
