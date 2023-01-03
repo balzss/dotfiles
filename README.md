@@ -6,7 +6,7 @@ Config files for zsh, nvim, tmux, git and some others.
 
 ### Nerd Font
 
-Neovim is configured to use nerd icons which requires a compatible font (e.g. from the [font](/fonts) directory in this repo) to
+Neovim is configured to use nerd icons which requires a compatible font (e.g. from the [fonts](/fonts) directory in this repo) to
 be installed.
 
 ### macOS
