@@ -6,7 +6,7 @@ Config files for zsh, nvim, tmux, git and some others.
 
 ### Nerd Font
 
-Neovim is configured to use nerd icons which requires a compatible font (e.g. from the [fonts](/fonts) directory in this repo) to
+Neovim is configured to use nerd icons which requires a compatible font (e.g. from the [fonts](/fonts) directory) to
 be installed.
 
 ### macOS
@@ -49,10 +49,18 @@ Run `link.sh` to create symlinks.
 
 ## Other things to do on a fresh setup
 
-### SSH
-
-1. Generate new SSH key
+### Generate new SSH key
 
 ```
 ssh-keygen -t rsa
+```
+
+### Install Node
+
+`nvm` should be already installed by zsh/zinit ([intructions](https://github.com/nvm-sh/nvm#installing-and-updating) if it isn't)
+
+Install Node with NVM:
+
+```
+nvm install 16
 ```
