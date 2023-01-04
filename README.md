@@ -32,25 +32,16 @@ be installed.
 
 ### Fedora
 
-#### `zsh`
-
-`sudo dnf install zsh`
-
-#### `zinit`
-
-https://github.com/zdharma-continuum/zinit#automatic
-
-#### `tmux`
-
-`sudo dnf install tmux`
-
-#### `neovim`
-
-`sudo dnf install neovim`
-
-#### `vim-plug`
-
-https://github.com/junegunn/vim-plug#neovim
+- `zsh`
+  - `sudo dnf install zsh`
+- `zinit`
+  - https://github.com/zdharma-continuum/zinit#automatic
+- `tmux`
+  - `sudo dnf install tmux`
+- `neovim`
+  - `sudo dnf install neovim`
+- `vim-plug`
+  - https://github.com/junegunn/vim-plug#neovim
 
 ## Setup
 
@@ -73,3 +64,11 @@ Install Node with NVM:
 ```
 nvm install 16
 ```
+
+### Remap Caps Lock on Linux
+
+Install Interception Tools:
+https://gitlab.com/interception/linux/tools
+
+And the `caps2esc` plugin:
+https://gitlab.com/interception/linux/plugins/caps2esc
