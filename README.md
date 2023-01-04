@@ -32,16 +32,25 @@ be installed.
 
 ### Fedora
 
-- `zsh`
-  - `sudo dnf install zsh`
-- `zinit`
-  - https://github.com/zdharma-continuum/zinit#automatic
-- `tmux`
-  - `sudo dnf install tmux`
-- `neovim`
-  - `sudo dnf install neovim`
-- `vim-plug`
-  - https://github.com/junegunn/vim-plug#neovim
+#### `zsh`
+
+`sudo dnf install zsh`
+
+#### `zinit`
+
+https://github.com/zdharma-continuum/zinit#automatic
+
+#### `tmux`
+
+`sudo dnf install tmux`
+
+#### `neovim`
+
+`sudo dnf install neovim`
+
+#### `vim-plug`
+
+https://github.com/junegunn/vim-plug#neovim
 
 ## Setup
 
