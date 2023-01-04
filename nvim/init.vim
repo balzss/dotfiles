@@ -131,11 +131,6 @@ filetype plugin indent on
     " search and replace visually selected text
     vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
 
-    nnoremap <c-l> <c-w>l
-    nnoremap <c-h> <c-w>h
-    nnoremap <c-j> <c-w>j
-    nnoremap <c-k> <c-w>k
-
     " navigation
     nnoremap <leader>e <cmd>Telescope find_files<cr>
     nnoremap <leader>a <cmd>Telescope live_grep<cr>
@@ -144,6 +139,10 @@ filetype plugin indent on
     nnoremap <leader><leader> :b#<cr>
     nnoremap <leader>n :bnext<cr>
     nnoremap <leader>p :bprev<cr>
+
+    nnoremap <leader>v :vsplit<cr>
+    nnoremap <leader>l <c-w>l
+    nnoremap <leader>h <c-w>h
 
     " git
     nnoremap <leader>gb :Git blame<cr>

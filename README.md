@@ -23,6 +23,8 @@ be installed.
   - https://github.com/zdharma-continuum/zinit#automatic
 - `tmux`
   - `brew install tmux`
+- `ripgrep`
+  - `brew install ripgrep`
 - `neovim`
   - `brew install neovim`
 - `vim-plug`
@@ -38,6 +40,8 @@ be installed.
   - https://github.com/zdharma-continuum/zinit#automatic
 - `tmux`
   - `sudo dnf install tmux`
+- `ripgrep`
+  - `sudo dnf install ripgrep`
 - `neovim`
   - `sudo dnf install neovim`
 - `vim-plug`
