@@ -69,9 +69,19 @@ Install Node with NVM:
 nvm install 16
 ```
 
+### Install Yarn
+
+https://yarnpkg.com/getting-started/install
+
 ### Install language servers
 
-For typescript: https://github.com/typescript-language-server/typescript-language-server
+Neovim expects these language servers to be installed:
+
+- Typescript
+  - https://github.com/typescript-language-server/typescript-language-server
+- Eslint
+  - https://github.com/hrsh7th/vscode-langservers-extracted
+
 
 ### Remap Caps Lock on Linux
 

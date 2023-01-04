@@ -160,8 +160,8 @@ filetype plugin indent on
     nnoremap <leader>cr :Lspsaga rename<cr>
     nnoremap <leader>ca :Lspsaga code_action<cr>
     vnoremap <leader>ca :<C-U>Lspsaga range_code_action<cr>
-    nnoremap <leader>cn :Lspsaga diagnostic_jump_next<cr>
-    vnoremap <leader>cp :Lspsaga diagnostic_jump_prev<cr>
+    nnoremap <silent>gn :Lspsaga diagnostic_jump_next<cr>
+    nnoremap <silent>gp :Lspsaga diagnostic_jump_prev<cr>
 
 lua << EOF
 require'lualine'.setup{
