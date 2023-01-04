@@ -3,7 +3,7 @@
 " lsp
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'tami5/lspsaga.nvim' " fork of glepnir/lspsaga.nvim
+  Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 
 " telescope
   Plug 'nvim-lua/plenary.nvim'
@@ -26,14 +26,6 @@
   Plug 'windwp/nvim-autopairs'
   Plug 'mattn/emmet-vim'
   Plug 'tpope/vim-repeat'
-  Plug 'ggandor/lightspeed.nvim'
-
-" syntax
-  Plug 'jparise/vim-graphql'
-  Plug 'joukevandermaas/vim-ember-hbs'
-  Plug 'alexlafroscia/tree-sitter-glimmer'
-  Plug 'evanleck/vim-svelte', {'branch': 'main'}
-  Plug 'pantharshit00/vim-prisma'
 
 " appearance and UI
   Plug 'gruvbox-community/gruvbox'
@@ -160,14 +152,17 @@ filetype plugin indent on
 
     nnoremap <leader>u :UndotreeToggle<cr>
 
-    nnoremap <silent>gn :Lspsaga diagnostic_jump_next<cr>
-    nnoremap <silent>gp :Lspsaga diagnostic_jump_prev<cr>
+    nnoremap <silent>gn :bnext<cr>
+    nnoremap <silent>gp :bprev<cr>
     nnoremap <silent>gd :Telescope lsp_definitions<cr>
     nnoremap <silent>gr :Telescope lsp_references<cr>
+
     nnoremap <leader>cc :Lspsaga show_cursor_diagnostics<cr>
     nnoremap <leader>cr :Lspsaga rename<cr>
     nnoremap <silent><leader>ca :Lspsaga code_action<cr>
     vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<cr>
+    nnoremap <silent><leader>cn :Lspsaga diagnostic_jump_next<cr>
+    vnoremap <silent><leader>cp :Lspsaga diagnostic_jump_prev<cr>
 
     nnoremap <silent>K :Lspsaga hover_doc<cr>
 
@@ -230,7 +225,6 @@ require'telescope'.load_extension('fzf')
 
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.eslint.setup{}
-require'lspconfig'.ember.setup{}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -307,6 +301,22 @@ require'nvim-lastplace'.setup {
     lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
 }
 require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "bash",
+    "css",
+    "html",
+    "javascript",
+    "lua",
+    "markdown",
+    "toml",
+    "typescript",
+    "yaml",
+    "vim",
+    "python",
+    "haskell",
+    "prisma",
+    "graphql",
+  },
   highlight = {
     enable = true,
   },

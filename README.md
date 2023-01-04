@@ -65,6 +65,10 @@ Install Node with NVM:
 nvm install 16
 ```
 
+### Install language servers
+
+For typescript: https://github.com/typescript-language-server/typescript-language-server
+
 ### Remap Caps Lock on Linux
 
 Install Interception Tools:
