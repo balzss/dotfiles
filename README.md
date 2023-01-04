@@ -2,6 +2,18 @@
 
 Config files for zsh, nvim, tmux, git and some others.
 
+- [Prerequisites](#prerequisites)
+  - [Nerd Font](#nerd-font)
+  - [maxOS](#macos)
+  - [Fedora](#fedora)
+- [Setup](#setup)
+- [Other things to do on a fresh setup](#other-things-to-do-on-a-fresh-setup)
+  - [Generate new SSH key](#generate-new-ssh-key)
+  - [Install Node](#install-node)
+  - [Install Yarn](#install-yarn)
+  - [Install language servers](#install-language-servers)
+  - [Remap Caps Lock on Linux](#remap-caps-lock-on-linux)
+
 ## Prerequisites
 
 ### Nerd Font
