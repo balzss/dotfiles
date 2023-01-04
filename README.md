@@ -4,7 +4,7 @@ Config files for zsh, nvim, tmux, git and some others.
 
 - [Prerequisites](#prerequisites)
   - [Nerd Font](#nerd-font)
-  - [maxOS](#macos)
+  - [macOS](#macos)
   - [Fedora](#fedora)
 - [Setup](#setup)
 - [Other things to do on a fresh setup](#other-things-to-do-on-a-fresh-setup)
