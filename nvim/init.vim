@@ -84,13 +84,10 @@ filetype plugin indent on
     set updatetime=50
     set signcolumn=yes
     set suffixesadd+=.js,.jsx
-    set mouse=a
+    set mouse=
 
     " completion
     set completeopt=menu,menuone,noselect
-
-" set nunjucks filetype to html
-    au BufRead,BufNewFile *.njk setfiletype html
 
 " keybindings
     let mapleader=" "
@@ -139,35 +136,33 @@ filetype plugin indent on
     nnoremap <c-j> <c-w>j
     nnoremap <c-k> <c-w>k
 
+    " navigation
     nnoremap <leader>e <cmd>Telescope find_files<cr>
     nnoremap <leader>a <cmd>Telescope live_grep<cr>
     nnoremap <leader>b <cmd>Telescope buffers<cr>
-    nnoremap <leader>p <cmd>Telescope commands<cr>
     nnoremap <leader>o <cmd>Telescope oldfiles<cr>
     nnoremap <leader><leader> :b#<cr>
+    nnoremap <leader>n :bnext<cr>
+    nnoremap <leader>p :bprev<cr>
 
+    " git
     nnoremap <leader>gb :Git blame<cr>
     nnoremap <leader>gd :Gitsigns diffthis ~1<cr>
     nnoremap <leader>gs :lua require'telescope.builtin'.git_status{}<cr>
 
     nnoremap <leader>u :UndotreeToggle<cr>
 
-    nnoremap <silent>gn :bnext<cr>
-    nnoremap <silent>gp :bprev<cr>
+    " code navigation + formatting
     nnoremap <silent>gd :Telescope lsp_definitions<cr>
     nnoremap <silent>gr :Telescope lsp_references<cr>
+    nnoremap <silent>K :Lspsaga hover_doc<cr>
 
     nnoremap <leader>cc :Lspsaga show_cursor_diagnostics<cr>
     nnoremap <leader>cr :Lspsaga rename<cr>
-    nnoremap <silent><leader>ca :Lspsaga code_action<cr>
-    vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<cr>
-    nnoremap <silent><leader>cn :Lspsaga diagnostic_jump_next<cr>
-    vnoremap <silent><leader>cp :Lspsaga diagnostic_jump_prev<cr>
-
-    nnoremap <silent>K :Lspsaga hover_doc<cr>
-
-    inoremap <c-l> <Right>
-    inoremap <c-h> <Left>
+    nnoremap <leader>ca :Lspsaga code_action<cr>
+    vnoremap <leader>ca :<C-U>Lspsaga range_code_action<cr>
+    nnoremap <leader>cn :Lspsaga diagnostic_jump_next<cr>
+    vnoremap <leader>cp :Lspsaga diagnostic_jump_prev<cr>
 
 lua << EOF
 require'lualine'.setup{
@@ -324,7 +319,5 @@ require'nvim-treesitter.configs'.setup {
 
 require'nvim-autopairs'.setup{}
 
-require'lspsaga'.init_lsp_saga {
-  use_saga_diagnostic_sign = true,
-}
+require'lspsaga'.init_lsp_saga {}
 EOF
