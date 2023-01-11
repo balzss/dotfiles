@@ -23,5 +23,3 @@ export BASE16_THEME="gruvbox-dark-pale"
 export BAT_THEME="base16"
 
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
-
-export LANG=hu_HU.UTF-8
