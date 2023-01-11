@@ -3,7 +3,7 @@
 " lsp
   Plug 'neovim/nvim-lspconfig'
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-  Plug 'tami5/lspsaga.nvim' " fork of glepnir/lspsaga.nvim
+  Plug 'glepnir/lspsaga.nvim', { 'branch': 'main' }
 
 " telescope
   Plug 'nvim-lua/plenary.nvim'
@@ -26,13 +26,9 @@
   Plug 'windwp/nvim-autopairs'
   Plug 'mattn/emmet-vim'
   Plug 'tpope/vim-repeat'
-  Plug 'ggandor/lightspeed.nvim'
 
 " syntax
   Plug 'jparise/vim-graphql'
-  Plug 'joukevandermaas/vim-ember-hbs'
-  Plug 'alexlafroscia/tree-sitter-glimmer'
-  Plug 'evanleck/vim-svelte', {'branch': 'main'}
   Plug 'pantharshit00/vim-prisma'
   Plug 'MrcJkb/haskell-tools.nvim'
   Plug 'tidalcycles/vim-tidal'
@@ -95,13 +91,10 @@ filetype plugin indent on
     set updatetime=50
     set signcolumn=yes
     set suffixesadd+=.js,.jsx
-    set mouse=a
+    set mouse=
 
     " completion
     set completeopt=menu,menuone,noselect
-
-" set nunjucks filetype to html
-    au BufRead,BufNewFile *.njk setfiletype html
 
 " keybindings
     let mapleader=" "
@@ -145,37 +138,37 @@ filetype plugin indent on
     " search and replace visually selected text
     vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
 
-    nnoremap <c-l> <c-w>l
-    nnoremap <c-h> <c-w>h
-    nnoremap <c-j> <c-w>j
-    nnoremap <c-k> <c-w>k
-
+    " navigation
     nnoremap <leader>e <cmd>Telescope find_files<cr>
     nnoremap <leader>a <cmd>Telescope live_grep<cr>
     nnoremap <leader>b <cmd>Telescope buffers<cr>
-    nnoremap <leader>p <cmd>Telescope commands<cr>
     nnoremap <leader>o <cmd>Telescope oldfiles<cr>
     nnoremap <leader><leader> :b#<cr>
+    nnoremap <leader>n :bnext<cr>
+    nnoremap <leader>p :bprev<cr>
 
+    nnoremap <leader>v :vsplit<cr>
+    nnoremap <leader>l <c-w>l
+    nnoremap <leader>h <c-w>h
+
+    " git
     nnoremap <leader>gb :Git blame<cr>
     nnoremap <leader>gd :Gitsigns diffthis ~1<cr>
     nnoremap <leader>gs :lua require'telescope.builtin'.git_status{}<cr>
 
     nnoremap <leader>u :UndotreeToggle<cr>
 
-    nnoremap <silent>gn :Lspsaga diagnostic_jump_next<cr>
-    nnoremap <silent>gp :Lspsaga diagnostic_jump_prev<cr>
+    " code navigation + formatting
     nnoremap <silent>gd :Telescope lsp_definitions<cr>
     nnoremap <silent>gr :Telescope lsp_references<cr>
-    nnoremap <leader>cc :Lspsaga show_cursor_diagnostics<cr>
-    nnoremap <leader>cr :Lspsaga rename<cr>
-    nnoremap <silent><leader>ca :Lspsaga code_action<cr>
-    vnoremap <silent><leader>ca :<C-U>Lspsaga range_code_action<cr>
-
     nnoremap <silent>K :Lspsaga hover_doc<cr>
 
-    inoremap <c-l> <Right>
-    inoremap <c-h> <Left>
+    nnoremap <leader>cc :Lspsaga show_cursor_diagnostics<cr>
+    nnoremap <leader>cr :Lspsaga rename<cr>
+    nnoremap <leader>ca :Lspsaga code_action<cr>
+    vnoremap <leader>ca :<C-U>Lspsaga range_code_action<cr>
+    nnoremap <silent>gn :Lspsaga diagnostic_jump_next<cr>
+    nnoremap <silent>gp :Lspsaga diagnostic_jump_prev<cr>
 
     nnoremap <leader>th :TidalHush<cr>
 
@@ -235,7 +228,6 @@ require'telescope'.load_extension('fzf')
 
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.eslint.setup{}
-require'lspconfig'.ember.setup{}
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
   vim.lsp.diagnostic.on_publish_diagnostics, {
@@ -313,6 +305,22 @@ require'nvim-lastplace'.setup {
     lastplace_ignore_filetype = {"gitcommit", "gitrebase", "svn", "hgcommit"},
 }
 require'nvim-treesitter.configs'.setup {
+  ensure_installed = {
+    "bash",
+    "css",
+    "html",
+    "javascript",
+    "lua",
+    "markdown",
+    "toml",
+    "typescript",
+    "yaml",
+    "vim",
+    "python",
+    "haskell",
+    "prisma",
+    "graphql",
+  },
   highlight = {
     enable = true,
   },
