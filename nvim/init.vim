@@ -43,6 +43,7 @@
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'tpope/vim-fugitive'
   Plug 'romgrk/barbar.nvim'
+  Plug 'xiyaowong/nvim-transparent'
 
 call plug#end()
 
@@ -95,6 +96,8 @@ filetype plugin indent on
 
     " completion
     set completeopt=menu,menuone,noselect
+
+au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 
 " keybindings
     let mapleader=" "
@@ -328,10 +331,6 @@ require'nvim-treesitter.configs'.setup {
 
 require'nvim-autopairs'.setup{}
 
-require'lspsaga'.init_lsp_saga {
-  use_saga_diagnostic_sign = true,
-}
-
 local scnvim = require 'scnvim'
 local map = scnvim.map
 local map_expr = scnvim.map_expr
@@ -363,5 +362,9 @@ scnvim.setup {
     },
   },
 }
+
+require("transparent").setup({
+  enable = true, -- boolean: enable transparent
+})
 
 EOF
