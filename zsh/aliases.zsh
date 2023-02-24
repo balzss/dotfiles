@@ -5,6 +5,7 @@ case $_myos in
   Linux)
     alias l="ls -lhApF --color"
     alias copy-ssh="xclip -selection clipboard -i $_sshfile"
+    alias go="gio open ."
     ;;
   Darwin)
     alias l="ls -lhApF" # --color option for ls is not available on mac
