@@ -102,3 +102,6 @@ https://gitlab.com/interception/linux/tools
 
 And the `caps2esc` plugin:
 https://gitlab.com/interception/linux/plugins/caps2esc
+
+More info/article:
+http://nelsonware.com/blog/2019/04/30/how-to-map-caps-lock-to-escape-and-control-on-fedora-via-caps2esc.html
