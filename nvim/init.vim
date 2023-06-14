@@ -43,7 +43,6 @@
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'tpope/vim-fugitive'
   Plug 'romgrk/barbar.nvim'
-  Plug 'xiyaowong/nvim-transparent'
 
 call plug#end()
 
@@ -300,7 +299,6 @@ require'luasnip'.filetype_extend("typescriptreact", {"javascript"})
 require'luasnip'.filetype_extend("tidal", {"haskell"})
 require'luasnip'.filetype_extend("typescript", {"javascript"})
 require'luasnip/loaders/from_vscode'.lazy_load()
-require'Comment'.setup()
 require'gitsigns'.setup()
 require'nvim-web-devicons'.setup()
 require'nvim-lastplace'.setup {
@@ -363,8 +361,8 @@ scnvim.setup {
   },
 }
 
-require("transparent").setup({
-  enable = true, -- boolean: enable transparent
-})
+require'Comment'.setup()
+local ft = require('Comment.ft')
+ft.set('tidal', ft.get('haskell'))
 
 EOF
