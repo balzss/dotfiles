@@ -43,7 +43,7 @@
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'tpope/vim-fugitive'
   Plug 'romgrk/barbar.nvim'
-  Plug 'xiyaowong/nvim-transparent'
+  Plug 'nvim-tree/nvim-tree.lua'
 
 call plug#end()
 
@@ -173,9 +173,24 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
     nnoremap <silent>gn :Lspsaga diagnostic_jump_next<cr>
     nnoremap <silent>gp :Lspsaga diagnostic_jump_prev<cr>
 
-    nnoremap <leader>th :TidalHush<cr>
+    " nnoremap <leader>th :TidalHush<cr>
+
+    nnoremap <leader>t :NvimTreeToggle<cr>
 
 lua << EOF
+
+-- disable netrw at the very start of your init.lua
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+-- empty setup using defaults
+require("nvim-tree").setup({
+  view = {
+    width = 48,
+  },
+})
+
+
 require'lualine'.setup{
   options = {
     section_separators = '',
@@ -363,8 +378,6 @@ scnvim.setup {
   },
 }
 
-require("transparent").setup({
-  enable = true, -- boolean: enable transparent
-})
+require('lspsaga').setup({})
 
 EOF
