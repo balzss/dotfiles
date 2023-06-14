@@ -4,26 +4,6 @@ function chpwd() {
     if [[ $PWD != $HOME ]]; then
         l
     fi
-
-    # use .nvmrc if it exists in the dir
-    [[ -a .nvmrc ]] || return
-    echo ""
-    local node_version="$(nvm version)"
-    local nvmrc_path="$(nvm_find_nvmrc)"
-
-    if [ -n "$nvmrc_path" ]; then
-      local nvmrc_node_version=$(nvm version "$(cat "${nvmrc_path}")")
-
-      if [ "$nvmrc_node_version" = "N/A" ]; then
-        echo ".nvmrc found by nvm version is not installed. use 'nvm install' to install it"
-        # nvm install
-      elif [ "$nvmrc_node_version" != "$node_version" ]; then
-        nvm use
-      fi
-    elif [ "$node_version" != "$(nvm version default)" ]; then
-      echo "Reverting to nvm default version"
-      nvm use default
-    fi
 }
 create_tmux_session() {
     SESSIONNAME="default session"
