@@ -175,7 +175,7 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 
     " nnoremap <leader>th :TidalHush<cr>
 
-    nnoremap <leader>t :NvimTreeToggle<cr>
+    nnoremap <leader>t :NvimTreeFindFileToggle<cr>
 
 lua << EOF
 

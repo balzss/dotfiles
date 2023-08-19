@@ -6,4 +6,4 @@ keybinding:
     openFile: 'e'
     edit: 'E'
 os:
-  openCommand: '$EDITOR {{filename}}'
+  open: '$EDITOR {{filename}}'
