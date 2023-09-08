@@ -16,9 +16,6 @@ create_tmux_session() {
     tmux attach -t $SESSIONNAME
     soz
 }
-ghcl (){
-  git clone https://www.github.com/$1.git
-}
 grt() { 
   cd "$(git rev-parse --show-toplevel)"
 }
@@ -54,19 +51,14 @@ fzf-git-branch() {
 }
 
 gco() {
-  local branch
-  branch=$(fzf-git-branch)
-  if [ "x$branch" != "x" ]
-  then
-    git checkout $branch
-  fi
-}
-
-cdirs() {
-  local cdir
-  cdir=$(dirs | sed 's/ /\n/g' | fzf)
-  if [ "x$cdir" != "x" ]
-  then
-    cd cdir
+  if [[ $# -eq 0 ]] ; then
+    local branch
+    branch=$(fzf-git-branch)
+    if [ "x$branch" != "x" ]
+    then
+      git checkout $branch
+    fi
+  else
+    git checkout $1
   fi
 }
