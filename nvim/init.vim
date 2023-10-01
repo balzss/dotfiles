@@ -9,6 +9,8 @@
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
   Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+  Plug 'debugloop/telescope-undo.nvim'
+  Plug 'nvim-telescope/telescope-file-browser.nvim'
 
 " snippets and completion
   Plug 'hrsh7th/cmp-nvim-lsp'
@@ -36,52 +38,37 @@
 
 " appearance and UI
   Plug 'gruvbox-community/gruvbox'
-  Plug 'lewis6991/gitsigns.nvim'
-  Plug 'mbbill/undotree'
   Plug 'nvim-lualine/lualine.nvim'
-  Plug 'kshenoy/vim-signature' " place, toggle and display marks
   Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'tpope/vim-fugitive'
-  Plug 'romgrk/barbar.nvim'
   Plug 'nvim-tree/nvim-tree.lua'
+  Plug 'lewis6991/gitsigns.nvim'
 
 call plug#end()
 
 filetype plugin indent on
 
 " colorscheme
-    set synmaxcol=420
     colorscheme gruvbox
 
 " settings
     " code formatting
-    set tabstop=2       " only needed for files that have mixed tabs and spaces so probably could be dropped
-    set softtabstop=2   " number of spaces in tab when editing
+    set tabstop=2
     set shiftwidth=2
     set expandtab
-    set breakindent
-    set linebreak       " break line only between words
     set showbreak=>>    " indicate wrapped text
-    set textwidth=120
-    set foldmethod=expr
-    set foldlevel=99
-    set foldexpr=nvim_treesitter#foldexpr()
 
     " layout
-    set noshowmode "hide -- INSERT --, etc. at the bottom because lightline takes care of that
+    set noshowmode "hide -- INSERT --, etc. at the bottom because lualine also displays that
     set showtabline=0
     set relativenumber " relative numbering to the current line
     set number " hybrid mode with relative number: current is the actual and not 0
     set cursorline
     set list
-    set colorcolumn=120 " displays a vertical line at column 120
 
     " behavior settings
-    set inccommand=nosplit
     set ignorecase
     set smartcase
-    set lazyredraw "redraw only when we need to
-    set scrolloff=30 "doesn't get close to the edge when scrolling
+    set scrolloff=30 " keep active line in the middle of the screen
     set splitbelow
     set splitright
     set undofile
@@ -89,8 +76,6 @@ filetype plugin indent on
     set undoreload=10000
     set nohidden "doesn't allow switching between buffers without saving them
     set shiftround
-    set updatetime=50
-    set signcolumn=yes
     set suffixesadd+=.js,.jsx
     set mouse=
 
@@ -109,8 +94,6 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
     onoremap L $
     vnoremap L $h
     nnoremap L $
-    nnoremap M J
-    vnoremap M J
     nnoremap U <c-r> " better redo
     vnoremap y ygv<esc>
 
@@ -150,16 +133,14 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
     nnoremap <leader>n :bnext<cr>
     nnoremap <leader>p :bprev<cr>
 
+    nnoremap <leader>t :Telescope file_browser<cr>
+
     nnoremap <leader>v :vsplit<cr>
     nnoremap <leader>l <c-w>l
     nnoremap <leader>h <c-w>h
 
     " git
-    nnoremap <leader>gb :Git blame<cr>
-    nnoremap <leader>gd :Gitsigns diffthis ~1<cr>
     nnoremap <leader>gs :lua require'telescope.builtin'.git_status{}<cr>
-
-    nnoremap <leader>u :UndotreeToggle<cr>
 
     " code navigation + formatting
     nnoremap <silent>gd :Telescope lsp_definitions<cr>
@@ -173,9 +154,7 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
     nnoremap <silent>gn :Lspsaga diagnostic_jump_next<cr>
     nnoremap <silent>gp :Lspsaga diagnostic_jump_prev<cr>
 
-    " nnoremap <leader>th :TidalHush<cr>
-
-    nnoremap <leader>t :NvimTreeFindFileToggle<cr>
+    nnoremap <leader>u :Telescope undo<cr>
 
 lua << EOF
 
@@ -243,6 +222,8 @@ require'telescope'.setup{
   }
 }
 require'telescope'.load_extension('fzf')
+require'telescope'.load_extension('undo')
+require'telescope'.load_extension('file_browser')
 
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.eslint.setup{}
@@ -315,7 +296,21 @@ require'luasnip'.filetype_extend("typescriptreact", {"javascript"})
 require'luasnip'.filetype_extend("tidal", {"haskell"})
 require'luasnip'.filetype_extend("typescript", {"javascript"})
 require'luasnip/loaders/from_vscode'.lazy_load()
-require'gitsigns'.setup()
+require'gitsigns'.setup{
+  on_attach = function(bufnr)
+    local gs = package.loaded.gitsigns
+
+    local function map(mode, l, r, opts)
+      opts = opts or {}
+      opts.buffer = bufnr
+      vim.keymap.set(mode, l, r, opts)
+    end
+
+    map('n', '<leader>gb', function() gs.blame_line{full=true} end)
+    map('n', '<leader>gd', gs.diffthis)
+  end
+}
+
 require'nvim-web-devicons'.setup()
 require'nvim-lastplace'.setup {
     lastplace_ignore_buftype = {"quickfix", "nofile", "help"},
@@ -359,9 +354,6 @@ scnvim.setup {
     ['<M-CR>'] = map('postwin.toggle', 'i'),
     ['<M-L>'] = map('postwin.clear', {'n', 'i'}),
     ['<C-k>'] = map('signature.show', {'n', 'i'}),
-    ['<F12>'] = map('sclang.hard_stop', {'n', 'x', 'i'}),
-    ['<leader>st'] = map('sclang.start'),
-    ['<leader>sk'] = map('sclang.recompile'),
     ['<F1>'] = map_expr('s.boot'),
     ['<F2>'] = map_expr('s.meter'),
   },
