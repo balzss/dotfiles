@@ -53,6 +53,7 @@ call plug#end()
     set number " hybrid mode with relative number: current is the actual and not 0
     set cursorline " highlight the line the cursor is on
     set list " by default, show tabs as ">", trailing spaces as "-", &nbsp as "+"
+    set nohlsearch " do not highlight previouse search results
 
     set ignorecase
     set smartcase
@@ -62,7 +63,7 @@ call plug#end()
     set undofile
     set undolevels=10000
     set undoreload=10000
-    set nohidden " doesn't allow switching between buffers without saving them
+    set nohidden " do not allow switching between buffers without saving them
     set shiftround
     set suffixesadd+=.js,.jsx
     set mouse= " disable mouse, enable with `set mouse=a`
@@ -87,9 +88,6 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
     " keep visual selection when indenting/outdenting
     vmap < <gv
     vmap > >gv
-
-    " remove highlights on escape
-    nnoremap <esc> :nohlsearch<cr><C-l>
 
     nnoremap <leader><cr> :so ~/.config/nvim/init.vim<cr>
 
