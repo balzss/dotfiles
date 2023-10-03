@@ -23,26 +23,25 @@ be installed.
 
 ### macOS
 
-- `Karabiner-Elements`
-  - https://karabiner-elements.pqrs.org/
-- `iTerm2`
-  - https://iterm2.com/
-- `homebrew`
-  - https://brew.sh/
-- `zsh`
+- [Karabiner-Elements](https://karabiner-elements.pqrs.org/)
+- [iTerm2](https://iterm2.com/)
+- [homebrew](https://brew.sh/)
+- [zsh](https://www.zsh.org/)
   - `brew install zsh`
-- `zinit`
+- [zinit](https://github.com/zdharma-continuum/zinit)
   - https://github.com/zdharma-continuum/zinit#automatic
-- `tmux`
+- [tmux](https://github.com/tmux/tmux)
   - `brew install tmux`
-- `ripgrep`
+- [ripgrep](https://github.com/BurntSushi/ripgrep)
   - `brew install ripgrep`
-- `neovim`
+- [fd](https://github.com/sharkdp/fd)
+  - `brew install fd`
+- [lazygit](https://github.com/jesseduffield/lazygit)
+  - `brew install lazygit`
+- [neovim](https://github.com/neovim/neovim)
   - `brew install neovim`
 - `vim-plug`
   - https://github.com/junegunn/vim-plug#neovim
-- `lazygit`
-  - `brew install lazygit`
 
 ### Fedora
 

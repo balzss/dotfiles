@@ -40,6 +40,13 @@ fkill() {
   fi
 }
 
+# cd with fzf
+function fcd() {
+    local dirname
+    dirname=$(fd --type directory | fzf) || return
+    cd "$dirname"
+}
+
 fzf-git-branch() {
     git rev-parse HEAD > /dev/null 2>&1 || return
 
