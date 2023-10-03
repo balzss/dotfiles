@@ -18,4 +18,4 @@ mkdir -p $HOME/.config/lazygit &&
   ln -isv $HOME/dotfiles/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
 
 # [ $MYOS = "Linux" ] &&
-#   ln -isv $HOME/dotfiles/scripts/.profile $HOME/.profile
+#   echo "running on linux"
