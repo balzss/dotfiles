@@ -22,12 +22,12 @@
 
 " editing
   Plug 'numToStr/Comment.nvim'
-  Plug 'editorconfig/editorconfig-vim'
   Plug 'tpope/vim-surround'
   Plug 'ethanholz/nvim-lastplace'
   Plug 'windwp/nvim-autopairs'
   Plug 'mattn/emmet-vim'
   Plug 'tpope/vim-repeat'
+  Plug 'tpope/vim-sleuth'
 
 " syntax
   Plug 'jparise/vim-graphql'
@@ -40,32 +40,20 @@
   Plug 'gruvbox-community/gruvbox'
   Plug 'nvim-lualine/lualine.nvim'
   Plug 'kyazdani42/nvim-web-devicons'
-  Plug 'nvim-tree/nvim-tree.lua'
   Plug 'lewis6991/gitsigns.nvim'
 
 call plug#end()
-
-filetype plugin indent on
 
 " colorscheme
     colorscheme gruvbox
 
 " settings
-    " code formatting
-    set tabstop=2
-    set shiftwidth=2
-    set expandtab
-    set showbreak=>>    " indicate wrapped text
-
-    " layout
-    set noshowmode "hide -- INSERT --, etc. at the bottom because lualine also displays that
-    set showtabline=0
+    set noshowmode " hide -- INSERT --, etc. at the bottom because lualine also displays that
     set relativenumber " relative numbering to the current line
     set number " hybrid mode with relative number: current is the actual and not 0
-    set cursorline
-    set list
+    set cursorline " highlight the line the cursor is on
+    set list " by default, show tabs as ">", trailing spaces as "-", &nbsp as "+"
 
-    " behavior settings
     set ignorecase
     set smartcase
     set scrolloff=30 " keep active line in the middle of the screen
@@ -74,12 +62,11 @@ filetype plugin indent on
     set undofile
     set undolevels=10000
     set undoreload=10000
-    set nohidden "doesn't allow switching between buffers without saving them
+    set nohidden " doesn't allow switching between buffers without saving them
     set shiftround
     set suffixesadd+=.js,.jsx
-    set mouse=
+    set mouse= " disable mouse, enable with `set mouse=a`
 
-    " completion
     set completeopt=menu,menuone,noselect
 
 au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
@@ -159,16 +146,6 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 lua << EOF
 
 -- disable netrw at the very start of your init.lua
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
--- empty setup using defaults
-require("nvim-tree").setup({
-  view = {
-    width = 48,
-  },
-})
-
 
 require'lualine'.setup{
   options = {
