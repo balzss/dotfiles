@@ -11,7 +11,7 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit light chriskempson/base16-shell
+zinit light chriskempson/base16-shell # for base16_gruvbox-medium
 
 # Preceed commands with empty lines for readablity https://stackoverflow.com/a/59576993/4503695
 precmd() precmd() echo

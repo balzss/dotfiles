@@ -1,6 +1,5 @@
 # function to run after every cd
 function chpwd() {
-    clear
     if [[ $PWD != $HOME ]]; then
         l
     fi

@@ -47,34 +47,7 @@ call plug#end()
 " colorscheme
     colorscheme gruvbox
 
-" settings
-    set noshowmode " hide -- INSERT --, etc. at the bottom because lualine also displays that
-    set relativenumber " relative numbering to the current line
-    set number " hybrid mode with relative number: current is the actual and not 0
-    set cursorline " highlight the line the cursor is on
-    set list " by default, show tabs as ">", trailing spaces as "-", &nbsp as "+"
-    set nohlsearch " do not highlight previouse search results
-
-    set ignorecase
-    set smartcase
-    set scrolloff=30 " keep active line in the middle of the screen
-    set splitbelow
-    set splitright
-    set undofile
-    set undolevels=10000
-    set undoreload=10000
-    set nohidden " do not allow switching between buffers without saving them
-    set shiftround
-    set suffixesadd+=.js,.jsx
-    set mouse= " disable mouse, enable with `set mouse=a`
-
-    set completeopt=menu,menuone,noselect
-
-au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
-
 " keybindings
-    let mapleader=" "
-
     " modified default keybindings
     onoremap H ^
     vnoremap H ^
@@ -95,19 +68,11 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
     nnoremap <leader>s :w<cr>
     nnoremap <c-s> :w<cr>
     nnoremap <leader>q :q<cr>
-    nnoremap <leader>Q :q!<cr>
 
-    " copy/paste
+    " copy to native clipboard
     nnoremap <leader>y "+y
     vnoremap <leader>y "+y
     onoremap <leader>y "+y
-    xnoremap <leader>p "_dP
-    nmap <leader>Y "+Y
-    nnoremap <leader>d "_d
-    vnoremap <leader>d "_d
-
-    " search and replace visually selected text
-    vnoremap <leader>/ y:%s/<C-r>"//g<left><left>
 
     " navigation
     nnoremap <leader>e <cmd>Telescope find_files<cr>
@@ -143,13 +108,78 @@ au BufNewFile,BufRead *.frag,*.vert,*.fp,*.vp,*.glsl set filetype=glsl
 
 lua << EOF
 
--- disable netrw at the very start of your init.lua
+-- Set <space> as the leader key
+-- NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
+-- lazy.nvim plugins will come here
+
+vim.o.termguicolors = true
+vim.o.splitbelow = true
+vim.o.splitright = true
+vim.o.undolevels = 10000
+vim.o.shiftround = true
+
+-- Do not allow switching between buffers without saving them
+vim.o.hidden = false
+
+-- menuone: show menu when there's only one option; noselect: don't select an option
+vim.o.completeopt = 'menu,menuone,noselect'
+
+-- Hide -- INSERT --, etc. at the bottom because lualine also displays that
+vim.o.showmode = false
+
+-- Show tabs as ">", trailing spaces as "-", &nbsp as "+"
+vim.o.list = true
+
+-- Keep active line in the middle of the screen
+vim.o.scrolloff = 30
+
+-- Highlight the current active line the cursor in on
+vim.o.cursorline = true
+
+-- Set highlight on search
+vim.o.hlsearch = false
+
+-- Make line numbers default
+vim.wo.number = true
+vim.wo.relativenumber = true
+
+-- Save undo history
+vim.o.undofile = true
+
+-- Case-insensitive searching UNLESS \C or capital in search
+vim.o.ignorecase = true
+vim.o.smartcase = true
+
+-- Keep signcolumn on by default
+vim.wo.signcolumn = 'yes'
+
+-- Decrease update time
+vim.o.updatetime = 250
+
+-- Keymaps for better default experience
+-- See `:help vim.keymap.set()`
+vim.keymap.set({ 'n', 'v' }, '<Space>', '<Nop>', { silent = true })
+
+-- [[ Highlight on yank ]]
+-- See `:help vim.highlight.on_yank()`
+local highlight_group = vim.api.nvim_create_augroup('YankHighlight', { clear = true })
+vim.api.nvim_create_autocmd('TextYankPost', {
+  callback = function()
+    vim.highlight.on_yank()
+  end,
+  group = highlight_group,
+  pattern = '*',
+})
 
 require'lualine'.setup{
   options = {
     section_separators = '',
     component_separators = '',
     icons_enabled = false,
+    theme = 'gruvbox'
   },
   sections = {
     lualine_a = {'mode'},
