@@ -21,7 +21,10 @@ vim.opt.rtp:prepend(lazypath)
 require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
+
   'nvim-tree/nvim-web-devicons',
+  'FabijanZulj/blame.nvim',
+
   {
     'ethanholz/nvim-lastplace',
     opts = {
@@ -82,7 +85,6 @@ require('lazy').setup({
     opts = {
       on_attach = function(bufnr)
         local gs = package.loaded.gitsigns
-        vim.keymap.set('n', '<leader>gb', function() gs.blame_line{full=true} end, {buffer = bufnr, desc = 'git [b]lame'})
         vim.keymap.set('n', '<leader>gd', gs.diffthis, {buffer = bufnr, desc = 'git [d]iff current file'})
       end,
     },
@@ -229,12 +231,12 @@ vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
 vim.keymap.set('n', '<c-s>', ':w<CR>')
-vim.keymap.set('n', '<c-w>', ':bd<CR>')
 vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Quit neovim' })
 vim.keymap.set('n', '<leader><leader>', ':b#<CR>', { desc = 'Switch to previous buffer'} )
 vim.keymap.set('n', '<leader>v', ':vsplit<CR>', { desc = 'Vertical split'} )
-vim.keymap.set('n', '<c-h>', '<c-w>h')
-vim.keymap.set('n', '<c-l>', '<c-w>l')
+vim.keymap.set('n', '<c-h>', '<c-w>W')
+vim.keymap.set('n', '<c-l>', '<c-w>w')
+vim.keymap.set('n', '<c-q>', '<c-w>q')
 
 -- Don't jump cursor on yank
 vim.keymap.set('v', 'y', 'ygv<esc>')
@@ -244,6 +246,8 @@ vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = 'Copy to clipboard' })
 
 -- Better redo
 vim.keymap.set({'n', 'v'}, 'U', '<c-r>')
+
+vim.keymap.set('n', '<leader>gb', ':ToggleBlame<CR>', { desc = 'git blame' })
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
@@ -255,6 +259,15 @@ vim.api.nvim_create_autocmd('TextYankPost', {
   group = highlight_group,
   pattern = '*',
 })
+
+-- [[ Highlight active pane/window ]]
+vim.cmd [[
+  augroup BgHighlight
+    autocmd!
+    autocmd WinEnter * set cul
+    autocmd WinLeave * set nocul
+  augroup END
+]]
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
@@ -296,7 +309,7 @@ vim.keymap.set('n', '<leader>e', require('telescope.builtin').find_files, { desc
 -- vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 -- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep, { desc = 'Search by grep' })
--- vim.keymap.set('n', '<leader>sd', require('telescope.builtin').diagnostics, { desc = '[S]earch [D]iagnostics' })
+vim.keymap.set('n', '<leader>cl', require('telescope.builtin').diagnostics, { desc = 'List diagnostics' })
 -- vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_status, { desc = 'Git status' })
 vim.keymap.set('n', '<leader>t', require 'telescope'.extensions.file_browser.file_browser, { desc = 'File browser' })
@@ -383,7 +396,6 @@ end, 0)
 vim.keymap.set('n', 'gp', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
 vim.keymap.set('n', 'gn', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
 vim.keymap.set('n', '<leader>cd', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<leader>cl', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
