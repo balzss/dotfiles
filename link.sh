@@ -8,7 +8,7 @@ ln -isv $HOME/dotfiles/gitconfig/.gitconfig $HOME/.gitconfig
 ln -isv $HOME/dotfiles/tmux/.tmux.conf $HOME/.tmux.conf
 
 mkdir -p $HOME/.config/nvim &&
-  ln -isv $HOME/dotfiles/nvim/init.vim $HOME/.config/nvim/init.vim
+  ln -isv $HOME/dotfiles/nvim/init.lua $HOME/.config/nvim/init.lua
 
 mkdir -p $HOME/.config/lazygit &&
   ln -isv $HOME/dotfiles/lazygit/config.yml $HOME/.config/lazygit/config.yml
