@@ -46,6 +46,8 @@ require('lazy').setup({
       -- Useful status updates for LSP
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
+      'aca/emmet-ls',
+
       -- Additional lua configuration, makes nvim stuff amazing!
       { 'folke/neodev.nvim', opts = {
         override = function(root_dir, library)
@@ -91,11 +93,10 @@ require('lazy').setup({
   },
 
   {
-    -- Theme inspired by Atom
-    'gruvbox-community/gruvbox',
+    'sainnhe/gruvbox-material',
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'gruvbox'
+      vim.cmd.colorscheme 'gruvbox-material'
     end,
   },
 
@@ -106,7 +107,6 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'gruvbox',
         component_separators = '',
         section_separators = '',
       },
@@ -440,6 +440,14 @@ require('which-key').register {
   ['<leader>g'] = { name = 'Git', _ = 'which_key_ignore' },
 }
 
+require('which-key').setup({
+  plugins = {
+    presets = {
+      operators = false
+    }
+  },
+})
+
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
 require('mason').setup()
@@ -461,6 +469,30 @@ local servers = {
   tsserver = {},
   eslint = {},
   html = { filetypes = { 'html', 'twig', 'hbs'} },
+  emmet_ls = {
+    filetypes = {
+      "css",
+      "eruby",
+      "html",
+      "javascript",
+      "javascriptreact",
+      "less",
+      "sass",
+      "scss",
+      "svelte",
+      "pug",
+      "typescriptreact",
+      "vue",
+    },
+    init_options = {
+      jsx = {
+        options = {
+          -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+          ["output.selfClosingStyle"] = "xhtml",
+        },
+      },
+    },
+  },
 
   lua_ls = {
     Lua = {
