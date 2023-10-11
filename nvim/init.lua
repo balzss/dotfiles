@@ -46,8 +46,6 @@ require('lazy').setup({
       -- Useful status updates for LSP
       { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
 
-      'aca/emmet-ls',
-
       -- Additional lua configuration, makes nvim stuff amazing!
       { 'folke/neodev.nvim', opts = {
         override = function(root_dir, library)
@@ -462,38 +460,10 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
   tsserver = {},
   eslint = {},
   html = { filetypes = { 'html', 'twig', 'hbs'} },
-  emmet_ls = {
-    filetypes = {
-      "css",
-      "eruby",
-      "html",
-      "javascript",
-      "javascriptreact",
-      "less",
-      "sass",
-      "scss",
-      "svelte",
-      "pug",
-      "typescriptreact",
-      "vue",
-    },
-    init_options = {
-      jsx = {
-        options = {
-          -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
-          ["output.selfClosingStyle"] = "xhtml",
-        },
-      },
-    },
-  },
-
+  emmet_language_server = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -540,6 +510,7 @@ require'luasnip'.filetype_extend('typescript', {'javascript'})
 --   return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match('%s') == nil
 -- end
 
+---@diagnostic disable-next-line: missing-fields
 cmp.setup {
   snippet = {
     expand = function(args)
@@ -555,6 +526,8 @@ cmp.setup {
     ['<C-j>'] = cmp.mapping(function(fallback)
       if luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
+      else
+        fallback()
       end
     end, { 'i', 's' }),
     ['<CR>'] = cmp.mapping.confirm {
