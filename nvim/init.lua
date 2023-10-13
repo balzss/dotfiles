@@ -24,6 +24,7 @@ require('lazy').setup({
 
   'nvim-tree/nvim-web-devicons',
   'FabijanZulj/blame.nvim',
+  'nvim-pack/nvim-spectre',
 
   {
     'ethanholz/nvim-lastplace',
@@ -246,6 +247,9 @@ vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = 'Copy to clipboard' })
 vim.keymap.set({'n', 'v'}, 'U', '<c-r>')
 
 vim.keymap.set('n', '<leader>gb', ':ToggleBlame<CR>', { desc = 'git blame' })
+vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
+    desc = "Toggle Spectre"
+})
 
 -- [[ Highlight on yank ]]
 -- See `:help vim.highlight.on_yank()`
