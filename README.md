@@ -10,7 +10,6 @@ Config files for zsh, nvim, tmux, git and some others.
 - [Other things to do on a fresh setup](#other-things-to-do-on-a-fresh-setup)
   - [Generate new SSH key](#generate-new-ssh-key)
   - [Install Node](#install-node)
-  - [Install Yarn](#install-yarn)
   - [Install language servers](#install-language-servers)
   - [Remap Caps Lock on Linux](#remap-caps-lock-on-linux)
 
@@ -40,8 +39,6 @@ be installed.
   - `brew install lazygit`
 - [neovim](https://github.com/neovim/neovim)
   - `brew install neovim`
-- `vim-plug`
-  - https://github.com/junegunn/vim-plug#neovim
 
 ### Fedora
 
@@ -55,8 +52,6 @@ be installed.
   - `sudo dnf install ripgrep`
 - `neovim`
   - `sudo dnf install neovim`
-- `vim-plug`
-  - https://github.com/junegunn/vim-plug#neovim
 
 ## Setup
 
@@ -72,19 +67,17 @@ ssh-keygen -t rsa
 
 ### Install Node
 
-`nvm` should be already installed by zsh/zinit ([intructions](https://github.com/nvm-sh/nvm#installing-and-updating) if it isn't)
+`nvm` should already be installed by zsh/zinit ([intructions](https://github.com/nvm-sh/nvm#installing-and-updating) if it isn't)
 
 Install Node with NVM:
 
 ```
-nvm install 16
+nvm install latest
 ```
 
-### Install Yarn
-
-https://yarnpkg.com/getting-started/install
-
 ### Install language servers
+
+**note: this might not be needed with the new neovim config**
 
 Neovim expects these language servers to be installed:
 
