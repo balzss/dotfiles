@@ -23,7 +23,7 @@ require('lazy').setup({
   'tpope/vim-sleuth',
 
   'nvim-tree/nvim-web-devicons',
-  'FabijanZulj/blame.nvim',
+  'tpope/vim-fugitive',
   'nvim-pack/nvim-spectre',
 
   {
@@ -247,8 +247,7 @@ vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = 'Copy to clipboard' })
 -- Better redo
 vim.keymap.set({'n', 'v'}, 'U', '<c-r>')
 
-vim.keymap.set('n', '<leader>gb', ':ToggleBlame<CR>', { desc = 'Git blame' })
-
+vim.keymap.set('n', '<leader>gb', ':Git blame<CR>', { desc = 'git blame' })
 vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
     desc = "Toggle Spectre"
 })
@@ -343,9 +342,9 @@ vim.defer_fn(function()
     incremental_selection = {
       enable = true,
       keymaps = {
-        init_selection = '<c-space>',
-        node_incremental = '<c-space>',
-        -- scope_incremental = '<c-s>',
+        init_selection = '<c-e>',
+        node_incremental = '<c-e>',
+        -- scope_incremental = '<c-e>',
         -- node_decremental = '<M-space>',
       },
     },
