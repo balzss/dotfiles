@@ -1,9 +1,6 @@
 gui:
   showFileTree: false
   showRandomTip: false
-keybinding:
-  universal:
-    openFile: 'e'
-    edit: 'E'
+promptToReturnFromSubprocess: false
 os:
-  open: '$EDITOR {{filename}}'
+  editPreset: 'nvim'

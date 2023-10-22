@@ -50,6 +50,7 @@ require('lazy').setup({
       -- Additional lua configuration, makes nvim stuff amazing!
       { 'folke/neodev.nvim', opts = {
         override = function(root_dir, library)
+          -- so neodev works when config is symlinked from a different dir (~/dotfiles)
           if root_dir:find(os.getenv('HOME') .. '/dotfiles', 1, true) == 1 then
             vim.notify(root_dir)
             library.enabled = true
@@ -246,7 +247,8 @@ vim.keymap.set({'n', 'v'}, '<leader>y', '"+y', { desc = 'Copy to clipboard' })
 -- Better redo
 vim.keymap.set({'n', 'v'}, 'U', '<c-r>')
 
-vim.keymap.set('n', '<leader>gb', ':ToggleBlame<CR>', { desc = 'git blame' })
+vim.keymap.set('n', '<leader>gb', ':ToggleBlame<CR>', { desc = 'Git blame' })
+
 vim.keymap.set('n', '<leader>S', '<cmd>lua require("spectre").toggle()<CR>', {
     desc = "Toggle Spectre"
 })

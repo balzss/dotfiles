@@ -40,7 +40,7 @@ fkill() {
 }
 
 # cd with fzf
-function fcd() {
+function c() {
     local dirname
     dirname=$(fd --type directory | fzf) || return
     cd "$dirname"
