@@ -25,6 +25,8 @@ require('lazy').setup({
   'nvim-tree/nvim-web-devicons',
   'tpope/vim-fugitive',
   'nvim-pack/nvim-spectre',
+  'davidgranstrom/scnvim',
+  'tidalcycles/vim-tidal',
 
   {
     'ethanholz/nvim-lastplace',
@@ -567,14 +569,39 @@ cmp.setup {
   },
 }
 
+-- [[ scnvim ]]
+local scnvim = require 'scnvim'
+local map = scnvim.map
+
+scnvim.setup({
+  keymaps = {
+    ['<C-e>'] = {
+      map('editor.send_block', {'i', 'n'}),
+      map('editor.send_selection', 'x'),
+    },
+    ['<CR>'] = map('postwin.toggle'),
+  },
+  editor = {
+    highlight = {
+      color = 'IncSearch',
+    },
+  },
+  postwin = {
+    float = {
+      enabled = true,
+    },
+  },
+})
+
 -- require'luasnip'.filetype_extend('typescriptreact', {'javascript'})
 -- require'luasnip'.filetype_extend('tidal', {'haskell'})
 -- require'luasnip'.filetype_extend('typescript', {'javascript'})
 -- require'luasnip/loaders/from_vscode'.lazy_load()
---
--- require'Comment'.setup()
--- local ft = require('Comment.ft')
--- ft.set('tidal', ft.get('haskell'))
+
+-- haskell comments in tidal
+require'Comment'.setup()
+local ft = require('Comment.ft')
+ft.set('tidal', ft.get('haskell') or '')
 
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
