@@ -11,7 +11,7 @@ source "$HOME/.local/share/zinit/zinit.git/zinit.zsh"
 autoload -Uz _zinit
 (( ${+_comps} )) && _comps[zinit]=_zinit
 
-zinit light chriskempson/base16-shell # for base16_gruvbox-medium
+# zinit light chriskempson/base16-shell # for base16_gruvbox-medium
 
 # Preceed commands with empty lines for readablity https://stackoverflow.com/a/59576993/4503695
 precmd() precmd() echo
@@ -30,7 +30,7 @@ source $HOME/dotfiles/zsh/aliases.zsh
 source $HOME/dotfiles/zsh/functions.zsh
 
 # Start tmux if not in a session already
-[ -z "$TMUX" ] && create_tmux_session
+# [ -z "$TMUX" ] && create_tmux_session
 
 # Load a few important annexes, without Turbo (this is currently required for annexes)
 zinit light-mode for \
