@@ -117,7 +117,7 @@ require('lazy').setup({
         lualine_b = {
           {'diagnostics', sources={'nvim_lsp'}}},
         lualine_c = {
-          {'filename'},
+          {'filename', path = 3},
         },
         lualine_x = {'branch'},
         lualine_y = {'progress'},

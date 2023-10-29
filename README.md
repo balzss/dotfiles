@@ -1,11 +1,13 @@
 # Dotfiles
 
-Config files for zsh, nvim, tmux, git and some others.
+Config files for zsh, neovim, git and some others.
 
 - [Prerequisites](#prerequisites)
+  - [Kitty Terminal Emulator](#kitty-terminal-emulator)
   - [Nerd Font](#nerd-font)
   - [macOS](#macos)
-  - [Fedora](#fedora)
+  - [Common](#common)
+  - [Optional](#optional)
 - [Setup](#setup)
 - [Other things to do on a fresh setup](#other-things-to-do-on-a-fresh-setup)
   - [Generate new SSH key](#generate-new-ssh-key)
@@ -15,47 +17,48 @@ Config files for zsh, nvim, tmux, git and some others.
 
 ## Prerequisites
 
+### Kitty Terminal Emulator
+
+- [Binary install](https://sw.kovidgoyal.net/kitty/binary/#binary-install)
+- [Desktop integration on Linux](https://sw.kovidgoyal.net/kitty/binary/#desktop-integration-on-linux)
+
 ### Nerd Font
 
-Neovim is configured to use nerd icons which requires a compatible font (e.g. from the [fonts](/fonts) directory) to
-be installed.
+Kitty is configured to use the Iosevka Nerd Font which can be installed from the [fonts](/fonts) directory.
+Neovim also uses Nerd icons.
 
 ### macOS
 
-- [Karabiner-Elements](https://karabiner-elements.pqrs.org/)
-- [iTerm2](https://iterm2.com/)
+- [Karabiner-Elements](https://karabiner-elements.pqrs.org/) (for swapping Caps Lock with Esc)
 - [homebrew](https://brew.sh/)
+
+### Common
+
 - [zsh](https://www.zsh.org/)
   - `brew install zsh`
-- [zinit](https://github.com/zdharma-continuum/zinit)
-  - https://github.com/zdharma-continuum/zinit#automatic
-- [tmux](https://github.com/tmux/tmux)
-  - `brew install tmux`
+  - `sudo dnf install zsh`
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
   - `brew install ripgrep`
+  - `sudo dnf install ripgrep`
 - [fd](https://github.com/sharkdp/fd)
   - `brew install fd`
+  - `sudo dnf install fd-find`
 - [lazygit](https://github.com/jesseduffield/lazygit)
   - `brew install lazygit`
+  - `sudo dnf copr enable atim/lazygit -y && sudo dnf install lazygit`
 - [neovim](https://github.com/neovim/neovim)
   - `brew install neovim`
-
-### Fedora
-
-- `zsh`
-  - `sudo dnf install zsh`
-- `zinit`
-  - https://github.com/zdharma-continuum/zinit#automatic
-- `tmux`
-  - `sudo dnf install tmux`
-- `ripgrep`
-  - `sudo dnf install ripgrep`
-- `neovim`
   - `sudo dnf install neovim`
+
+### Optional
+
+- [tmux](https://github.com/tmux/tmux)
+  - `brew install tmux`
+  - `sudo dnf install tmux`
 
 ## Setup
 
-Run `link.sh` to create symlinks.
+Run `link.sh` to create symlinks. Before running comment/uncomment specific config files if needed.
 
 ## Other things to do on a fresh setup
 

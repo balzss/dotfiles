@@ -20,11 +20,15 @@ alias grep='grep --color=auto'
 alias md="mkdir -p"
 alias cp="cp -R"
 
-alias v="nvim"
-alias zshrc="nvim ~/dotfiles/zsh/.zshrc ~/dotfiles/zsh/.zshenv ~/dotfiles/zsh/*"
-alias zshenv="nvim ~/dotfiles/zsh/.zshenv"
-alias zalias="nvim ~/dotfiles/zsh/aliases.zsh"
-alias vimrc="nvim ~/dotfiles/nvim/init.lua"
+function set-title() {
+  echo -en "\e]2;$@\a"
+}
+
+alias v="set-title 'nvim' && nvim"
+alias zshrc="set-title 'zshrc' && nvim ~/dotfiles/zsh/.zshrc ~/dotfiles/zsh/.zshenv ~/dotfiles/zsh/*"
+alias zshenv="set-title 'zshenv' && nvim ~/dotfiles/zsh/.zshenv"
+alias zalias="set-title 'zalias' && nvim ~/dotfiles/zsh/aliases.zsh"
+alias vimrc="set-title 'vimrc' && nvim ~/dotfiles/nvim/init.lua"
 alias dofiles="cd ~/dotfiles"
 alias soz="source ~/.zshrc"
 alias pls='sudo $(fc -ln -1)'
