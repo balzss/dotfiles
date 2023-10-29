@@ -292,6 +292,11 @@ require'telescope'.setup{
       prompt_position = 'top'
     }
   },
+  pickers = {
+    find_files = {
+      find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--exclude", "**/.git/" }
+    }
+  }
 }
 
 -- Enable telescope extensions, if installed
@@ -315,7 +320,7 @@ vim.keymap.set('n', '<leader>e', require('telescope.builtin').find_files, { desc
 -- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep, { desc = 'Search by grep' })
 vim.keymap.set('n', '<leader>cl', require('telescope.builtin').diagnostics, { desc = 'List diagnostics' })
--- vim.keymap.set('n', '<leader>sr', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
+vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_status, { desc = 'Git status' })
 vim.keymap.set('n', '<leader>t', require 'telescope'.extensions.file_browser.file_browser, { desc = 'File browser' })
 vim.keymap.set('n', '<leader>u', require 'telescope'.extensions.undo.undo, { desc = 'Undo history' })
