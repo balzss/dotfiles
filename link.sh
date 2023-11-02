@@ -27,9 +27,5 @@ mkdir -p $HOME/.config/lazygit &&
   mkdir -p $HOME/.config/karabiner &&
   ln -isv $DOTDIR/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
 
-# silence some of the login msg in macOS terminals
-[ $MYOS = "Darwin" ] &&
-  touch $HOME/.hushlogin
-
 # uncomment if needed
 # ln -isv $DOTDIR/tmux/.tmux.conf $HOME/.tmux.conf
