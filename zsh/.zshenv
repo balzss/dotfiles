@@ -1,5 +1,17 @@
 [ -f ~/.local-env-vars.zsh ] && source ~/.local-env-vars.zsh
 
+_myos="$(uname)"
+
+case $_myos in
+  Linux)
+    export KITTY_FONT_SIZE="13.0"
+    ;;
+  Darwin)
+    export KITTY_FONT_SIZE="16.0"
+    ;;
+  *) ;;
+esac
+
 export PATH="$HOME/gems/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
@@ -19,8 +31,4 @@ export MANPAGER="nvim +Man!"
 export MANWIDTH=999
 export VISUAL="nvim"
 
-# export BASE16_THEME="gruvbox-dark-pale"
-# export BAT_THEME="base16"
-
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
-export PG_OF_PATH=/home/bsaros/Downloads/of_v20230120_linux64gcc6_nightly/of_v20230120_linux64gcc6_release

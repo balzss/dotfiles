@@ -47,7 +47,7 @@ alias grm="git rebase master"
 alias gdf="git diff"
 alias gpoh="git push origin HEAD"
 alias gpohf="git push origin HEAD --force"
-alias gsqb="git reset $(git merge-base master $(git branch --show-current))"
+alias gsqb='git reset $(git merge-base master $(git branch --show-current))' # single quote to avoid running command on init
 alias lg="lazygit"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
