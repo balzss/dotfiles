@@ -2,16 +2,6 @@
 
 _myos="$(uname)"
 
-case $_myos in
-  Linux)
-    export KITTY_FONT_SIZE="13.0"
-    ;;
-  Darwin)
-    export KITTY_FONT_SIZE="16.0"
-    ;;
-  *) ;;
-esac
-
 export PATH="$HOME/gems/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"

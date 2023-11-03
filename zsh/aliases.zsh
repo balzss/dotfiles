@@ -33,20 +33,21 @@ alias dofiles="cd ~/dotfiles"
 alias soz="source ~/.zshrc"
 alias pls='sudo $(fc -ln -1)'
 
+# git
 alias gac="git add -A && git commit -m"
 alias gad="git add"
 alias gcm="git commit"
 alias gcmm="git commit -m"
 alias gst="git status"
-alias gpl="git pull"
-alias gcl="git clone"
+alias gpl="set-title 'git pull' && git pull"
+alias gcl="set-title 'git clone' && git clone"
 alias gcom="git checkout master"
 alias gcob="git checkout -b"
 alias gmm="git merge master"
 alias grm="git rebase master"
 alias gdf="git diff"
-alias gpoh="git push origin HEAD"
-alias gpohf="git push origin HEAD --force"
+alias gpoh="set-title 'git push' && git push origin HEAD"
+alias gpohf="set-title 'git push' && git push origin HEAD --force"
 alias gsqb='git reset $(git merge-base master $(git branch --show-current))' # single quote to avoid running command on init
 alias lg="lazygit"
 

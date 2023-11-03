@@ -108,6 +108,7 @@ require('lazy').setup({
     -- See `:help lualine.txt`
     opts = {
       options = {
+        theme = 'auto',
         icons_enabled = false,
         component_separators = '',
         section_separators = '',
@@ -115,7 +116,8 @@ require('lazy').setup({
       sections = {
         lualine_a = {'mode'},
         lualine_b = {
-          {'diagnostics', sources={'nvim_lsp'}}},
+          {'diagnostics', sources={'nvim_lsp'}}
+        },
         lualine_c = {
           {'filename', path = 3},
         },

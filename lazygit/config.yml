@@ -2,6 +2,9 @@ gui:
   showFileTree: false
   showRandomTip: false
   nerdFontsVersion: "3"
+  theme:
+    selectedLineBgColor:
+      - '#3c3836'
 promptToReturnFromSubprocess: false
 os:
   editPreset: 'nvim'
