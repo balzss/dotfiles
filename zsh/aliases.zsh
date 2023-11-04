@@ -36,7 +36,7 @@ alias pls='sudo $(fc -ln -1)'
 # git
 alias gac="git add -A && git commit -m"
 alias gad="git add"
-alias gcm="git commit"
+alias gcm="set-title 'git commit' $$ git commit"
 alias gcmm="git commit -m"
 alias gst="git status"
 alias gpl="set-title 'git pull' && git pull"
@@ -49,7 +49,7 @@ alias gdf="git diff"
 alias gpoh="set-title 'git push' && git push origin HEAD"
 alias gpohf="set-title 'git push' && git push origin HEAD --force"
 alias gsqb='git reset $(git merge-base master $(git branch --show-current))' # single quote to avoid running command on init
-alias lg="lazygit"
+alias lg="set-title 'lazygit' && lazygit"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
