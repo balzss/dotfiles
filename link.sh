@@ -27,5 +27,8 @@ mkdir -p $HOME/.config/lazygit &&
   mkdir -p $HOME/.config/karabiner &&
   ln -isv $DOTDIR/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
 
+[ $MYOS = "Darwin" ] &&
+  ln -isv $DOTDIR/macos/US_layout_deadkeyless.bundle $HOME/Library/Keyboard\ Layouts/US_layout_deadkeyless.bundle
+
 # uncomment if needed
 # ln -isv $DOTDIR/tmux/.tmux.conf $HOME/.tmux.conf
