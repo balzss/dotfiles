@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CFBundleIdentifier</key>
-	<string>org.sil.ukelele.keyboardlayout.</string>
+	<string>org.sil.ukelele.keyboardlayout.us_layout_deadkeyless</string>
 	<key>CFBundleName</key>
-	<string></string>
+	<string>US_layout_deadkeyless</string>
 	<key>CFBundleVersion</key>
 	<string></string>
 	<key>KLInfo_U.S. deadkeyless</key>
@@ -13,9 +13,9 @@
 		<key>TICapsLockLanguageSwitchCapable</key>
 		<false/>
 		<key>TISIconIsTemplate</key>
-		<false/>
+		<true/>
 		<key>TISInputSourceID</key>
-		<string>org.sil.ukelele.keyboardlayout..u.s.deadkeyless</string>
+		<string>org.sil.ukelele.keyboardlayout.us_layout_deadkeyless.u.s.deadkeyless</string>
 		<key>TISIntendedLanguage</key>
 		<string>en</string>
 	</dict>
