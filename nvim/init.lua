@@ -278,6 +278,7 @@ vim.cmd [[
 
 -- [[ Configure Telescope ]]
 -- See `:help telescope` and `:help telescope.setup()`
+local actions = require 'telescope.actions'
 require'telescope'.setup{
   defaults = {
     mappings = {
@@ -296,7 +297,16 @@ require'telescope'.setup{
   },
   pickers = {
     find_files = {
-      find_command = { "fd", "--type", "f", "--strip-cwd-prefix", "--hidden", "--exclude", "**/.git/" }
+      find_command = { 'fd', '--type', 'f', '--strip-cwd-prefix', '--hidden', '--exclude', '**/.git/' }
+    },
+    buffers = {
+      ignore_current_buffer = true,
+      sort_mru = true,
+      mappings = {
+        i = {
+          ['<c-d>'] = actions.delete_buffer + actions.move_to_top,
+        }
+      }
     }
   }
 }

@@ -29,7 +29,7 @@ alias zshrc="set-title 'zshrc' && nvim ~/dotfiles/zsh/.zshrc ~/dotfiles/zsh/.zsh
 alias zshenv="set-title 'zshenv' && nvim ~/dotfiles/zsh/.zshenv"
 alias zalias="set-title 'zalias' && nvim ~/dotfiles/zsh/aliases.zsh"
 alias vimrc="set-title 'vimrc' && nvim ~/dotfiles/nvim/init.lua"
-alias dofiles="cd ~/dotfiles"
+alias dotfiles="cd ~/dotfiles"
 alias soz="source ~/.zshrc"
 alias pls='sudo $(fc -ln -1)'
 
