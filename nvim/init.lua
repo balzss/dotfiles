@@ -29,6 +29,11 @@ require('lazy').setup({
   'tidalcycles/vim-tidal',
 
   {
+    'stevearc/conform.nvim',
+    opts = {},
+  },
+
+  {
     'ethanholz/nvim-lastplace',
     opts = {
       lastplace_ignore_buftype = {'quickfix', 'nofile', 'help'},
@@ -150,6 +155,7 @@ require('lazy').setup({
     dependencies = {
       'nvim-lua/plenary.nvim',
       'nvim-telescope/telescope-file-browser.nvim',
+      'nvim-telescope/telescope-live-grep-args.nvim',
       'debugloop/telescope-undo.nvim',
       {
         'nvim-telescope/telescope-fzf-native.nvim',
@@ -308,6 +314,21 @@ require'telescope'.setup{
         }
       }
     }
+  },
+  extensions = {
+    live_grep_args = {
+      auto_quoting = true, -- enable/disable auto-quoting
+      mappings = { -- extend mappings
+        i = {
+          ['<C-i>'] = require('telescope-live-grep-args.actions').quote_prompt(),
+          -- ["<C-i>"] = lga_actions.quote_prompt({ postfix = " --iglob " }),
+        },
+      },
+      -- ... also accepts theme settings, for example:
+      -- theme = "dropdown", -- use dropdown theme
+      -- theme = { }, -- use own theme spec
+      -- layout_config = { mirror=true }, -- mirror preview pane
+    }
   }
 }
 
@@ -315,6 +336,9 @@ require'telescope'.setup{
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'undo')
 pcall(require('telescope').load_extension, 'file_browser')
+pcall(require('telescope').load_extension, 'live_grep_args')
+
+vim.cmd "autocmd User TelescopePreviewerLoaded setlocal number"
 
 -- See `:help telescope.builtin`
 vim.keymap.set('n', '<leader>o', require('telescope.builtin').oldfiles, { desc = 'Find recently opened files' })
@@ -328,9 +352,9 @@ vim.keymap.set('n', '<leader>/', function()
 end, { desc = 'Fuzzy search in current buffer' })
 vim.keymap.set('n', '<leader>gf', require('telescope.builtin').git_files, { desc = 'Search git files' })
 vim.keymap.set('n', '<leader>e', require('telescope.builtin').find_files, { desc = 'Search files' })
--- vim.keymap.set('n', '<leader>sh', require('telescope.builtin').help_tags, { desc = '[S]earch [H]elp' })
 -- vim.keymap.set('n', '<leader>sw', require('telescope.builtin').grep_string, { desc = '[S]earch current [W]ord' })
 vim.keymap.set('n', '<leader>a', require('telescope.builtin').live_grep, { desc = 'Search by grep' })
+vim.keymap.set("n", '<leader>A', require('telescope').extensions.live_grep_args.live_grep_args, { desc = 'Search by grep with args' })
 vim.keymap.set('n', '<leader>cl', require('telescope.builtin').diagnostics, { desc = 'List diagnostics' })
 vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_status, { desc = 'Git status' })
@@ -343,7 +367,7 @@ vim.keymap.set('n', '<leader>u', require 'telescope'.extensions.undo.undo, { des
 vim.defer_fn(function()
   require('nvim-treesitter.configs').setup {
     -- Add languages to be installed here that you want installed for treesitter
-    ensure_installed = { 'bash', 'css', 'html', 'markdown', 'haskell', 'graphql', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim' },
+    ensure_installed = { 'bash', 'css', 'html', 'markdown', 'haskell', 'graphql', 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'javascript', 'typescript', 'vimdoc', 'vim', 'astro' },
 
     -- Install parsers synchronously (only applied to `ensure_installed`)
     sync_install = false,
@@ -449,11 +473,6 @@ local on_attach = function(_, bufnr)
 
   -- Lesser used LSP functionality
   nmap('gD', vim.lsp.buf.declaration, 'Goto declaration')
-
-  -- Create a command `:Format` local to the LSP buffer
-  vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-    vim.lsp.buf.format()
-  end, { desc = 'Format current buffer with LSP' })
 end
 
 -- document existing key chains
@@ -517,6 +536,19 @@ mason_lspconfig.setup_handlers {
     }
   end,
 }
+
+-- [[ setup conform.nvim formatter ]]
+require("conform").setup({
+  formatters_by_ft = {
+    lua = { "stylua" },
+    typescript = { { "prettierd", "prettier" } },
+    typescriptreact = { { "prettierd", "prettier" } },
+    javascript = { { "prettierd", "prettier" } },
+    javascriptreact = { { "prettierd", "prettier" } },
+  },
+})
+
+vim.keymap.set('n', '<leader>f', require('conform').format)
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
