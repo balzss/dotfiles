@@ -92,11 +92,4 @@ Neovim expects these language servers to be installed:
 
 ### Remap Caps Lock on Linux
 
-Install Interception Tools:
-https://gitlab.com/interception/linux/tools
-
-And the `caps2esc` plugin:
-https://gitlab.com/interception/linux/plugins/caps2esc
-
-More info/article:
-http://nelsonware.com/blog/2019/04/30/how-to-map-caps-lock-to-escape-and-control-on-fedora-via-caps2esc.html
+With Fedora 39 [keyd](https://github.com/rvaiya/keyd) seems to be working better than [Interception Tools](https://gitlab.com/interception/linux/tools)
