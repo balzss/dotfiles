@@ -240,6 +240,10 @@ vim.keymap.set('v', 'L', '$h')
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
 
+-- Move visual selection up and down
+vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
+
 vim.keymap.set('n', '<c-s>', ':w<CR>')
 vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Quit neovim' })
 vim.keymap.set('n', '<leader><leader>', ':b#<CR>', { desc = 'Switch to previous buffer'} )
