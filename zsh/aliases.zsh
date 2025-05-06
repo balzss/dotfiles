@@ -35,6 +35,7 @@ alias pls='sudo $(fc -ln -1)'
 
 # git
 alias gac="git add -A && git commit -m"
+alias gca="git commit --amend --no-edit"
 alias gad="git add"
 alias gcm="set-title 'git commit' && git commit"
 alias gcmm="git commit -m"

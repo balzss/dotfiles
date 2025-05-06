@@ -18,6 +18,9 @@ if not vim.loop.fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+
 require('lazy').setup({
   -- Detect tabstop and shiftwidth automatically
   'tpope/vim-sleuth',
@@ -29,9 +32,30 @@ require('lazy').setup({
   'tidalcycles/vim-tidal',
 
   {
+    'CopilotC-Nvim/CopilotChat.nvim',
+    dependencies = {
+      { 'zbirenbaum/copilot.lua' },
+      { 'nvim-lua/plenary.nvim', branch = 'master' }, -- for curl, log and async functions
+    },
+    build = "make tiktoken", -- Only on MacOS or Linux
+    opts = {
+      model = 'claude-3.7-sonnet'
+    },
+    -- See Commands section for default commands if you want to lazy load on them
+  },
+
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+  },
+
+  {
     'stevearc/conform.nvim',
     opts = {},
   },
+
+  { "saecki/live-rename.nvim" },
 
   {
     'ethanholz/nvim-lastplace',
@@ -86,8 +110,6 @@ require('lazy').setup({
     },
   },
 
-  -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -157,6 +179,7 @@ require('lazy').setup({
       'nvim-telescope/telescope-file-browser.nvim',
       'nvim-telescope/telescope-live-grep-args.nvim',
       'debugloop/telescope-undo.nvim',
+      'axkirillov/easypick.nvim',
       {
         'nvim-telescope/telescope-fzf-native.nvim',
         -- NOTE: If you are having trouble with this installation,
@@ -336,6 +359,22 @@ require'telescope'.setup{
   }
 }
 
+-- setup git changed files picker with easypick
+local easypick = require("easypick")
+local get_default_branch = "git rev-parse --symbolic-full-name refs/remotes/origin/HEAD | sed 's!.*/!!'"
+local base_branch = vim.fn.system(get_default_branch) or "main"
+
+easypick.setup({
+  pickers = {
+    -- diff current branch with base_branch and show files that changed with respective diffs in preview
+    {
+      name = "changed_files",
+      command = "git diff --name-only $(git merge-base HEAD " .. base_branch .. " )",
+      previewer = easypick.previewers.branch_diff({base_branch = base_branch})
+    },
+  }
+})
+
 -- Enable telescope extensions, if installed
 pcall(require('telescope').load_extension, 'fzf')
 pcall(require('telescope').load_extension, 'undo')
@@ -362,6 +401,7 @@ vim.keymap.set("n", '<leader>A', require('telescope').extensions.live_grep_args.
 vim.keymap.set('n', '<leader>cl', require('telescope.builtin').diagnostics, { desc = 'List diagnostics' })
 vim.keymap.set('n', '<leader>r', require('telescope.builtin').resume, { desc = '[S]earch [R]esume' })
 vim.keymap.set('n', '<leader>gs', require('telescope.builtin').git_status, { desc = 'Git status' })
+vim.keymap.set('n', '<leader>gc', function() vim.cmd(":Easypick changed_files") end, { desc = 'Git status' })
 vim.keymap.set('n', '<leader>t', require 'telescope'.extensions.file_browser.file_browser, { desc = 'File browser' })
 vim.keymap.set('n', '<leader>u', require 'telescope'.extensions.undo.undo, { desc = 'Undo history' })
 
@@ -479,20 +519,6 @@ local on_attach = function(_, bufnr)
   nmap('gD', vim.lsp.buf.declaration, 'Goto declaration')
 end
 
--- document existing key chains
-require('which-key').register {
-  ['<leader>c'] = { name = 'LSP', _ = 'which_key_ignore' },
-  ['<leader>g'] = { name = 'Git', _ = 'which_key_ignore' },
-}
-
-require('which-key').setup({
-  plugins = {
-    presets = {
-      operators = false
-    }
-  },
-})
-
 -- mason-lspconfig requires that these setup functions are called in this order
 -- before setting up the servers.
 require('mason').setup()
@@ -507,10 +533,8 @@ require('mason-lspconfig').setup()
 --  If you want to override the default filetypes that your language server will attach to you can
 --  define the property 'filetypes' to the map in question.
 local servers = {
-  tsserver = {},
   eslint = {},
   html = { filetypes = { 'html', 'twig', 'hbs'} },
-  emmet_language_server = {},
   lua_ls = {
     Lua = {
       workspace = { checkThirdParty = false },
@@ -544,15 +568,14 @@ mason_lspconfig.setup_handlers {
 -- [[ setup conform.nvim formatter ]]
 require("conform").setup({
   formatters_by_ft = {
-    lua = { "stylua" },
-    typescript = { { "prettierd", "prettier" } },
-    typescriptreact = { { "prettierd", "prettier" } },
-    javascript = { { "prettierd", "prettier" } },
-    javascriptreact = { { "prettierd", "prettier" } },
+    lua = { 'stylua' },
+    typescript = { 'prettier', 'prettierd', stop_after_first = true },
+    typescriptreact = { 'prettier', 'prettierd', stop_after_first = true },
+    javascript = { 'prettier', 'prettierd', stop_after_first = true },
+    javascriptreact = { 'prettier', 'prettierd', stop_after_first = true },
   },
 })
-
-vim.keymap.set('n', '<leader>f', require('conform').format)
+vim.keymap.set('n', '<c-f>', '<cmd>lua require("conform").format({async = true})<CR>')
 
 -- [[ Configure nvim-cmp ]]
 -- See `:help cmp`
@@ -581,7 +604,7 @@ cmp.setup {
     ['<C-n>'] = cmp.mapping.select_next_item(),
     ['<C-p>'] = cmp.mapping.select_prev_item(),
     ['<C-d>'] = cmp.mapping.scroll_docs(-4),
-    ['<C-f>'] = cmp.mapping.scroll_docs(4),
+    ['<C-u>'] = cmp.mapping.scroll_docs(4),
     ['<C-Space>'] = cmp.mapping.complete {},
     ['<C-j>'] = cmp.mapping(function(fallback)
       if luasnip.expand_or_jumpable() then
@@ -645,6 +668,14 @@ scnvim.setup({
     },
   },
 })
+
+-- [[ copilot ]]
+require('copilot').setup({})
+require("CopilotChat").setup({})
+vim.keymap.set('n', '<leader>c', '<cmd>CopilotChatOpen<cr>')
+
+-- [[ live-rename ]]
+vim.keymap.set('n', '<c-r>', '<cmd>lua require("live-rename").rename()<cr>')
 
 -- require'luasnip'.filetype_extend('typescriptreact', {'javascript'})
 -- require'luasnip'.filetype_extend('tidal', {'haskell'})

@@ -22,3 +22,4 @@ export MANWIDTH=999
 export VISUAL="nvim"
 
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
+. "$HOME/.cargo/env"
