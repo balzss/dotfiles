@@ -35,26 +35,43 @@ Neovim also uses Nerd icons.
 ### Common
 
 - [zsh](https://www.zsh.org/)
-  - `brew install zsh`
-  - `sudo dnf install zsh`
+  - macOS: `brew install zsh`
+  - Ubuntu: `sudo apt install zsh`
+  - Fedora: `sudo dnf install zsh`
 - [ripgrep](https://github.com/BurntSushi/ripgrep)
-  - `brew install ripgrep`
-  - `sudo dnf install ripgrep`
+  - macOS: `brew install ripgrep`
+  - Ubuntu: `sudo apt install ripgrep`
+  - Fedora: `sudo dnf install ripgrep`
 - [fd](https://github.com/sharkdp/fd)
-  - `brew install fd`
-  - `sudo dnf install fd-find`
+  - macOS: `brew install fd`
+  - Ubuntu: `sudo apt install fd-find`
+  - Fedora: `sudo dnf install fd-find`
 - [lazygit](https://github.com/jesseduffield/lazygit)
-  - `brew install lazygit`
-  - `sudo dnf copr enable atim/lazygit -y && sudo dnf install lazygit`
+  - macOS: `brew install lazygit`
+  - Ubuntu (for 25.10 or later, for version before [see instructions](https://github.com/jesseduffield/lazygit?tab=readme-ov-file#debian-and-ubuntu)): `sudo apt install lazygit`
+  - Fedora: `sudo dnf copr enable atim/lazygit -y && sudo dnf install lazygit`
 - [neovim](https://github.com/neovim/neovim)
-  - `brew install neovim`
-  - `sudo dnf install neovim`
+  - macOS: `brew install neovim`
+  - Ubuntu: `sudo snap install nvim --classic`
+  - Fedora: `sudo dnf install neovim`
 
-### Optional
+#### macOS all-in-one:
 
-- [tmux](https://github.com/tmux/tmux)
-  - `brew install tmux`
-  - `sudo dnf install tmux`
+```sh
+brew install zsh ripgrep fd lazygit neovim
+```
+
+#### Ubuntu all-in-one:
+
+```sh
+sudo apt install zsh ripgrep fd-find lazygit && sudo snap install nvim --classic
+```
+
+#### Fedora all-in-one:
+
+```sh
+sudo dnf copr enable atim/lazygit -y && sudo dnf install zsh ripgrep fd-find lazygit neovim
+```
 
 ## Setup
 
@@ -77,18 +94,6 @@ Install Node with NVM:
 ```
 nvm install latest
 ```
-
-### Install language servers
-
-**note: this might not be needed with the new neovim config**
-
-Neovim expects these language servers to be installed:
-
-- Typescript
-  - https://github.com/typescript-language-server/typescript-language-server
-- Eslint
-  - https://github.com/hrsh7th/vscode-langservers-extracted
-
 
 ### Remap Caps Lock on Linux
 
