@@ -19,7 +19,6 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 -- [[ Setting options ]]
--- NOTE: I've moved your options to the top for better organization.
 vim.o.termguicolors = true
 vim.o.splitbelow = true
 vim.o.splitright = true
@@ -54,14 +53,14 @@ vim.keymap.set('n', 'L', '$')
 vim.keymap.set('v', 'L', '$h')
 vim.keymap.set('v', '<', '<gv')
 vim.keymap.set('v', '>', '>gv')
-vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
-vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
+-- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
+-- vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set('n', '<c-s>', ':w<CR>')
 vim.keymap.set('n', '<leader>q', ':q<CR>', { desc = 'Close window' })
 vim.keymap.set('n', '<leader><leader>', ':b#<CR>', { desc = 'Switch to previous buffer' })
 vim.keymap.set('n', '<leader>v', ':vsplit<CR>', { desc = 'Vertical split' })
-vim.keymap.set('n', '<c-h>', '<c-w>W') -- As requested
-vim.keymap.set('n', '<c-l>', '<c-w>w') -- As requested
+vim.keymap.set('n', '<c-h>', '<c-w>W')
+vim.keymap.set('n', '<c-l>', '<c-w>w')
 vim.keymap.set('n', '<c-q>', '<c-w>q')
 vim.keymap.set('v', 'y', 'ygv<esc>')
 vim.keymap.set({ 'n', 'v' }, '<leader>y', '"+y', { desc = 'Copy to clipboard' })
@@ -117,7 +116,7 @@ require('lazy').setup({
     opts = {
       formatters_by_ft = {
         lua = { 'stylua' },
-        ['javascript,javascriptreact,typescript,typescriptreact'] = { 'prettierd', 'prettier' },
+        ['javascript,javascriptreact,typescript,typescriptreact'] = { 'prettierd', 'prettier', stop_after_first = true },
       },
     },
     keys = {
@@ -177,9 +176,8 @@ require('lazy').setup({
           map('<leader>ca', vim.lsp.buf.code_action, 'Code action')
           map('gd', vim.lsp.buf.definition, 'Goto definition')
           map('gr', require('telescope.builtin').lsp_references, 'Goto references')
-          map('gI', require('telescope.builtin').lsp_implementations, 'Goto implementation')
           map('K', vim.lsp.buf.hover, 'Hover Documentation')
-          map('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+          map('<C-k>', vim.diagnostic.open_float, 'Show line diagnostics')
         end,
       })
 
@@ -202,6 +200,7 @@ require('lazy').setup({
       -- Language servers to install
       local servers = {
         eslint = {},
+        prettierd = {},
         html = { filetypes = { 'html', 'twig', 'hbs' } },
         lua_ls = {
           Lua = {
@@ -209,7 +208,7 @@ require('lazy').setup({
               callSnippet = 'Replace',
             },
             -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
-            -- diagnostics = { disable = { 'missing-fields' } },
+            diagnostics = { disable = { 'missing-fields' } },
           },
         },
       }
@@ -432,7 +431,12 @@ require('lazy').setup({
   -- Commenting
   {
     'numToStr/Comment.nvim',
-    opts = {}
+    dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
+    config = function()
+      require("Comment").setup {
+        pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
+      }
+    end,
   },
 
   -- Autopairs
@@ -536,7 +540,6 @@ require('lazy').setup({
   -- Treesitter
   {
     'nvim-treesitter/nvim-treesitter',
-    dependencies = { 'nvim-treesitter/nvim-treesitter-textobjects' },
     build = ':TSUpdate',
     config = function()
       -- Defer setup to improve startup time
@@ -552,49 +555,6 @@ require('lazy').setup({
             keymaps = {
               init_selection = '<c-e>',
               node_incremental = '<c-e>',
-            },
-          },
-          textobjects = {
-            select = {
-              enable = true,
-              lookahead = true,
-              keymaps = {
-                ['aa'] = '@parameter.outer',
-                ['ia'] = '@parameter.inner',
-                ['af'] = '@function.outer',
-                ['if'] = '@function.inner',
-                ['ac'] = '@class.outer',
-                ['ic'] = '@class.inner',
-              },
-            },
-            move = {
-              enable = true,
-              set_jumps = true,
-              goto_next_start = {
-                [']m'] = '@function.outer',
-                [']]'] = '@class.outer',
-              },
-              goto_next_end = {
-                [']M'] = '@function.outer',
-                [']['] = '@class.outer',
-              },
-              goto_previous_start = {
-                ['[m'] = '@function.outer',
-                ['[['] = '@class.outer',
-              },
-              goto_previous_end = {
-                ['[M'] = '@function.outer',
-                ['[]'] = '@class.outer',
-              },
-            },
-            swap = {
-              enable = true,
-              swap_next = {
-                ['<leader>p'] = '@parameter.inner',
-              },
-              swap_previous = {
-                ['<leader>P'] = '@parameter.inner',
-              },
             },
           },
         }
