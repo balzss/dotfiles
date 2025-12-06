@@ -1,0 +1,49 @@
+---
+# Konsave configuration for dotfiles
+# This config only saves configuration files, not large assets like icons/wallpapers
+
+save:
+    configs:
+        location: "$CONFIG_DIR"
+        entries:
+            - gtk-2.0
+            - gtk-3.0
+            - gtk-4.0
+            - kate
+            - Kvantum
+            - latte
+            - dolphinrc
+            - katerc
+            - konsolerc
+            - kcminputrc
+            - kdeglobals
+            - kglobalshortcutsrc
+            - klipperrc
+            - krunnerrc
+            - kscreenlockerrc
+            - ksmserverrc
+            - kwinrc
+            - kwinrulesrc
+            - plasma-org.kde.plasma.desktop-appletsrc
+            - plasmarc
+            - plasmashellrc
+            - gtkrc
+            - gtkrc-2.0
+            - lattedockrc
+            - breezerc
+            - oxygenrc
+            - lightlyrc
+            - ksplashrc
+            - khotkeysrc
+
+    app_layouts:
+        location: "$HOME/.local/share/kxmlgui5"
+        entries:
+            - dolphin
+            - konsole
+
+# Export section disabled to keep profile size small for git
+# Icons, wallpapers, and themes are not included
+# Install these separately on each system
+export: {}
+...

@@ -10,12 +10,24 @@ autoload -Uz _zinit
 # Preceed commands with empty lines for readablity https://stackoverflow.com/a/59576993/4503695
 precmd() precmd() echo
 
+# Bazzite/Silverblue Fix: Sync HOME with physical path if we are in /var/home
+if [[ "$PWD" == "/var/home/$USER"* ]]; then
+  export HOME=/var/home/$USER
+fi
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
+
+# pnpm config
+export PNPM_HOME="/home/bazsi/.local/share/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
 
 # source other zsh configs
 source $HOME/dotfiles/zsh/.p10k.zsh
@@ -28,7 +40,10 @@ eval "$(zoxide init zsh)" # shell navigation via https://github.com/ajeetdsouza/
 # [ -z "$TMUX" ] && create_tmux_session
 
 # zsh plugins
-zinit light lukechilds/zsh-nvm
+# mise - polyglot tool version manager
+if command -v mise &> /dev/null; then
+  eval "$(mise activate zsh)"
+fi
 zinit light zsh-users/zsh-history-substring-search
 zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode # https://github.com/jeffreytse/zsh-vi-mode/issues/124
 zinit light zsh-users/zsh-syntax-highlighting

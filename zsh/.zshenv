@@ -5,6 +5,7 @@ _myos="$(uname)"
 export PATH="$HOME/gems/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
+export PATH="/home/linuxbrew/.linuxbrew/bin:$PATH"
 
 export FZF_DEFAULT_OPTS='--height 50% --layout=reverse'
 
@@ -22,4 +23,4 @@ export MANWIDTH=999
 export VISUAL="nvim"
 
 export LG_CONFIG_FILE="$HOME/.config/lazygit/config.yml"
-. "$HOME/.cargo/env"
+# . "$HOME/.cargo/env"

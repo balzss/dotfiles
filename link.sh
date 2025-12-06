@@ -23,6 +23,11 @@ mkdir -p $HOME/.config/nvim &&
 mkdir -p $HOME/.config/lazygit &&
   ln -isv $DOTDIR/lazygit/config.yml $HOME/.config/lazygit/config.yml
 
+# Konsave profiles (KDE Plasma)
+if [ -d "$DOTDIR/konsave/profiles" ] && [ "$(ls -A $DOTDIR/konsave/profiles/*.knsv 2>/dev/null)" ]; then
+  echo "Konsave profiles found. Run: konsave -l"
+fi
+
 [ $MYOS = "Darwin" ] &&
   mkdir -p $HOME/.config/karabiner &&
   ln -isv $DOTDIR/karabiner/karabiner.json $HOME/.config/karabiner/karabiner.json
