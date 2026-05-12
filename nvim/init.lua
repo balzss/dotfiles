@@ -24,13 +24,13 @@ vim.o.splitbelow = true
 vim.o.splitright = true
 vim.o.undolevels = 10000
 vim.o.shiftround = true
-vim.o.hidden = false -- As requested, keeping this false
+vim.o.hidden = false
 vim.o.completeopt = "menu,menuone,noselect"
 vim.o.showmode = false
 vim.o.list = true
 vim.o.scrolloff = 30
 vim.o.cursorline = true
-vim.o.hlsearch = false -- As requested
+vim.o.hlsearch = false
 vim.wo.number = true
 vim.wo.relativenumber = true
 vim.o.undofile = true
@@ -45,17 +45,16 @@ vim.g.have_nerd_font = true
 -- Default indentation
 vim.opt.tabstop = 2
 vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
 
 -- [[ Basic Keymaps ]]
--- NOTE: I've moved your keymaps here for better organization.
 vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true })
 vim.keymap.set({ "n", "v" }, "H", "^")
 vim.keymap.set("n", "L", "$")
 vim.keymap.set("v", "L", "$h")
 vim.keymap.set("v", "<", "<gv")
 vim.keymap.set("v", ">", ">gv")
--- vim.keymap.set("v", "<c-j>", ":m '>+1<CR>gv=gv")
--- vim.keymap.set("v", "<c-k>", ":m '<-2<CR>gv=gv")
 vim.keymap.set("n", "<c-s>", ":w<CR>")
 vim.keymap.set("n", "<leader>q", ":q<CR>", { desc = "Close window" })
 vim.keymap.set("n", "<leader><leader>", ":b#<CR>", { desc = "Switch to previous buffer" })
@@ -67,7 +66,7 @@ vim.keymap.set("v", "y", "ygv<esc>")
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to clipboard" })
 vim.keymap.set({ "n", "v" }, "U", "<c-r>")
 
--- Highlight active pane/window (modern Lua API)
+-- Highlight active pane/window
 local bg_highlight_group = vim.api.nvim_create_augroup("BgHighlight", { clear = true })
 vim.api.nvim_create_autocmd("WinEnter", {
   group = bg_highlight_group,
@@ -78,6 +77,20 @@ vim.api.nvim_create_autocmd("WinLeave", {
   group = bg_highlight_group,
   pattern = "*",
   command = "set nocul",
+})
+
+-- Restore cursor to last position when reopening a file
+vim.api.nvim_create_autocmd("BufReadPost", {
+  callback = function(args)
+    if vim.tbl_contains({ "gitcommit", "gitrebase" }, vim.bo[args.buf].filetype) then
+      return
+    end
+    local mark = vim.api.nvim_buf_get_mark(args.buf, '"')
+    local line_count = vim.api.nvim_buf_line_count(args.buf)
+    if mark[1] > 0 and mark[1] <= line_count then
+      pcall(vim.api.nvim_win_set_cursor, 0, mark)
+    end
+  end,
 })
 
 -- [[ lazy.nvim setup ]]
@@ -91,7 +104,6 @@ require("lazy").setup({
       "nvim-treesitter/nvim-treesitter",
     },
     keys = {
-      -- Visual mode: <leader>i for inline editing
       {
         "<leader>i",
         function()
@@ -100,7 +112,6 @@ require("lazy").setup({
         mode = "v",
         desc = "CodeCompanion: Inline Edit",
       },
-      -- Normal mode: <leader>cc for chat
       {
         "<leader>cc",
         function()
@@ -109,7 +120,6 @@ require("lazy").setup({
         mode = "n",
         desc = "CodeCompanion: Chat",
       },
-      -- Normal mode: <leader>cp for built-in commands
       {
         "<leader>cp",
         function()
@@ -120,8 +130,6 @@ require("lazy").setup({
       },
     },
     opts = {
-      log_level = "DEBUG",
-
       -- Configure ACP adapter for Claude Code
       adapters = {
         acp = {
@@ -162,9 +170,6 @@ require("lazy").setup({
       },
     },
   },
-
-  -- Automatically detect indentation
-  { "NMAC427/guess-indent.nvim", config = true },
 
   -- Icons
   "nvim-tree/nvim-web-devicons",
@@ -223,15 +228,6 @@ require("lazy").setup({
         mode = "n",
         desc = "Format buffer",
       },
-    },
-  },
-
-  -- Restore cursor position
-  {
-    "ethanholz/nvim-lastplace",
-    opts = {
-      lastplace_ignore_buftype = { "quickfix", "nofile", "help" },
-      lastplace_ignore_filetype = { "gitcommit", "gitrebase", "svn", "hgcommit" },
     },
   },
 
