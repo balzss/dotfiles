@@ -6,7 +6,7 @@ vim.g.maplocalleader = " "
 -- Install package manager
 --   https://github.com/folke/lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
-if not vim.loop.fs_stat(lazypath) then
+if not vim.uv.fs_stat(lazypath) then
   vim.fn.system({
     "git",
     "clone",
@@ -290,61 +290,43 @@ require("lazy").setup({
         } or {},
       })
 
-      local capabilities = require("cmp_nvim_lsp").default_capabilities()
+      vim.lsp.config("*", {
+        capabilities = require("cmp_nvim_lsp").default_capabilities(),
+      })
 
-      -- Language servers to install
-      local servers = {
-        eslint = {
-          settings = {
-            experimental = {
-              useFlatConfig = true
-            }
-          }
-        },
-        harper_ls = {
-          settings = {
-            ["harper-ls"] = {
-              userDictPath = vim.fn.stdpath("config") .. "/spell/harper.txt",
-              linters = {
-                spell_check = false,
-              },
-            },
+      vim.lsp.config("eslint", {
+        settings = { experimental = { useFlatConfig = true } },
+      })
+      vim.lsp.config("harper_ls", {
+        settings = {
+          ["harper-ls"] = {
+            userDictPath = vim.fn.stdpath("config") .. "/spell/harper.txt",
+            linters = { spell_check = false },
           },
         },
-        prettierd = {},
-        html = { filetypes = { "html", "twig", "hbs" } },
-        lua_ls = {
+      })
+      vim.lsp.config("html", { filetypes = { "html", "twig", "hbs" } })
+      vim.lsp.config("lua_ls", {
+        settings = {
           Lua = {
-            completion = {
-              callSnippet = "Replace",
-            },
-            -- You can toggle below to ignore Lua_LS's noisy `missing-fields` warnings
+            completion = { callSnippet = "Replace" },
             diagnostics = { disable = { "missing-fields" } },
           },
         },
-      }
-
-      local ensure_installed = vim.tbl_keys(servers or {})
-      vim.list_extend(ensure_installed, {
-        "stylua", -- Used to format Lua code
-        "cspell",
       })
-      require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+      local servers = { "eslint", "harper_ls", "html", "lua_ls" }
+
+      require("mason-tool-installer").setup({
+        ensure_installed = vim.list_extend(vim.deepcopy(servers), {
+          "stylua",
+          "prettierd",
+          "cspell",
+        }),
+      })
 
       require("mason-lspconfig").setup({
-        ensure_installed = {}, -- explicitly set to an empty table (Kickstart populates installs via mason-tool-installer)
-        automatic_installation = false,
-        handlers = {
-          function(server_name)
-            local server = servers[server_name] or {}
-            -- This handles overriding only values explicitly passed
-            -- by the server configuration above. Useful when disabling
-            -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities =
-              vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-            require("lspconfig")[server_name].setup(server)
-          end,
-        },
+        ensure_installed = servers,
       })
     end,
   },
@@ -558,6 +540,7 @@ require("lazy").setup({
     "numToStr/Comment.nvim",
     dependencies = "JoosepAlviste/nvim-ts-context-commentstring",
     config = function()
+      require("ts_context_commentstring").setup({ enable_autocmd = false })
       require("Comment").setup({
         pre_hook = require("ts_context_commentstring.integrations.comment_nvim").create_pre_hook(),
       })
