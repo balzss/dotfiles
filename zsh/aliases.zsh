@@ -53,8 +53,8 @@ alias gsqb='git reset $(git merge-base master $(git branch --show-current))' # s
 alias lg="set-title 'lazygit' && lazygit" # set title so kitty doesn't show it as `[lg]`
 
 # work
-alias nib="set-title 'instui bootstrap' && npm install && npm run bootstrap"
-alias i="cd ~/work/instructure-ui"
+alias pib="set-title 'instui bootstrap' && pnpm install && pnpm run bootstrap"
+alias i="cd ~/work/instui/master"
 
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"

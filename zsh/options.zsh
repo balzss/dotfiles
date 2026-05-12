@@ -2,6 +2,7 @@ HISTFILE=~/.histfile
 HISTSIZE=50000
 SAVEHIST=50000
 KEYTIMEOUT=1
+FUNCNEST=1000
 
 setopt append_history
 setopt inc_append_history

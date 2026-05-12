@@ -68,3 +68,195 @@ gco() {
     git checkout $1
   fi
 }
+
+# ==========================================
+# GIT WORKTREE + KITTY + CLAUDE WORKFLOW
+# ==========================================
+
+function workon() {
+    local MAIN_DIR=$(git worktree list 2>/dev/null | head -n 1 | awk '{print $1}')
+
+    if [ -z "$MAIN_DIR" ]; then
+        echo "❌ You don't seem to be inside a git repository."
+        return 1
+    fi
+
+    local BRANCH="$1"
+
+    # Interactive Mode via fzf
+    if [ -z "$BRANCH" ]; then
+        if ! command -v fzf &> /dev/null; then
+            echo "❌ Provide a branch name, or install 'fzf' for the menu."
+            return 1
+        fi
+
+        echo "🔍 Select a branch/task (type to search, Esc to cancel):"
+        # Hide the branch we're currently on — selecting it would be a no-op
+        local CURRENT_BRANCH=$(git branch --show-current 2>/dev/null)
+
+        # Annotate branches that already have a worktree with ♻️ and float them to the top
+        BRANCH=$(awk -v cur="$CURRENT_BRANCH" '
+                NR==FNR { m[$0] = 1; next }
+                $0 == cur { next }
+                m[$0] { hot[++h] = $0; next }
+                       { cold[++c] = $0 }
+                END {
+                    for (i = 1; i <= h; i++) printf "♻️  %s\n", hot[i]
+                    for (i = 1; i <= c; i++) printf "   %s\n", cold[i]
+                }
+            ' \
+            <(git -C "$MAIN_DIR" worktree list --porcelain \
+                | awk '$1=="branch" { sub("refs/heads/","",$2); print $2 }') \
+            <(git -C "$MAIN_DIR" for-each-ref \
+                    --format='%(refname:short)' \
+                    refs/heads refs/remotes \
+              | sed 's|^origin/||' \
+              | grep -v '^HEAD$' \
+              | sort -u) \
+            | fzf --prompt="Task/Branch > " --height=40% --layout=reverse --border \
+            | awk '{ print $NF }') || true
+
+        if [ -z "$BRANCH" ]; then
+            echo "🛑 Cancelled."
+            return 0
+        fi
+    fi
+
+    # Sanitize: strip carriage returns, replace spaces with hyphens
+    BRANCH=$(echo "$BRANCH" | tr -d '\r' | tr ' ' '-')
+
+    if ! git check-ref-format --allow-onelevel "$BRANCH" 2>/dev/null; then
+        echo "❌ Git rejected the branch name: '$BRANCH'"
+        echo "💡 Branch names cannot contain double dots (..), trailing slashes, or special characters."
+        return 1
+    fi
+
+    local TASK_NAME=$(basename "$BRANCH")
+
+    # Handle Master/Main
+    if [[ "$BRANCH" == "master" || "$BRANCH" == "main" ]]; then
+        echo "🌳 Opening base repository ($BRANCH)..."
+        git -C "$MAIN_DIR" checkout "$BRANCH" && git -C "$MAIN_DIR" pull || return 1
+
+        kitty @ launch --type=tab --tab-title="BASE-$BRANCH" --cwd="$MAIN_DIR" >/dev/null
+        return 0
+    fi
+
+    # Worktree location: sibling of main repo
+    local WORKTREE_DIR="${MAIN_DIR:h}/wt-$TASK_NAME"
+
+    # Re-entry: worktree already exists
+    if [ -d "$WORKTREE_DIR" ]; then
+        echo "♻️ Worktree exists! Booting Kitty tab..."
+        kitty @ launch --type=tab --tab-title="$TASK_NAME" --cwd="$WORKTREE_DIR" >/dev/null
+        return 0
+    fi
+
+    echo "🌳 Creating new worktree at $WORKTREE_DIR..."
+
+    # Smart checkout: existing local > existing remote > new branch
+    if git -C "$MAIN_DIR" show-ref --verify --quiet "refs/heads/$BRANCH"; then
+        echo "➡️ Found local branch '$BRANCH'. Checking out..."
+        git -C "$MAIN_DIR" worktree add "$WORKTREE_DIR" "$BRANCH" || return 1
+    elif git -C "$MAIN_DIR" show-ref --verify --quiet "refs/remotes/origin/$BRANCH"; then
+        echo "➡️ Found remote branch 'origin/$BRANCH'. Tracking..."
+        git -C "$MAIN_DIR" worktree add --track -b "$BRANCH" "$WORKTREE_DIR" "origin/$BRANCH" || return 1
+    else
+        echo "✨ Branch '$BRANCH' not found. Creating as new..."
+        git -C "$MAIN_DIR" worktree add "$WORKTREE_DIR" -b "$BRANCH" || return 1
+    fi
+
+    if [ ! -d "$WORKTREE_DIR" ]; then
+        echo "❌ Error creating worktree."
+        return 1
+    fi
+
+    echo "🐱 Booting up Kitty tab..."
+    kitty @ launch --type=tab --tab-title="$TASK_NAME" --cwd="$WORKTREE_DIR" >/dev/null
+    echo "✅ Workspace ready!"
+}
+
+function cleantask() {
+    local MAIN_DIR=$(git worktree list 2>/dev/null | head -n 1 | awk '{print $1}')
+
+    if [ -z "$MAIN_DIR" ]; then
+        echo "❌ You don't seem to be inside a git repository."
+        return 1
+    fi
+
+    echo "🔍 Select tasks to clean up (Tab=multi-select, Enter=confirm, Esc=cancel):"
+    # Filter out the main worktree explicitly (don't trust list ordering)
+    local WT_LINES=$(git -C "$MAIN_DIR" worktree list \
+        | awk -v main="$MAIN_DIR" '$1 != main' \
+        | fzf --multi \
+              --prompt="Clean Tasks > " \
+              --height=40% --layout=reverse --border \
+              --header="Tab: select  |  Shift-Tab: deselect  |  Enter: confirm") || true
+
+    if [ -z "$WT_LINES" ]; then
+        echo "🛑 Cancelled."
+        return 0
+    fi
+
+    local COUNT=$(echo "$WT_LINES" | wc -l | tr -d ' ')
+    echo "🧹 Removing $COUNT worktree(s)..."
+
+    echo "$WT_LINES" | while IFS= read -r WT_LINE; do
+        [ -z "$WT_LINE" ] && continue
+
+        local WT_PATH=$(echo "$WT_LINE" | awk '{print $1}')
+
+        # Resolve branch via porcelain output — handles detached HEAD correctly
+        local BRANCH_NAME=$(git -C "$MAIN_DIR" worktree list --porcelain \
+            | awk -v p="$WT_PATH" '
+                $1=="worktree" && $2==p { found=1; next }
+                found && $1=="branch" { sub("refs/heads/","",$2); print $2; exit }
+                found && /^$/ { exit }
+            ')
+
+        echo
+        echo "── $WT_PATH ${BRANCH_NAME:+($BRANCH_NAME)}"
+
+        # Safety: warn on uncommitted changes before forcing removal
+        local USE_FORCE=""
+        if [ -d "$WT_PATH" ]; then
+            if ! git -C "$WT_PATH" diff --quiet 2>/dev/null \
+                || ! git -C "$WT_PATH" diff --cached --quiet 2>/dev/null \
+                || [ -n "$(git -C "$WT_PATH" status --porcelain 2>/dev/null)" ]; then
+                echo "⚠️  Has uncommitted changes."
+                read -q "REPLY?    Force-remove anyway? (y/N/a=skip all dirty) " || { echo; echo "   ⏩ Skipped."; continue; }
+                echo
+                USE_FORCE="--force"
+            fi
+        fi
+
+        if git -C "$MAIN_DIR" worktree remove $USE_FORCE "$WT_PATH"; then
+            echo "✅ Worktree removed."
+        else
+            echo "❌ Failed to remove worktree."
+            continue
+        fi
+
+        if [ -z "$BRANCH_NAME" ]; then
+            echo "ℹ️  Was detached — no branch to clean up."
+            continue
+        fi
+
+        # Try safe delete first; only escalate to -D after explicit confirmation
+        if git -C "$MAIN_DIR" branch -d "$BRANCH_NAME" 2>/dev/null; then
+            echo "✅ Local branch '$BRANCH_NAME' deleted (was merged)."
+        else
+            read -q "REPLY?⚠️  '$BRANCH_NAME' has unmerged commits. Force-delete? (y/N) "
+            echo
+            if [[ $REPLY =~ ^[Yy]$ ]]; then
+                git -C "$MAIN_DIR" branch -D "$BRANCH_NAME" \
+                    && echo "✅ Local branch '$BRANCH_NAME' force-deleted."
+            else
+                echo "⏩ Kept local branch '$BRANCH_NAME'."
+            fi
+        fi
+    done
+
+    echo
+    echo "✨ All clean!"
+}
