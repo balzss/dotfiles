@@ -59,3 +59,6 @@ alias i="cd ~/work/instui/master"
 alias macip="ifconfig | grep -Eo 'inet (addr:)?([0-9]*\.){3}[0-9]*' | grep -Eo '([0-9]*\.){3}[0-9]*' | grep -v '127.0.0.1'"
 alias ytdl="youtube-dl --extract-audio --audio-format mp3 --audio-quality 0 --prefer-ffmpeg"
 alias mrc="$HOME/dotfiles/scripts/make-react-component.sh"
+
+alias cld="claude"
+alias cldr="claude --resume"

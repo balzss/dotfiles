@@ -23,7 +23,7 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
 fi
 
 # pnpm config
-export PNPM_HOME="/home/bazsi/.local/share/pnpm"
+export PNPM_HOME="$HOME/.local/share/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
@@ -40,9 +40,11 @@ eval "$(zoxide init zsh)" # shell navigation via https://github.com/ajeetdsouza/
 # [ -z "$TMUX" ] && create_tmux_session
 
 # zsh plugins
-# mise - polyglot tool version manager
+# node/tool version manager: mise (bazzite) if present, otherwise nvm (mac)
 if command -v mise &> /dev/null; then
   eval "$(mise activate zsh)"
+else
+  zinit light lukechilds/zsh-nvm
 fi
 zinit light zsh-users/zsh-history-substring-search
 zinit ice depth=1; zinit light jeffreytse/zsh-vi-mode # https://github.com/jeffreytse/zsh-vi-mode/issues/124

@@ -138,7 +138,7 @@ function workon() {
         echo "🌳 Opening base repository ($BRANCH)..."
         git -C "$MAIN_DIR" checkout "$BRANCH" && git -C "$MAIN_DIR" pull || return 1
 
-        kitty @ launch --type=tab --tab-title="BASE-$BRANCH" --cwd="$MAIN_DIR" >/dev/null
+        cd "$MAIN_DIR"
         return 0
     fi
 
@@ -147,8 +147,8 @@ function workon() {
 
     # Re-entry: worktree already exists
     if [ -d "$WORKTREE_DIR" ]; then
-        echo "♻️ Worktree exists! Booting Kitty tab..."
-        kitty @ launch --type=tab --tab-title="$TASK_NAME" --cwd="$WORKTREE_DIR" >/dev/null
+        echo "♻️ Worktree exists! Switching to it..."
+        cd "$WORKTREE_DIR"
         return 0
     fi
 
@@ -171,8 +171,15 @@ function workon() {
         return 1
     fi
 
-    echo "🐱 Booting up Kitty tab..."
-    kitty @ launch --type=tab --tab-title="$TASK_NAME" --cwd="$WORKTREE_DIR" >/dev/null
+    # Copy local-only files (e.g. .env) that aren't tracked by git
+    for f in .env .env.local; do
+        if [ -f "$MAIN_DIR/$f" ]; then
+            cp "$MAIN_DIR/$f" "$WORKTREE_DIR/$f"
+            echo "📋 Copied $f"
+        fi
+    done
+
+    cd "$WORKTREE_DIR"
     echo "✅ Workspace ready!"
 }
 
