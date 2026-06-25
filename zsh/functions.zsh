@@ -70,7 +70,7 @@ gco() {
 }
 
 # ==========================================
-# GIT WORKTREE + KITTY + CLAUDE WORKFLOW
+# GIT WORKTREE WORKFLOW
 # ==========================================
 
 function workon() {
@@ -149,6 +149,20 @@ function workon() {
     if [ -d "$WORKTREE_DIR" ]; then
         echo "♻️ Worktree exists! Switching to it..."
         cd "$WORKTREE_DIR"
+        return 0
+    fi
+
+    # Re-entry: branch is already checked out in some other worktree.
+    # A branch can only live in one worktree at a time, and its directory
+    # name may not match wt-$TASK_NAME, so look it up explicitly.
+    local EXISTING_WT=$(git -C "$MAIN_DIR" worktree list --porcelain \
+        | awk -v b="refs/heads/$BRANCH" '
+            $1=="worktree" { wt=$2 }
+            $1=="branch" && $2==b { print wt; exit }
+        ')
+    if [ -n "$EXISTING_WT" ]; then
+        echo "♻️ Branch '$BRANCH' is already checked out at $EXISTING_WT. Switching to it..."
+        cd "$EXISTING_WT"
         return 0
     fi
 

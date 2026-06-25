@@ -666,48 +666,54 @@ require("lazy").setup({
   },
 
   -- Treesitter
+  -- NOTE: We use the `main` branch. The old `master` branch was archived and is
+  -- incompatible with Neovim 0.12+ (its highlighter throws and silently disables
+  -- all treesitter highlighting). `main` has a different API: parsers are installed
+  -- via `install()` and highlighting/indent are started per-buffer, not via a
+  -- `highlight = { enable = true }` option.
   {
     "nvim-treesitter/nvim-treesitter",
+    branch = "main",
+    lazy = false,
     build = ":TSUpdate",
     config = function()
-      -- Defer setup to improve startup time
-      vim.defer_fn(function()
-        require("nvim-treesitter.configs").setup({
-          ensure_installed = {
-            "bash",
-            "css",
-            "html",
-            "markdown",
-            "markdown_inline", -- Required for codecompanion
-            "haskell",
-            "graphql",
-            "c",
-            "cpp",
-            "go",
-            "lua",
-            "python",
-            "prisma",
-            "rust",
-            "tsx",
-            "javascript",
-            "typescript",
-            "vimdoc",
-            "vim",
-            "astro",
-          },
-          sync_install = false,
-          auto_install = false,
-          highlight = { enable = true },
-          indent = { enable = true },
-          incremental_selection = {
-            enable = true,
-            keymaps = {
-              init_selection = "<c-e>",
-              node_incremental = "<c-e>",
-            },
-          },
-        })
-      end, 0)
+      require("nvim-treesitter").install({
+        "bash",
+        "css",
+        "html",
+        "markdown",
+        "markdown_inline", -- Required for codecompanion
+        "haskell",
+        "graphql",
+        "json",
+        "c",
+        "cpp",
+        "go",
+        "lua",
+        "python",
+        "prisma",
+        "rust",
+        "tsx",
+        "javascript",
+        "typescript",
+        "vimdoc",
+        "vim",
+        "astro",
+      })
+
+      -- Enable highlighting + treesitter-based indentation for any filetype that
+      -- has a parser available.
+      vim.api.nvim_create_autocmd("FileType", {
+        callback = function(args)
+          local ft = vim.bo[args.buf].filetype
+          local lang = vim.treesitter.language.get_lang(ft)
+          -- `start` errors if no parser is installed for the language (e.g. the
+          -- TelescopePrompt buffer), so only enable indent if it actually starts.
+          if lang and pcall(vim.treesitter.start, args.buf, lang) then
+            vim.bo[args.buf].indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          end
+        end,
+      })
     end,
   },
 }, {})
